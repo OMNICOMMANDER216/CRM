@@ -1,16 +1,17 @@
 import React, { Fragment } from 'react';
-import { Input } from 'reactstrap';
 import inputBuilder from '../../../../helpers/inputBuilder';
 import { AppAsideToggler } from '@coreui/react';
+import isEmpty from 'lodash/isEmpty';
 
-export default ({task, users, isEditableHandler, saveHandler, changeHandler, editActive}) => {
+export default ({task, users, isEditingHandler, saveHandler, changeHandler, editActive, setSideTask, sideTask, removeTask}) => {
+
   return (
     <Fragment>
         <tr className="active">
           <td className="edit">
           { (editActive._id !== task._id) &&
             <button type="submit" 
-              onClick={() => isEditableHandler(task)} 
+              onClick={() => isEditingHandler(task)} 
               size="md" 
               color="primary" 
               className="m-2">
@@ -27,15 +28,17 @@ export default ({task, users, isEditableHandler, saveHandler, changeHandler, edi
             </button> 
           }
             <button type="submit"  
+              onClick={() => removeTask(task)}
               size="md" 
               color="primary" 
               className="m-2">
               <i className="fa fa-trash"></i> 
             </button>
-            <AppAsideToggler className="d-md-down-none " ><i className="fa fa-eye"></i></AppAsideToggler>
+            {isEmpty(editActive) && 
+            <AppAsideToggler className="d-md-down-none" disabled={!isEmpty(sideTask) && (sideTask._id !== task._id)}><i  onClick={() => setSideTask(task)} className="fa fa-eye"></i></AppAsideToggler>}
           </td>
           { task.column && 
-            task.column.map((col, i) => inputBuilder(i, users, col, (editActive._id !== task._id), isEditableHandler, changeHandler)) 
+            task.column.map((col, i) => inputBuilder(i, users, col, (editActive._id !== task._id), isEditingHandler, changeHandler)) 
             }
         </tr>
         <tr className="spacer"></tr>

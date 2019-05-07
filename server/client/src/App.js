@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
 import './App.scss';
+import 'react-toastify/dist/ReactToastify.css';
 import * as foldersActions from './store/actions/foldersActions';
 
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;

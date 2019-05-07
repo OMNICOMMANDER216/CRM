@@ -1,19 +1,25 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { Redirect } from 'react-router';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
-import { validateAll } from 'indicative';
-import moment from 'moment';
-import boardsApi from '../../../api/boardsApi';
-import ColumnApi from '../../../api/columnsApi';
-import TaskApi from '../../../api/tasksApi';
-import * as foldersActions from '../../../store/actions/foldersActions';
-import Group from './Group/Group';
-import isEmpty from 'lodash/isEmpty';
-import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
-const Modal = React.lazy(() => import('./Modal'));
+import React, { Component, Fragment } from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { Redirect } from "react-router";
+import { ToastContainer, toast } from 'react-toastify';
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
+import { validateAll } from "indicative";
+import moment from "moment";
+import boardsApi from "../../../api/boardsApi";
+import TaskApi from "../../../api/tasksApi";
+import * as foldersActions from "../../../store/actions/foldersActions";
+import * as sideTaskActions from "../../../store/actions/sideTask";
+import Group from "./Group/Group";
+import isEmpty from "lodash/isEmpty";
+
+const Modal = React.lazy(() => import("./Modal"));
 
 class Board extends Component {
   constructor(props) {
@@ -23,6 +29,7 @@ class Board extends Component {
       board: {},
       modalColumn: {},
       newTask: "",
+      sideTask: {},
       editing: {},
       dropdownOpen: false,
       disabled: "",
@@ -36,7 +43,7 @@ class Board extends Component {
     const id = this.props.match.params.id;
     boardsApi.loadBoardById(id).then(res => {
       const board = res.data;
-      this.setState({board});
+      this.setState({ board });
     });
   }
 
@@ -44,7 +51,7 @@ class Board extends Component {
     if (this.props.location !== prevProps.location) {
       boardsApi.loadBoardById(this.props.match.params.id).then(res => {
         const board = res.data;
-        this.setState({board});
+        this.setState({ board });
       });
     }
   }
@@ -55,62 +62,72 @@ class Board extends Component {
     board.columns.push(column);
 
     const rules = {
-        title: 'required|string',
-        type: 'required|string'
-      };
+      title: "required|string",
+      type: "required|string"
+    };
 
-  validateAll(column, rules)
-        .then(() => {
-          console.log(column);
-          boardsApi.updateBoardData(board).then(res => this.setState({board : res.data}));
+    validateAll(column, rules)
+      .then(() => {
+        console.log(column);
+        boardsApi
+          .updateBoardData(board)
+          .then(res => this.setState({ board: res.data }));
 
-          // reset inpput
-          const newTask= { column: [] };
-          this.setState({ newTask });
+        // reset inpput
+        const newTask = { column: [] };
+        this.setState({ newTask });
+      })
+      .catch(errors => {
+        let formattedErrors = {};
+        errors.forEach(error => (formattedErrors[error.field] = error.message));
+        this.setState({ errors: formattedErrors });
+      });
+    this.setState({ modalColumn: {} });
+  };
 
-        }).catch(errors => {
-          let formattedErrors = {};
-          errors.forEach(error => formattedErrors[error.field] = error.message);
-          this.setState({errors: formattedErrors});
-        });
-    this.setState({modalColumn: {}});
-  }
-
-  editColumn = (id) => {
+  editColumn = id => {
     this.setState(prevState => {
-        return {modalColumn: prevState.columns.find(column => column._id === id)};
+      return {
+        modalColumn: prevState.columns.find(column => column._id === id)
+      };
     });
-  }
+  };
 
   changeHandler = (e, id) => {
-
     /*************************************/
     //  id: group id
     // name: array index for the task column
     /*************************************/
-    if(isEmpty(this.state.editing)) {
-       this.setState({ newTask: e.target.value });
+    if (isEmpty(this.state.editing)) {
+      this.setState({ newTask: e.target.value });
     } else {
-       let editing = Object.assign({}, this.state.editing)
-       editing.column[e.target.name].value = e.target.value;
-       this.setState({editing});
-
+      let editing = Object.assign({}, this.state.editing);
+      editing.column[e.target.name].value = e.target.value;
+      this.setState({ editing });
     }
-  
-  }
+  };
 
-  saveHandler = (group_id) => {
-    // Create new task 
-    if(this.state.editing._id) {
+  saveHandler = group_id => {
+    // Create new task
+    if (this.state.editing._id) {
       const board = Object.assign({}, this.state.board);
       const updatedTask = Object.assign({}, this.state.editing);
       TaskApi.updateTask(updatedTask).then(res => {
-        let selectedGroup = board.groups.find(group => group._id === res.data.group);
-        selectedGroup.tasks = [...selectedGroup.tasks.filter(task => task._id !== res.data._id), res.data];
-        board.groups = [...board.groups.filter(g => g._id !== selectedGroup._id), selectedGroup].sort((group1, group2) => group1._id.localeCompare(group2._id));
-        this.setState({board, editing: {}});
-      })
-    }else {
+        // this.props.sideTaskActions.setSideTask({});
+        let selectedGroup = board.groups.find(
+          group => group._id === res.data.group
+        );
+        selectedGroup.tasks = [
+          ...selectedGroup.tasks.filter(task => task._id !== res.data._id),
+          res.data
+        ];
+        board.groups = [
+          ...board.groups.filter(g => g._id !== selectedGroup._id),
+          selectedGroup
+        ].sort((group1, group2) => group1._id.localeCompare(group2._id));
+        this.setState({ board, editing: {} });
+      });
+    } else if(this.state.newTask) {
       const board = Object.assign({}, this.state.board);
       let task = {};
 
@@ -119,134 +136,226 @@ class Board extends Component {
       task.column = [];
       // Set Task columns Types
       board.columns.forEach((col, index) => {
-          task.column[index] = {};
-          task.column[index].dataType = col.type;
-      })
-      console.log(task);
+        task.column[index] = {};
+        task.column[index].dataType = col.type;
+        task.column[index].colRef = col._id;
+      });
       task.column[0].value = this.state.newTask;
 
-      // UPdate Group Board 
+      // Update Group Board
       TaskApi.createTask(task).then(res => {
-        let selectedGroup = board.groups.find(group => group._id === res.data.group);
+        let selectedGroup = board.groups.find(
+          group => group._id === res.data.group
+        );
         selectedGroup.tasks.push(res.data);
-        board.groups = [...board.groups.filter(g => g._id !== selectedGroup._id), selectedGroup].sort((group1, group2) => group1._id.localeCompare(group2._id));
-        this.setState({board});
-      })
+        board.groups = [
+          ...board.groups.filter(g => g._id !== selectedGroup._id),
+          selectedGroup
+        ].sort((group1, group2) => group1._id.localeCompare(group2._id));
+        this.setState({ board });
+        toast.info('Task Created', {
+          position: toast.POSITION.TOP_CENTER
+        });
+      });
     }
-    
-    // Disable forms
-    this.setState(prevState => ({disabled: !prevState.disabled}));
-  }
 
-  isEditableHandler = (task) => {
-    this.setState({editing: task, disabled: "", newTask: task})
-  }
+    // Disable forms
+    this.setState(prevState => ({ disabled: !prevState.disabled }));
+  };
+
+  isEditingHandler = task => {
+    this.props.sideTaskActions.setSideTask(undefined);
+    this.setState({
+      editing: Object.assign({}, task),
+      disabled: "",
+      newTask: task
+    });
+  };
 
   editHandler = (e, group_id) => {
-    this.setState({disabled: group_id, editing: {}});
-  }
+    this.setState({ disabled: group_id, editing: {} });
+  };
 
   boardDeleteHandler = () => {
     this.props.foldersActions.deleteBoard(this.state.board);
-    this.setState({redirect: true});
-  }
+    this.setState({ redirect: true });
+  };
 
-  columnHandler = (e) => {
+  columnHandler = e => {
     let column = Object.assign({}, this.state.modalColumn);
     column[e.target.name] = e.target.value;
 
-    this.setState({modalColumn: column});
-  }
+    this.setState({ modalColumn: column });
+  };
 
-  editColumn = (id) => {
-    this.setState(prevState => ( {modalColumn: prevState.columns.find(column => column._id === id)}))
-  }
+  editColumn = id => {
+    this.setState(prevState => ({
+      modalColumn: prevState.columns.find(column => column._id === id)
+    }));
+  };
 
-  deleteColumn = (id) => {
-    ColumnApi.deleteColumnById(id)
-      .then(res => {
-        if(res.success) {
-          this.setState(prevState => ({columns: [...prevState.columns.filter(column => column._id !== id)]}));
-        }
-      });
-  }
+  deleteColumn = id => {
+    console.log(id);
+    // ColumnApi.deleteColumnById(id)
+    //   .then(res => {
+    //     if(res.success) {
+    //       this.setState(prevState => ({columns: [...prevState.columns.filter(column => column._id !== id)]}));
+    //     }
+    //   });
+  };
 
   toggle = () => {
-    this.setState(prevState =>({ dropdownOpen: !prevState.dropdownOpen }));
-  }
+    this.setState(prevState => ({ dropdownOpen: !prevState.dropdownOpen }));
+  };
 
   openModal = () => {
     let column = {
       title: "",
       type: ""
     };
-    this.setState({modalColumn: column});
-  }
+    this.setState({ modalColumn: column });
+  };
 
   closeModal = () => {
-    this.setState({modalColumn: {}});
-  }
+    this.setState({ modalColumn: {} });
+  };
 
-  moveBoard = (folderId) => {
-    console.log(folderId);
+  moveBoard = folderId => {
+    this.props.foldersActions.moveBoard(this.state.board, folderId);
+    this.setState({redirect: true});
+  };
+  /*******************TASK***********************************/
+  
+  setSideTask = task => {
+    if (isEmpty(this.props.sideTask) || (this.props.sideTask._id !== task._id)) {
+      this.setState({ sideTask: task });
+      this.props.sideTaskActions.setSideTask(Object.assign({}, task));
+    } else if(isEmpty(this.state.sideTask)) {
+      this.setState({ sideTask: task });
+    } else {
+      this.setState({ sideTask: {} });
+    }
+  };
+
+  removeTask = task => {
+    TaskApi.deleteTaskById(task._id)
+      .then(data => {
+        if(data.success) {
+          let board = Object.assign({}, this.state.board);
+          let selectedGroup = board.groups.find(
+          group => group._id === task.group
+        );
+        selectedGroup.tasks = selectedGroup.tasks.filter(t => t._id !== task._id);
+        board.groups = [
+          ...board.groups.filter(g => g._id !== selectedGroup._id),
+          selectedGroup
+        ].sort((group1, group2) => group1._id.localeCompare(group2._id));
+        this.setState({ board });
+         toast.info("Task Removed !", {
+            position: toast.POSITION.TOP_CENTER
+          });
+        }
+      })
   }
+  /*******************TASK***********************************/
 
   momentFormat(date) {
     return moment(date).format("MMM Do YY");
   }
 
-
   render() {
-    const {board} = this.state;
-    const groups = board.groups && board.groups.map((group, id) => (
-    <Group key={group._id} 
-      group={group} 
-      columns={board.columns}
-      users={this.props.users}
-      boardId={board._id} 
-      newTask ={this.state.newTask}
-      changeHandler={(e => this.changeHandler(e, group._id) )} 
-      saveHandler={e => this.saveHandler(group._id)} 
-      editHandler={(e => this.editHandler(e, group._id) )} 
-      isEditableHandler={this.isEditableHandler}
-      editActive={this.state.editing}
-      disabled={this.state.disabled}/>));
+    const { board, sideTask, newTask, editing, disabled } = this.state;
+    const groups =
+      board.groups &&
+      board.groups.map((group, id) => (
+        <Group
+          key={id}
+          group={group}
+          columns={board.columns}
+          users={this.props.users}
+          boardId={board._id}
+          newTask={newTask}
+          sideTask={sideTask}
+          changeHandler={e => this.changeHandler(e, group._id)}
+          saveHandler={e => this.saveHandler(group._id)}
+          editHandler={e => this.editHandler(e, group._id)}
+          isEditingHandler={this.isEditingHandler}
+          editActive={editing}
+          setSideTask={this.setSideTask}
+          removeTask={this.removeTask}
+          disabled={disabled}
+        />
+      ));
 
-      if(this.state.redirect) {
-        return <Redirect to='/dashboard' />;
-      } 
-
-      return (
-        <div className="animated fadeIn">
-            <h2>{board.name} 
-            <Link className="pl-1" to={{ pathname: `/editBoard/${board.folder}`, state: {boardId: board._id}}}><i className="fa fa-pencil"></i></Link>  
-            <button className="fa-btn" onClick={this.boardDeleteHandler}><i className="fa fa-trash"></i></button>
-            <button className="fa-btn" onClick={this.openModal}><i className="fa fa-plus-circle"></i></button>
-             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-              <DropdownToggle caret> Move board to</DropdownToggle>
-              <DropdownMenu>
-                <DropdownItem divider />
-                {this.props.folders.map(folder => <DropdownItem key={folder._id} onClick={(e) => this.moveBoard(folder._id)}> {folder.name} </DropdownItem>)}
-              </DropdownMenu>
-            </Dropdown>
-            </h2> 
-            {groups}
-            {/* Modal */}
-          <Modal modalColumn={this.state.modalColumn} closeModal={this.closeModal} saveColumn={this.saveColumn} columnHandler={this.columnHandler} errors={this.state.errors}/>
-        </div>
-      )
+    if (this.state.redirect) {
+      return <Redirect to="/dashboard" />;
+    }
+    return (
+      <Fragment>
+      <ToastContainer />
+      <div className="animated fadeIn">
+        <h2>
+          {board.name}
+          <Link
+            className="pl-1"
+            to={{
+              pathname: `/editBoard/${board.folder}`,
+              state: { boardId: board._id }
+            }}
+          >
+            <i className="fa fa-pencil" />
+          </Link>
+          <button className="fa-btn" onClick={this.boardDeleteHandler}>
+            <i className="fa fa-trash" />
+          </button>
+          <button className="fa-btn" onClick={this.openModal}>
+            <i className="fa fa-plus-circle" />
+          </button>
+          <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+            <DropdownToggle caret> Move board to</DropdownToggle>
+            <DropdownMenu>
+              <DropdownItem divider />
+              {this.props.folders.map(folder => (
+                <DropdownItem
+                  key={folder._id}
+                  onClick={e => this.moveBoard(folder._id)}
+                >
+                  {" "}
+                  {folder.name}{" "}
+                </DropdownItem>
+              ))}
+            </DropdownMenu>
+          </Dropdown>
+        </h2>
+        {groups}
+        {/* Modal */}
+        <Modal
+          modalColumn={this.state.modalColumn}
+          closeModal={this.closeModal}
+          saveColumn={this.saveColumn}
+          columnHandler={this.columnHandler}
+          errors={this.state.errors}
+        />
+      </div>
+      </Fragment>
+    );
   }
 }
 
-let mapStateToProps = (state) => ({
+let mapStateToProps = state => ({
   groups: state.groups,
   currentUser: state.auth.user,
   users: state.users,
-  folders: state.folders
+  folders: state.folders,
+  sideTask: state.sideTask[0]
 });
 
-let mapDispatchToProps = (dispatch) => ({
+let mapDispatchToProps = dispatch => ({
   foldersActions: bindActionCreators(foldersActions, dispatch),
+  sideTaskActions: bindActionCreators(sideTaskActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Board);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Board);

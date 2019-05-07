@@ -43,11 +43,18 @@ button {
 }
 
 // Table style
+.table-responsive {
+    overflow-x: scroll;
+}
 table {
     thead {
         tr {
             background-color: $purple;
             color: #FFF;
+
+            th {
+                min-width: 150px;
+            }
         }
     }
 
@@ -153,3 +160,17 @@ h1, h2, a {
 /*******************************************************/
 // Board Page Styl;e
 /*******************************************************/
+
+
+
+
+/*******************************************************/
+// Aside Style
+/*******************************************************/
+
+.aside-menu {
+    width: 500px;
+}
+html:not([dir="rtl"]) .aside-menu {
+    margin-right: -500px;
+}

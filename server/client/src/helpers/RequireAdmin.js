@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { Redirect } from 'react-router';
+/* eslint-disable react/jsx-filename-extension */
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { Redirect } from "react-router";
 
-export default function (ComposedComponent) {
+export default function(ComposedComponent) {
   class Admin extends Component {
     constructor(props) {
       super(props);
@@ -13,16 +14,20 @@ export default function (ComposedComponent) {
       };
     }
 
-    componentWillMount () {
-      if(this.props.auth.isAuthenticated && (this.props.auth.user.role !== "Admin")) {
-          this.setState({redirect: true});
+    componentWillMount() {
+      if (
+        this.props.auth.isAuthenticated &&
+        this.props.auth.user.role !== "Admin"
+      ) {
+        this.setState({ redirect: true });
       }
     }
+
     render() {
-      if(this.state.redirect) {
-        return <Redirect to='/dashboard' />;
-      } 
-      return <ComposedComponent  {...this.props} />;
+      if (this.state.redirect) {
+        return <Redirect to="/dashboard" />;
+      }
+      return <ComposedComponent {...this.props} />;
     }
   }
 
@@ -30,9 +35,12 @@ export default function (ComposedComponent) {
     authenticated: PropTypes.bool
   };
 
-  const mapStateToProps = (state) => ({
-      auth: state.auth   
+  const mapStateToProps = state => ({
+    auth: state.auth
   });
 
-  return connect(mapStateToProps, null)(Admin);
+  return connect(
+    mapStateToProps,
+    null
+  )(Admin);
 }

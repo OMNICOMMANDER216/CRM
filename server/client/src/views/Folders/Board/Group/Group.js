@@ -3,7 +3,7 @@ import { Input, Card, CardBody, CardHeader, Row, Table } from 'reactstrap';
 const TaskList = React.lazy(() => import('../Task/TaskList'));
 
 export default (props) => {
-  const {group, users, columns, changeHandler, saveHandler, isEditableHandler, editActive, editHandler, disabled} = props;
+  const {group, users, columns, changeHandler, saveHandler, isEditingHandler, editActive, editHandler, setSideTask, sideTask, removeTask, disabled} = props;
 
 
   return (
@@ -19,11 +19,11 @@ export default (props) => {
             <thead>
             <tr>
               <th>edit/Remove</th>
-              { columns.map((col) => <th key={col._id}>{col.title}</th>) }
+              { columns.map((col) => <th key={col._id}>{col.title} <i  className="fa fa-trash ml-2"></i> </th>) }
             </tr>
             </thead>
             <tbody>
-            <TaskList tasks={group.tasks} users={users} isEditableHandler={isEditableHandler}saveHandler={saveHandler} changeHandler={changeHandler} editActive={editActive}/>
+            <TaskList tasks={group.tasks} users={users} isEditingHandler={isEditingHandler}saveHandler={saveHandler} changeHandler={changeHandler} editActive={editActive} setSideTask={setSideTask} sideTask={sideTask} removeTask={removeTask}/>
             <tr>
               <td>
                 { (disabled !== group._id) &&
