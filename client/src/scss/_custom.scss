@@ -1,0 +1,207 @@
+// Here you can add other styles
+.purple {
+    color: $purple;
+}
+.list-group-item.active {
+    background-color: $purple;
+    border-color: $purple;
+}
+
+.full-width  {
+    min-width: 100%;
+}
+
+button {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.oc-btn {
+    color: #FFf;
+    background-color: $purple;
+    border-radius: 5px;
+    min-width: 100px;
+    padding: 5px 10px;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+    a {
+        color: #FFF;
+        padding: 0.5em 1em;
+        font-size: 1.5em;
+        text-decoration: none;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+}
+
+// Table style
+.table-responsive {
+    overflow-x: scroll;
+}
+table {
+    thead {
+        tr {
+            background-color: $purple;
+            color: #FFF;
+
+            th {
+                min-width: 150px;
+            }
+        }
+    }
+
+    tr {
+        background-color: #FFF;
+        &.active {
+            margin: 2px;
+            border-left: 5px solid $purple;
+
+            td {
+                &.edit {
+                    min-width: 115px;
+                }
+            }
+
+            td input{
+                color: $purple;
+                background-color: #FFF;
+            }
+        }
+
+        &.spacer {
+            height: 5px;
+        }
+    }
+
+    td {
+        .select-td {
+            display: flex;
+
+            input {
+
+            }
+        }
+    }
+
+    .add_column {
+        width: 20px;
+    }
+}
+
+// Global Styles
+
+h1, h2, a {
+    color: $purple;
+}
+
+// User page img style
+.card-img-top {
+    width: 100%;
+    text-align: center;
+}
+
+// Make height 100%
+.full-height {
+    height: 100%;
+}
+
+// Floating button
+.FloatingBtn {
+    position: fixed;
+    bottom: 3em;
+    font-size:2em;
+    border-radius: 50%;
+    height: 2em;
+    width: 2em;
+    right: 1.5em;
+    box-shadow: 0 0 10px #000;
+}
+
+// Modal textarea
+.modal #comment {
+    height: 200px;
+}
+.modal-card {
+    
+    p.note-comment {
+        white-space: pre-line;
+        text-align: left;
+    }
+}
+
+// Filter form
+.filter-form {
+    select {
+        max-width: 200px;
+    }
+}
+
+.customerEdit {
+    font-size: 2em;
+}
+
+// Font awesome 
+.fa-btn {
+    margin: 0 5px;
+
+    .fa {
+        color: $purple;
+    }
+}
+
+/*******************************************************/
+// Side TAB Styl;e
+/*******************************************************/
+.aside-menu .tab-content.sideTabContent {
+    overflow-x: inherit;
+}
+
+/*******************************************************/
+// Board Page Styl;e
+/*******************************************************/
+
+
+
+
+/*******************************************************/
+// Aside Style
+/*******************************************************/
+
+.aside-menu {
+    width: 550px;
+    position: fixed;
+    top: 55px;
+}
+html:not([dir="rtl"]) .aside-menu {
+    margin-right: -550px;
+}
+
+.commentWrapper {
+    .header {
+        color: $purple;
+    }
+
+    .profileImg {
+        height: 50px;
+        width: auto;
+        border-radius: 50%;
+    }
+}
+
+
+/*******************************************************/
+// Quill Style
+/*******************************************************/
+.ql-editor {
+    min-height: 80px;
+    background-color: #eee;
+    margin: 1em;
+}
