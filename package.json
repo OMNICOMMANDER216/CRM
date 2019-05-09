@@ -13,7 +13,7 @@
     "server": "nodemon --exec babel-node ./src/server.js",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "start": "npm run build && node ./dist/server.js",
+    "start": "node ./dist/server.js",
     "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
   "keywords": [
