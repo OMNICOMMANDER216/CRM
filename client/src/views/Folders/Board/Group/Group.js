@@ -5,6 +5,9 @@ const TaskList = React.lazy(() => import('../Task/TaskList'));
 const styles = {
   icon: {
     color: '#fff'
+  },
+  card: {
+    minWidth: '100%'
   }
 }
 
@@ -15,8 +18,8 @@ export default (props) => {
   return (
     <React.Fragment>
     <div>
-    <Row>
-      <Card className="full-width ">
+    <Row className="full-width">
+      <Card style={styles.card}>
         <CardHeader>
           <i className="fa fa-align-justify"></i>  <h3> {group.title} </h3>
         </CardHeader>
