@@ -11,13 +11,13 @@ export default ({task, users, isEditingHandler, saveHandler, changeHandler, edit
           <td className="edit">
           { (editActive._id !== task._id) && (
             
-            <button type="submit" 
+            <span  
               onClick={() => isEditingHandler(task)} 
               size="md" 
               color="primary" 
               className="m-2">
               <AppAsideToggler className="d-md-down-none" disabled={isEmpty(sideTask)}><i className="fa fa-pencil"></i></AppAsideToggler>
-            </button> 
+            </span> 
           )}
           { (editActive._id === task._id) && (
             <button type="submit" 

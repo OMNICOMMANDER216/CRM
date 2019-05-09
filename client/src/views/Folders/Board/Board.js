@@ -228,7 +228,13 @@ class Board extends Component {
     this.props.foldersActions.moveBoard(this.state.board, folderId);
   };
   /*******************TASK***********************************/
-  updateSideTask = task => this.setState({ sideTask: task });
+  updateSideTask = task => {
+    const board = Object.assign({}, this.state.board);
+    let group = board.groups.find(g => g._id === task.group);
+    group.tasks = [...group.tasks.filter(t => t._id !== task._id), task];
+    board.groups = [...board.groups.filter(g => g._id !== group._id), group].sort((group1, group2) => group1._id.localeCompare(group2._id));
+    this.setState({ board, sideTask: task })
+  };
   
   setSideTask = task => {
     if (!isEmpty(this.state.sideTask) && (this.state.sideTask._id ===  task._id)) {
