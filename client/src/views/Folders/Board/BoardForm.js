@@ -48,7 +48,7 @@ class BoardForm extends Component {
       <Container>
       {folder && 
       <React.Fragment>
-      <h2> {folder.name} </h2>
+      <h2> Folder: {folder.name} </h2>
       <div className="animated fadeIn">
         <Row>
           <Col xs="12" md="12" >
@@ -61,7 +61,7 @@ class BoardForm extends Component {
                       <React.Fragment>
                       <FormGroup row>
                         <Col md="3">
-                          <Label htmlFor="name">Board Name</Label>
+                          <Label htmlFor="name"><strong>Board Name</strong></Label>
                         </Col>
                         <Col xs="12" md="9">
                           <Input type="text" id="name" name="name" placeholder="Board Name" onChange={onChange} value={board && board && board.name}/>
@@ -70,7 +70,7 @@ class BoardForm extends Component {
                       </FormGroup>
                       <FormGroup row>
                         <Col md="3">
-                          <Label htmlFor="name">Board Description</Label>
+                          <Label htmlFor="name"><strong>Board Description</strong></Label>
                         </Col>
                         <Col xs="12" md="9">
                           <Input type="textarea" id="description" name="description" placeholder="Board description" rows="7" onChange={onChange} value={board && board && board.description}/>
@@ -79,7 +79,7 @@ class BoardForm extends Component {
                       </FormGroup>
                       <FormGroup row  className="mt-3"> 
                       <Col md="3">
-                        <Label for="pm">Customer</Label>
+                        <Label for="pm"><strong>Customer</strong></Label>
                       </Col>
                       <Col xs="12" md="9">
                         <Select

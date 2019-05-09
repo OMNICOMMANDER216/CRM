@@ -12,9 +12,6 @@ import mongoose from 'mongoose';
 import passport from 'passport';
 import { db } from './config/config';
 
-// Setting up server for socket io
-// server.listen(port);
-
 // load models
 import './models/User';
 import './models/Customer';
@@ -29,12 +26,8 @@ import './models/Column';
 
 const app = express();
 
-// mailer();
-// imports
-
 const port = process.env.PORT || 8080;
 const sessionsSecret = require('./config/sessionConfig').secret;
-
 
 // Passport config
 require('./config/passport')(passport);
@@ -57,7 +50,8 @@ mongoose.connect(mongodbUri, { useNewUrlParser: true })
   .then(() => {
     console.log('mongoDB connected');
   }).catch((err) => {
-    console.log(' Mongoose connection error', err);
+    throw err;
+    // console.log(' Mongoose connection error', err);
   });
 
 const { connection } = mongoose;
@@ -67,6 +61,7 @@ const corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
+
 // Compression Middleware
 app.use(compression());
 app.use(cors(corsOptions));
@@ -77,11 +72,13 @@ app.use(bodyParser.urlencoded({
   extended: true,
   limit: '50mb',
 }));
+
 // parse application/json
 app.use(bodyParser.json({
   extended: true,
   limit: '50mb',
 }));
+
 // Middle wares needed for passport
 app.use(cookieParser());
 

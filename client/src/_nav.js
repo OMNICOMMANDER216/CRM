@@ -1,8 +1,8 @@
 export default {
   items: [
     {
+      title: true,
       name: 'Oumar',
-      url: '/profile',
       image: 'icon-speedometer',
     },
     {

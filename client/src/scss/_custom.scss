@@ -62,7 +62,7 @@ table {
         background-color: #FFF;
         &.active {
             margin: 2px;
-            border-left: 5px solid $purple;
+            border-left: 10px solid $purple;
 
             td {
                 &.edit {
@@ -205,6 +205,16 @@ button.d-md-down-none.navbar-toggler {
     width: 550px;
     position: fixed;
     top: 55px;
+
+    .tab-content {
+        padding: 0 0 4em;
+    }
+
+    .card-body {
+        img {
+            width: 100%;
+        }
+    }
 }
 html:not([dir="rtl"]) .aside-menu {
     margin-right: -550px;

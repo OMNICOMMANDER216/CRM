@@ -5,12 +5,7 @@ import { bindActionCreators } from "redux";
 import { Redirect } from "react-router";
 import { ToastContainer, toast } from 'react-toastify';
 import { AppAside, } from '@coreui/react';
-import {
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem
-} from "reactstrap";
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, FormGroup, Label, Input} from "reactstrap";
 import { validateAll } from "indicative";
 import moment from "moment";
 import boardsApi from "../../../api/boardsApi";
@@ -37,7 +32,8 @@ class Board extends Component {
       disabled: "",
       formData: {},
       errors: {},
-      redirect: false
+      redirect: false,
+      taskFilter: ""
     };
   }
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
@@ -264,14 +260,19 @@ class Board extends Component {
         }
       })
   }
-  /*******************TASK***********************************/
+  /*******************TASK END***********************************/
+
+  /*******************FILTER***********************************/
+  filter = (e) => this.setState({taskFilter: e.target.value.toLowerCase()})
+  /*******************FILTER***********************************/
+
 
   momentFormat(date) {
     return moment(date).format("MMM Do YY");
   }
 
   render() {
-    const { board, sideTask, newTask, editing, disabled } = this.state;
+    const { board, sideTask, newTask, editing, disabled, taskFilter } = this.state;
     const groups =
       board.groups &&
       board.groups.map((group, id) => (
@@ -290,6 +291,7 @@ class Board extends Component {
           editActive={editing}
           setSideTask={this.setSideTask}
           removeTask={this.removeTask}
+          taskFilter={taskFilter}
           removeColumnHandler = {this.removeColumnHandler}
           disabled={disabled}
         />
@@ -300,17 +302,16 @@ class Board extends Component {
     }
     return (
       <Fragment>
-      <ToastContainer />
+      <ToastContainer autoClose={2000}/>
       <div className="animated fadeIn">
+      <span className="d-flex justify-content-between">
         <h2>
           {board.name}
-          <Link
-            className="pl-1"
+          <Link className="pl-1"
             to={{
               pathname: `/editBoard/${board.folder}`,
               state: { boardId: board._id }
-            }}
-          >
+            }}>
             <i className="fa fa-pencil" />
           </Link>
           <button className="fa-btn" onClick={this.boardDeleteHandler}>
@@ -335,6 +336,11 @@ class Board extends Component {
             </DropdownMenu>
           </Dropdown>
         </h2>
+        <FormGroup>
+          <Label for="filter">Filter task</Label>
+          <Input type="filter" name="filter" id="filter" placeholder="Search task" value={taskFilter} onChange={this.filter}/>
+        </FormGroup>
+        </span>
         {groups}
         {/* Modal */}
         <Modal

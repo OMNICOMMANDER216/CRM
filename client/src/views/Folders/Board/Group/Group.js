@@ -12,7 +12,7 @@ const styles = {
 }
 
 export default (props) => {
-  const {group, users, columns, changeHandler, saveHandler, isEditingHandler, editActive, editHandler, setSideTask, sideTask, removeTask, removeColumnHandler, disabled} = props;
+  const {group, users, columns, changeHandler, saveHandler, isEditingHandler, editActive, editHandler, setSideTask, sideTask, taskFilter, removeTask, removeColumnHandler, disabled} = props;
 
 
   return (
@@ -31,37 +31,21 @@ export default (props) => {
               { columns.map((col, id) => <th key={id}>{col.title} <button onClick={() => removeColumnHandler(col._id)} style={styles.icon}><i  className="fa fa-trash ml-2"></i></button> </th>) }
             </tr>
             </thead>
-            <tbody>
-            <TaskList tasks={group.tasks} users={users} isEditingHandler={isEditingHandler}saveHandler={saveHandler} changeHandler={changeHandler} editActive={editActive} setSideTask={setSideTask} sideTask={sideTask} removeTask={removeTask}/>
-            <tr>
-              <td>
-                { (disabled !== group._id) &&
-                  <button type="submit" 
-                    onClick={editHandler} 
-                    size="md" 
-                    color="primary" 
-                    className="m-2">
-                    <i className="fa fa-pencil"></i>
-                  </button> }
-                  
-                  <button type="submit" 
-                    onClick={saveHandler} 
-                    size="md" 
-                    color="primary" 
-                    className="m-2">
-                    <i className="fa fa-save"></i> 
-                  </button>
-              </td>
-              <th colSpan={columns.length}> 
-                <Input type="text" 
-                  id={group._id} 
-                  name="new" 
-                  placeholder="name"  
-                  disabled={disabled !== group._id} 
-                  onChange={changeHandler} />
-              </th>
-            </tr>
-            </tbody>
+            <TaskList 
+              tasks={group.tasks} 
+              group={group}
+              columns={columns}
+              users={users}
+              isEditingHandler={isEditingHandler}
+              saveHandler={saveHandler} 
+              changeHandler={changeHandler} 
+              editActive={editActive} 
+              setSideTask={setSideTask} 
+              sideTask={sideTask} 
+              taskFilter={taskFilter} 
+              editHandler={editHandler} 
+              disabled={disabled} 
+              removeTask={removeTask}/>
           </Table>
           </CardBody>
         </Card>

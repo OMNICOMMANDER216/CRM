@@ -65,17 +65,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /* eslint-disable func-names */
 /* eslint-disable prefer-arrow-callback */
 var app = (0, _express2.default)();
-
-// mailer();
-// imports
-
 // load Project models
 
 
-// Setting up server for socket io
-// server.listen(port);
-
 // load models
+
+
 var port = process.env.PORT || 8080;
 var sessionsSecret = require('./config/sessionConfig').secret;
 
@@ -99,7 +94,8 @@ var mongodbUri = 'mongodb://' + _config.db.username + ':' + _config.db.password 
 _mongoose2.default.connect(mongodbUri, { useNewUrlParser: true }).then(function () {
   console.log('mongoDB connected');
 }).catch(function (err) {
-  console.log(' Mongoose connection error', err);
+  throw err;
+  // console.log(' Mongoose connection error', err);
 });
 
 var connection = _mongoose2.default.connection;
@@ -110,6 +106,7 @@ var corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
+
 // Compression Middleware
 app.use((0, _compression2.default)());
 app.use((0, _cors2.default)(corsOptions));
@@ -120,11 +117,13 @@ app.use(_bodyParser2.default.urlencoded({
   extended: true,
   limit: '50mb'
 }));
+
 // parse application/json
 app.use(_bodyParser2.default.json({
   extended: true,
   limit: '50mb'
 }));
+
 // Middle wares needed for passport
 app.use((0, _cookieParser2.default)());
 

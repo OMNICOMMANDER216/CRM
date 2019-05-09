@@ -13,21 +13,20 @@ const Notification = React.lazy(() => import('./views/Notification/NotificationL
 const ManageFolder = React.lazy(() => import('./views/Folders/ManageFolder'));
 const Board = React.lazy(() => import('./views/Folders/Board/Board'));
 
-
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
-  { path: '/logged', name: 'Loggin Success', component: LoggedIn },
+  { path: '/logged', name: 'Logging Success', component: LoggedIn },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/customers', exact: true,  name: 'Customers', component: RequireAuth(Customers) },
-  { path: '/customer/edit/:id', name: 'Customers Edit', component: RequireAuth(ManageCustomer) },
-  { path: '/customer/add', name: 'Customers Add', component: RequireAuth(ManageCustomer) },
-  { path: '/customers/:id', exact: true, name: 'Customer Detail', component: RequireAuth(Customer) },
-  { path: '/users', exact: true,  name: 'Users', component: RequireAuth(Users) },
-  { path: '/users/:id', exact: true, name: 'User Details', component: RequireAuth(User) },
+  { path: '/customer/edit/:id', name: 'Edit Customer', component: RequireAuth(ManageCustomer) },
+  { path: '/customer/add', name: 'Create a new Customer', component: RequireAuth(ManageCustomer) },
+  { path: '/customers/:id', exact: true, name: 'Customer Info', component: RequireAuth(Customer) },
+  { path: '/users', exact: true,  name: 'Users Page', component: RequireAuth(Users) },
+  { path: '/users/:id', exact: true, name: 'User Info', component: RequireAuth(User) },
   { path: '/Notification/', exact: true, name: 'Notification Page', component: RequireAuth(Notification) },
-  { path: '/addBoard/:folder_id', name: 'Board Add', component: RequireAuth(ManageFolder) },
-  { path: '/editBoard/:folder_id', name: 'Edit Add', component: RequireAuth(ManageFolder) },
+  { path: '/addBoard/:folder_id', name: 'Create a new Board', component: RequireAuth(ManageFolder) },
+  { path: '/editBoard/:folder_id', name: 'Edit Board', component: RequireAuth(ManageFolder) },
   { path: '/board/:id', name: 'Board Page', component: RequireAuth(Board) },
 ];
 

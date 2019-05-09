@@ -28,7 +28,6 @@ class Customer extends Component {
       if(res.success) {
         NoteApi.loadNotes(res.data._id)
           .then(result => {
-            console.log(result);
             if(result.success) {
               let notes = result.data.sort((a, b) => new Date(b.date) - new Date(a.date));
               this.setState({customer: res.data, notes: notes});
@@ -197,7 +196,7 @@ class Customer extends Component {
           <tbody>
           {
             this.state.notes.map(note => (
-              <tr>
+              <tr key={note._id}>
                 <td>{note.date}</td>
                 <td>{note.comment}</td>
                 <td className="text-center" ><button className="oc-btn" onClick={() => this.editNote(note._id)}><i className="fa fa-edit"></i></button></td>

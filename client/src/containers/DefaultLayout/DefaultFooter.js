@@ -15,8 +15,8 @@ class DefaultFooter extends Component {
 
     return (
       <React.Fragment>
-        <span><a href="https://coreui.io">OMNICOMMANDER</a> &copy; </span>
-        <span className="ml-auto">Powered by <a href="https://OMNICOMMANDER.com">OMNICOMMANDER</a></span>
+        <span><a href="https://www.omnicommander.com/" target="_blank" rel="noopener noreferrer">OMNICOMMANDER</a> &copy; </span>
+        <span className="ml-auto">Powered by <a href="https://www.omnicommander.com/" target="_blank" rel="noopener noreferrer">OMNICOMMANDER</a></span>
       </React.Fragment>
     );
   }

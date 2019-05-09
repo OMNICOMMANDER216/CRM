@@ -90,6 +90,7 @@ class DefaultAside extends Component {
         });
     })
   };
+  clearInput = () => this.setState({text: ''});
 
   saveHandler = () => {
     if(this.state.text) {
@@ -165,6 +166,9 @@ class DefaultAside extends Component {
           </NavItem>
         </Nav>
         <TabContent activeTab={this.state.activeTab} className='sideTabContent'>
+          <h3 className="text-center">
+            {task.column && task.column[0].value}
+          </h3>
           <TabPane tabId="1">
             {!isEmpty(task) && (
               <Fragment>
@@ -176,9 +180,9 @@ class DefaultAside extends Component {
                   onChange={this.changeHandler} >
                   </ReactQuill>
                   <Button onClick={this.saveHandler} className="oc-btn" style={styles.button}> Submit </Button>
+                  <Button onClick={this.clearInput} className="oc-btn" style={styles.button}> clear </Button>
                   <hr />
-              <h2 className="text-center">{task.column[0].value}</h2>
-                  <hr />
+            
                   {
                     <AsideCommentList 
                       comments={task.comments} 
