@@ -170,7 +170,8 @@ class Board extends Component {
     this.setState({
       editing: Object.assign({}, task),
       disabled: "",
-      newTask: task
+      newTask: task,
+      sideTask: {}
     });
   };
 
@@ -339,7 +340,7 @@ class Board extends Component {
         />
         <AppAside fixed>
             <Suspense fallback={this.loading()}>
-              <DefaultAside task={this.state.sideTask} updateSideTask={ this.updateSideTask }/>
+              <DefaultAside task={this.state.sideTask} updateSideTask={this.updateSideTask} setSideTask={this.setSideTask}/>
             </Suspense>
           </AppAside>
       </div>

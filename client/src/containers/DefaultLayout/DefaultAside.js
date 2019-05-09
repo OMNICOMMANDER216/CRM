@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { ToastContainer, toast } from 'react-toastify';
+import { AppAsideToggler } from '@coreui/react';
 import {
   Nav,
   NavItem,
@@ -123,6 +124,15 @@ class DefaultAside extends Component {
       <Fragment>
       <ToastContainer autoClose={2000}/>
         <Nav tabs>
+        
+          <NavItem>
+            <NavLink>
+              <AppAsideToggler 
+                className="d-md-down-none" >
+                <i  onClick={() => this.props.setSideTask({})} className="fa fa-close"></i>
+              </AppAsideToggler>
+            </NavLink>
+          </NavItem>
           <NavItem>
             <NavLink
               className={classNames({ active: this.state.activeTab === "1" })}

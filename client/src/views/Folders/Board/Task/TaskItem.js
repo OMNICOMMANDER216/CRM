@@ -9,16 +9,17 @@ export default ({task, users, isEditingHandler, saveHandler, changeHandler, edit
     <Fragment>
         <tr className="active">
           <td className="edit">
-          { (editActive._id !== task._id) &&
+          { (editActive._id !== task._id) && (
+            
             <button type="submit" 
               onClick={() => isEditingHandler(task)} 
               size="md" 
               color="primary" 
               className="m-2">
-              <i className="fa fa-pencil"></i> 
+              <AppAsideToggler className="d-md-down-none" disabled={isEmpty(sideTask)}><i className="fa fa-pencil"></i></AppAsideToggler>
             </button> 
-          }
-          { (editActive._id === task._id) &&
+          )}
+          { (editActive._id === task._id) && (
             <button type="submit" 
               onClick={saveHandler} 
               size="md" 
@@ -26,7 +27,7 @@ export default ({task, users, isEditingHandler, saveHandler, changeHandler, edit
               className="m-2">
               <i className="fa fa-save"></i> 
             </button> 
-          }
+          )}
             <button type="submit"  
               onClick={() => removeTask(task)}
               size="md" 
@@ -34,12 +35,17 @@ export default ({task, users, isEditingHandler, saveHandler, changeHandler, edit
               className="m-2">
               <i className="fa fa-trash"></i> 
             </button>
-            {isEmpty(editActive) && 
-            <AppAsideToggler className="d-md-down-none" disabled={!isEmpty(sideTask) && (sideTask._id !== task._id)}><i  onClick={() => setSideTask(task)} className="fa fa-eye"></i></AppAsideToggler>}
+            {isEmpty(editActive) && (
+              <AppAsideToggler 
+                className="d-md-down-none" 
+                disabled={!isEmpty(sideTask) && (sideTask._id !== task._id)}>
+                <i  onClick={() => setSideTask(task)} className="fa fa-eye"></i>
+              </AppAsideToggler>
+            )}
           </td>
-          { task.column && 
+          { task.column && (
             task.column.map((col, i) => inputBuilder(i, users, col, (editActive._id !== task._id), isEditingHandler, changeHandler)) 
-            }
+          )}
         </tr>
         <tr className="spacer"></tr>
     </Fragment>
