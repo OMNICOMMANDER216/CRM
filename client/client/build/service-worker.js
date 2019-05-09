@@ -1,3 +1,5 @@
+"use strict";
+
 /**
  * Welcome to your Workbox-powered service worker!
  *
@@ -13,9 +15,7 @@
 
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
-importScripts(
-  "/precache-manifest.92581e3a4cce11f26419767efbf1dec8.js"
-);
+importScripts("/precache-manifest.92581e3a4cce11f26419767efbf1dec8.js");
 
 workbox.clientsClaim();
 
@@ -29,6 +29,7 @@ workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
 workbox.routing.registerNavigationRoute("/index.html", {
-  
-  blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
+
+  blacklist: [/^\/_/, /\/[^\/]+\.[^\/]+$/]
 });
+//# sourceMappingURL=service-worker.js.map
