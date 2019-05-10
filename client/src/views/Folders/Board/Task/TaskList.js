@@ -1,5 +1,4 @@
-import React, { Fragment} from 'react';
-import { DropTarget, ConnectDropTarget } from 'react-dnd'
+import React from 'react';
 import { Input } from 'reactstrap';
 const TaskItem = React.lazy(() => import('../Task/TaskItem'));
 

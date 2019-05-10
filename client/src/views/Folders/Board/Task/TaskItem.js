@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { DragSource } from 'react-dnd'
 import inputBuilder from '../../../../helpers/inputBuilder';
 import { AppAsideToggler } from '@coreui/react';
@@ -23,7 +23,7 @@ function collect(connect, monitor) {
 
 class TaskItem extends Component {
   render(){
-    const {task, users, isEditingHandler, saveHandler, changeHandler, editActive, setSideTask, sideTask, removeTask, connectDragSource, isDragging} = this.props;
+    const { task, users, isEditingHandler, saveHandler, changeHandler, editActive, setSideTask, sideTask, removeTask, connectDragSource } = this.props;
 
     return connectDragSource(
           <tr className="active">
@@ -48,7 +48,7 @@ class TaskItem extends Component {
               </button> 
             )}
               <button type="submit"  
-                onClick={() => removeTask(task)}
+                onClick={() => window.confirm('Are you sure') && removeTask(task)}
                 size="md" 
                 color="primary" 
                 className="m-2">

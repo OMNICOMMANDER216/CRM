@@ -1,5 +1,5 @@
 import React from 'react';
-import { Input, Card, CardBody, CardHeader, Row, Table } from 'reactstrap';
+import { Card, CardBody, CardHeader, Row, Table } from 'reactstrap';
 const TaskList = React.lazy(() => import('../Task/TaskList'));
 
 const styles = {
@@ -28,7 +28,7 @@ export default (props) => {
             <thead>
             <tr>
               <th>edit/Remove</th>
-              { columns.map((col, id) => <th key={id}>{col.title} <button onClick={() => removeColumnHandler(col._id)} style={styles.icon}><i  className="fa fa-trash ml-2"></i></button> </th>) }
+              { columns.map((col, id) => <th key={id}>{col.title} <button onClick={() => window.confirm('Are you sure') && removeColumnHandler(col._id)} style={styles.icon}><i  className="fa fa-trash ml-2"></i></button> </th>) }
             </tr>
             </thead>
             <TaskList 

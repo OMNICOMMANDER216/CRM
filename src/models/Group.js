@@ -14,7 +14,6 @@ const GroupSchema = new Schema({
   },
   color: {
     type: String,
-    required: true,
     Default: '#662c90',
   },
   deleted: {

@@ -9,6 +9,7 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, FormGroup, Label,
 import { validateAll } from "indicative";
 import moment from "moment";
 import boardsApi from "../../../api/boardsApi";
+import groupsApi from "../../../api/groupsApi";
 import TaskApi from "../../../api/tasksApi";
 import * as foldersActions from "../../../store/actions/foldersActions";
 import * as sideTaskActions from "../../../store/actions/sideTask";
@@ -25,6 +26,9 @@ class Board extends Component {
     this.state = {
       board: {},
       modalColumn: {},
+      modalGroup: {
+        title: ""
+      },
       newTask: "",
       sideTask: {},
       editing: {},
@@ -70,6 +74,40 @@ class Board extends Component {
         boardsApi
           .addBoardColumn(board)
           .then(res => this.setState({ board: res.data }));
+
+        // reset inpput
+        const newTask = { column: [] };
+        this.setState({ newTask });
+      })
+      .catch(errors => {
+        let formattedErrors = {};
+        errors.forEach(error => (formattedErrors[error.field] = error.message));
+        this.setState({ errors: formattedErrors });
+      });
+    this.setState({ modalColumn: {} });
+  };
+
+  saveGroup = () => {
+    const group = Object.assign({}, this.state.modalGroup);
+    let board = Object.assign({}, this.state.board);
+
+    const rules = {
+      title: "required|string"
+    };
+
+    validateAll(group, rules)
+      .then(() => {
+        const data = {
+          group,
+          boardId: board._id
+        }
+        groupsApi
+          .createGroup(data)
+          .then(res => {
+            console.log(res)
+            // board.groups.push(res.data);
+            // this.setState(board);
+          });
 
         // reset inpput
         const newTask = { column: [] };
@@ -180,11 +218,16 @@ class Board extends Component {
     this.setState({ redirect: true });
   };
 
-  columnHandler = e => {
-    let column = Object.assign({}, this.state.modalColumn);
-    column[e.target.name] = e.target.value;
-
-    this.setState({ modalColumn: column });
+  modalHandler = e => {
+    if(e.target.name === 'groupTitle') {
+      let group = Object.assign({}, this.state.modalGroup);
+      group.title = e.target.value;
+      this.setState({ modalGroup: group });
+    } else {
+      let column = Object.assign({}, this.state.modalColumn);
+      column[e.target.name] = e.target.value;
+      this.setState({ modalColumn: column });
+    }
   };
 
   editColumn = id => {
@@ -314,7 +357,7 @@ class Board extends Component {
             }}>
             <i className="fa fa-pencil" />
           </Link>
-          <button className="fa-btn" onClick={this.boardDeleteHandler}>
+          <button className="fa-btn" onClick={() => window.confirm('Are you sure') && this.boardDeleteHandler() }>
             <i className="fa fa-trash" />
           </button>
           <button className="fa-btn" onClick={this.openModal}>
@@ -345,9 +388,11 @@ class Board extends Component {
         {/* Modal */}
         <Modal
           modalColumn={this.state.modalColumn}
+          modalGroup={this.state.modalGroup}
           closeModal={this.closeModal}
           saveColumn={this.saveColumn}
-          columnHandler={this.columnHandler}
+          saveGroup={this.saveGroup}
+          modalHandler={this.modalHandler}
           errors={this.state.errors}
         />
         <AppAside fixed>

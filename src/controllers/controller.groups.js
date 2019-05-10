@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Group = mongoose.model('Group');
+const Board = mongoose.model('Board');
 
 exports.groupsController = {
 
@@ -23,15 +24,19 @@ exports.groupsController = {
     },
 
     create: (req, res, next) => {
-        let newGroup = req.body.data;
-        console.log(req.body);
+        let { group, boardId} = req.body.data;
+        console.log(req.body.data);
 
-        new Group(newGroup).save()
-            .then(group => {
-                res.json({
-                    success: true,
-                    data: group
-                });
+        new Group(group).save()
+            .then(saveGroup => {
+                // Add to board
+                Board.addGroup(boardId, saveGroup._id, (error, board) => {
+                    if(error) throw error;
+                    res.json({
+                        success: true,
+                        data: saveGroup
+                    });
+                })
             }).catch(error => {
                  res.json({
                      success: false,

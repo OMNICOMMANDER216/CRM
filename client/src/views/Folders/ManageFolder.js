@@ -18,7 +18,7 @@ class ManageBoardPage extends React.Component {
       saving: false,
       disabledAdvance: false,
       disabledLive: false,
-      toDashboard: false,
+      redirect: false,
       assign: false
     };
     
@@ -77,7 +77,7 @@ class ManageBoardPage extends React.Component {
               this.setState({ saving: true });
               !board._id && this.props.foldersActions.addBoard(board);
               board._id && this.props.foldersActions.updateBoard(board);
-              this.setState({ toDashboard: true });
+              this.setState({ redirect: true });
         })
         .catch(errors => {  
           console.log(errors);
@@ -89,11 +89,17 @@ class ManageBoardPage extends React.Component {
   }
 
   redirect = () => {
-    this.setState({toDashboard: true});
+    if(this.state.board._id) {
+      this.setState({redirect: this.state.board._id});
+    } else {
+      this.setState({redirect: true});
+    }
   }
   
   render() {
-    if(this.state.toDashboard) {
+    if(this.state.redirect && this.state.board._id) {
+      return <Redirect to={'/board/' + this.state.board._id} />
+    } else if(this.state.redirect) {
       return <Redirect to='/dashboard' />
     }
     return (    
