@@ -12,7 +12,7 @@ function CustomerRow(props) {
       <td><Link to={`/customers/${customer._id}`}>{customer.name}</Link></td>
       <td><a target="_blank" rel="noopener noreferrer" href={`https://${customer.url}`}>{customer.url}</a></td>
       <td>{customer.services.toString()}</td>
-      <td><Link to="{userLink}"><Badge color={getBadge(customer.status)}>{customer.status}</Badge></Link></td>
+      <td><Badge color={getBadge(customer.status)}>{customer.status}</Badge></td>
       <td className="text-center"><Link to={`/customers/${customer._id}`}><i className="fa fa-eye"></i></Link></td>
 
       {(isAdmin || isBookkeeping) && 
@@ -20,7 +20,7 @@ function CustomerRow(props) {
       }
 
       {(isAdmin) && 
-        <td className="text-center"><a href="/customer" onClick={(event) => deleteCustomer(event, customer._id)}><i className="fa fa-trash"></i></a></td>
+        <td className="text-center"><button to="/customer" onClick={(event) => window.confirm('Are You Sure') && deleteCustomer(event, customer._id)}><i className="fa fa-trash"></i></button></td>
       }
       </tr>
   )

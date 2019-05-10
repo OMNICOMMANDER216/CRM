@@ -24,7 +24,7 @@ const routes = [
   { path: '/customers/:id', exact: true, name: 'Customer Info', component: RequireAuth(Customer) },
   { path: '/users', exact: true,  name: 'Users Page', component: RequireAuth(Users) },
   { path: '/users/:id', exact: true, name: 'User Info', component: RequireAuth(User) },
-  { path: '/Notification/', exact: true, name: 'Notification Page', component: RequireAuth(Notification) },
+  { path: '/Notification/', exact: true, name: 'Messages', component: RequireAuth(Notification) },
   { path: '/addBoard/:folder_id', name: 'Create a new Board', component: RequireAuth(ManageFolder) },
   { path: '/editBoard/:folder_id', name: 'Edit Board', component: RequireAuth(ManageFolder) },
   { path: '/board/:id', name: 'Board Page', component: RequireAuth(Board) },
