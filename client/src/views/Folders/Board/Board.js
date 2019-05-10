@@ -14,7 +14,7 @@ import TaskApi from "../../../api/tasksApi";
 import * as foldersActions from "../../../store/actions/foldersActions";
 import * as sideTaskActions from "../../../store/actions/sideTask";
 import Group from "./Group/Group";
-import { isEmpty} from "lodash";
+import { isEmpty } from "lodash";
 
 const Modal = React.lazy(() => import("./Modal"));
 const DefaultAside = React.lazy(() => import('../../../containers/DefaultLayout/DefaultAside'));
@@ -45,16 +45,14 @@ class Board extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     boardsApi.loadBoardById(id).then(res => {
-      const board = res.data;
-      this.setState({ board });
+      this.setState({ board: res.data, customer: this.props.customers.find(c => c._id === res.data.customer) });
     });
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       boardsApi.loadBoardById(this.props.match.params.id).then(res => {
-        const board = res.data;
-        this.setState({ board });
+        this.setState({ board: res.data,  customer: this.props.customers.find(c => c._id === res.data.customer) });
       });
     }
   }
@@ -408,6 +406,7 @@ class Board extends Component {
 
 let mapStateToProps = state => ({
   groups: state.groups,
+  customers: state.customers,
   currentUser: state.auth.user,
   users: state.users,
   folders: state.folders,
