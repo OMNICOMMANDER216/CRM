@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose');
 var Group = mongoose.model('Group');
+var Board = mongoose.model('Board');
 
 exports.groupsController = {
 
@@ -23,13 +24,20 @@ exports.groupsController = {
     },
 
     create: function create(req, res, next) {
-        var newGroup = req.body.data;
-        console.log(req.body);
+        var _req$body$data = req.body.data,
+            group = _req$body$data.group,
+            boardId = _req$body$data.boardId;
 
-        new Group(newGroup).save().then(function (group) {
-            res.json({
-                success: true,
-                data: group
+        console.log(req.body.data);
+
+        new Group(group).save().then(function (saveGroup) {
+            // Add to board
+            Board.addGroup(boardId, saveGroup._id, function (error, board) {
+                if (error) throw error;
+                res.json({
+                    success: true,
+                    data: saveGroup
+                });
             });
         }).catch(function (error) {
             res.json({

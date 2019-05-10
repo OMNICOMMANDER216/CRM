@@ -183,7 +183,6 @@ exports.boardsController = {
     var bulk = Task.collection.initializeOrderedBulkOp();
     bulk.find({}).update({ $pull: { column: { colRef: mongoose.Types.ObjectId(columnId) } } });
     bulk.execute(function (err) {
-      console.log('passed');
       if (err) console.log(err);
 
       // Remove column from Board

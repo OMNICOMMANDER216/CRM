@@ -40,5 +40,13 @@ var BoardSchema = new Schema({
   }]
 }, { timestamps: true });
 
+BoardSchema.statics.addGroup = function addGroup(board_id, group_id, callback) {
+  this.model('Board').findByIdAndUpdate(board_id, { $addToSet: { groups: group_id } }, { new: true }, callback);
+};
+
+BoardSchema.statics.removeGroup = function removeGroup(board_id, group_id, callback) {
+  this.model('Board').findByIdAndUpdate(board_id, { $pull: { groups: group_id } }, { new: true }, callback);
+};
+
 // Create Collection and add Schema
 mongoose.model('Board', BoardSchema);
