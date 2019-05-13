@@ -274,7 +274,6 @@ class Board extends Component {
   };
   
   setSideTask = task => {
-    console.log(task);
     if (!isEmpty(this.state.sideTask) && (this.state.sideTask._id ===  task._id)) {
       this.setState({ sideTask: {} });
     } else {
@@ -356,7 +355,7 @@ class Board extends Component {
             }}>
             <i className="fa fa-pencil" />
           </Link>
-          <button className="fa-btn" onClick={() => window.confirm('Are you sure') && this.boardDeleteHandler() }>
+          <button className="fa-btn" onClick={() => window.confirm('Are you sure ?') && this.boardDeleteHandler() }>
             <i className="fa fa-trash" />
           </button>
           <button className="fa-btn" onClick={this.openModal}>

@@ -20,7 +20,7 @@ function CustomerRow(props) {
       }
 
       {(isAdmin) && 
-        <td className="text-center"><button to="/customer" onClick={(event) => window.confirm('Are You Sure') && deleteCustomer(event, customer._id)}><i className="fa fa-trash"></i></button></td>
+        <td className="text-center"><button to="/customer" onClick={(event) => window.confirm('Are You Sure ?') && deleteCustomer(event, customer._id)}><i className="fa fa-trash"></i></button></td>
       }
       </tr>
   )

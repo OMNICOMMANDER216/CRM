@@ -48,7 +48,7 @@ class TaskItem extends Component {
               </button> 
             )}
               <button type="submit"  
-                onClick={() => window.confirm('Are you sure') && removeTask(task)}
+                onClick={() => window.confirm('Are you sure ?') && removeTask(task)}
                 size="md" 
                 color="primary" 
                 className="m-2">
