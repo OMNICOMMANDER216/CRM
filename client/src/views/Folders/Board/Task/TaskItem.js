@@ -55,11 +55,13 @@ class TaskItem extends Component {
                 <i className="fa fa-trash"></i> 
               </button>
               {isEmpty(editActive) && (
+                <span onClick={() => setSideTask(task)}>
                 <AppAsideToggler 
                   className="d-md-down-none" 
                   disabled={!isEmpty(sideTask) && (sideTask._id !== task._id)}>
-                  <i  onClick={() => setSideTask(task)} className="fa fa-eye"></i>
+                  <i className="fa fa-eye"></i>
                 </AppAsideToggler>
+                </span>
               )}
             </td>
             { task.column && (

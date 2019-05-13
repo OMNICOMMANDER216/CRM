@@ -274,6 +274,7 @@ class Board extends Component {
   };
   
   setSideTask = task => {
+    console.log(task);
     if (!isEmpty(this.state.sideTask) && (this.state.sideTask._id ===  task._id)) {
       this.setState({ sideTask: {} });
     } else {
@@ -368,8 +369,7 @@ class Board extends Component {
               {this.props.folders.map(folder => (
                 <DropdownItem
                   key={folder._id}
-                  onClick={e => this.moveBoard(folder._id)}
-                >
+                  onClick={e => this.moveBoard(folder._id)} >
                   {" "}
                   {folder.name}{" "}
                 </DropdownItem>

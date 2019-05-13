@@ -128,10 +128,12 @@ class DefaultAside extends Component {
         
           <NavItem>
             <NavLink>
+            <span onClick={() => this.props.setSideTask({})}>
               <AppAsideToggler 
                 className="d-md-down-none" >
-                <i  onClick={() => this.props.setSideTask({})} className="fa fa-close"></i>
+                <i className="fa fa-close"></i>
               </AppAsideToggler>
+              </span>
             </NavLink>
           </NavItem>
           <NavItem>
