@@ -8,7 +8,7 @@ module.exports = [{
     title: 'Develop Framework',
   },
   {
-    title: 'walkthrough',
+    title: 'Walkthrough',
   },
   {
     title: 'ADA Compliance',
@@ -18,5 +18,8 @@ module.exports = [{
   },
   {
     title: 'Go Live Process',
+  },
+  {
+    title: 'QA Findings',
   },
 ];
