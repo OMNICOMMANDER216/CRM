@@ -10,8 +10,14 @@ export default ({customer, onChange, errors }) => {
           <Label htmlFor="contactName">Contact Name</Label>
         </Col>
         <Col xs="12" md="9">
-          <Input type="text" id="contactName" name="contactName" placeholder="CU Contact Name" onChange={onChange} value={customer.contact && customer.contact.contactName}/>
-          <FormText color="danger">{errors.contactName}</FormText>
+          <Input 
+            type="text" 
+            id="contactName" 
+            name="contactName" 
+            placeholder="CU Contact Name" 
+            onChange={onChange} 
+            value={customer.contact && customer.contact.contactName}/>
+            <FormText color="danger">{errors.contactName}</FormText>
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -19,8 +25,14 @@ export default ({customer, onChange, errors }) => {
           <Label htmlFor="contactEmail">Contact email</Label>
         </Col>
         <Col xs="12" md="9">
-          <Input type="email" id="contactEmail" name="contactEmail" placeholder="CU Contact Email" onChange={onChange} value={customer.contact && customer.contact.contactEmail}/>
-          <FormText color="danger">{errors.contactEmail}</FormText>
+          <Input 
+            type="email" 
+            id="contactEmail" 
+            name="contactEmail" 
+            placeholder="CU Contact Email" 
+            onChange={onChange} 
+            value={customer.contact && customer.contact.contactEmail}/>
+            <FormText color="danger">{errors.contactEmail}</FormText>
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -28,8 +40,14 @@ export default ({customer, onChange, errors }) => {
           <Label htmlFor="contactNumber">Contact Number</Label>
         </Col>
         <Col xs="12" md="9">
-          <Input type="text" id="contactNumber" name="contactNumber" placeholder="CU Contact Number" onChange={onChange} value={customer.contact && customer.contact.contactNumber}/>
-          <FormText color="danger">{errors.contactNumber}</FormText>
+          <Input 
+            type="text" 
+            id="contactNumber" 
+            name="contactNumber" 
+            placeholder="CU Contact Number" 
+            onChange={onChange} 
+            value={customer.contact && customer.contact.contactNumber}/>
+            <FormText color="danger">{errors.contactNumber}</FormText>
         </Col>
       </FormGroup>
       <FormGroup row>
@@ -37,10 +55,15 @@ export default ({customer, onChange, errors }) => {
           <Label htmlFor="contactLocation">Contact Address</Label>
         </Col>
         <Col xs="12" md="9">
-          <Input type="text" id="contactLocation" name="contactLocation" placeholder="CU Contact Address" onChange={onChange} value={customer.contact && customer.contact.contactLocation}/>
-          <FormText color="danger">{errors.contactLocation}</FormText>
+          <Input 
+            type="text" 
+            id="contactLocation" 
+            name="contactLocation" 
+            placeholder="CU Contact Address" 
+            onChange={onChange} 
+            value={customer.contact && customer.contact.contactLocation}/>
+            <FormText color="danger">{errors.contactLocation}</FormText>
         </Col>
       </FormGroup> 
     </React.Fragment>
-  )
-}
+  )}

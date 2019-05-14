@@ -16,7 +16,7 @@ export default ({modalNote, closeModal,openModal, noteHandler, saveNote, errors}
                   <Label htmlFor="name">Date</Label>
                 </Col>
                 <Col xs="12" md="12">
-                  <Input type="date" id="date" name="date" placeholder="Date" onChange={noteHandler} value={modalNote.date}/>
+                  <Input type="date" id="date" name="date" placeholder="Date" onChange={noteHandler} value={modalNote && modalNote.date}/>
                   <FormText color="danger">{errors && errors.date}</FormText>
                 </Col>
               </FormGroup>
@@ -25,7 +25,7 @@ export default ({modalNote, closeModal,openModal, noteHandler, saveNote, errors}
                   <Label htmlFor="name">Note</Label>
                 </Col>
                 <Col xs="12" md="12">
-                  <Input type="textarea" id="comment" name="comment" placeholder="Note comment" onChange={noteHandler} value={modalNote.comment}/>
+                  <Input type="textarea" id="comment" name="comment" placeholder="Note comment" onChange={noteHandler} value={modalNote && modalNote.comment}/>
                   <FormText color="danger">{errors && errors.comment}</FormText>
                 </Col>
               </FormGroup>

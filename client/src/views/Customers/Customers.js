@@ -47,11 +47,17 @@ class Customers extends Component {
                   <i className="fa fa-align-justify"></i> Customers 
                 </Col>
                 <Col xs="4">
-                  <Input name="search" value={this.state.search} onChange={this.search} placeholder="Search"/>
+                  <Input 
+                    name="search" 
+                    value={this.state.search} 
+                    onChange={this.search} 
+                    placeholder="Search"/>
                 </Col>
                 {(isAdmin || isBookkeeping) &&
                 <Col xs="4" className="d-flex justify-content-end">
-                <button className="oc-btn" ><Link to="/customer/add">Add New Customer</Link></button>
+                <button className="oc-btn" >
+                  <Link to="/customer/add">Add New Customer</Link>
+                </button>
                 </Col>
                 }
                 </Row>
@@ -70,9 +76,14 @@ class Customers extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {customers.map((customer, index) =>
-                      <CustomerRow key={index} customer={customer} deleteCustomer={this.deleteCustomer} isAdmin={isAdmin} isBookkeeping={isBookkeeping}/>
-                    )}
+                    {customers.map((customer, index) =>(
+                      <CustomerRow 
+                        key={index} 
+                        customer={customer} 
+                        deleteCustomer={this.deleteCustomer} 
+                        isAdmin={isAdmin} 
+                        isBookkeeping={isBookkeeping}/>
+                    ))}
                   </tbody>
                 </Table>
               </CardBody>

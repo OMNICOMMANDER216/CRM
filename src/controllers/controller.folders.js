@@ -1,23 +1,22 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const Folder = mongoose.model('Folder');
+const Folder = mongoose.model("Folder");
 
 exports.foldersController = {
-
   getAll: (req, res) => {
     Folder.find()
-      .populate('boards')
+      .populate("boards")
       .exec((error, folders) => {
         if (error) {
           console.log(error);
           return res.json({
             success: false,
-            message: 'Error fetching the data',
+            message: "Error fetching the data"
           });
         }
         return res.json({
           success: true,
-          data: folders,
+          data: folders
         });
       });
   },
@@ -25,17 +24,19 @@ exports.foldersController = {
   create: (req, res, next) => {
     const newFolder = req.body.data;
 
-    new Folder(newFolder).save()
-      .then((folder) => {
+    new Folder(newFolder)
+      .save()
+      .then(folder => {
         res.json({
           success: true,
-          data: folder,
+          data: folder
         });
-      }).catch((error) => {
+      })
+      .catch(error => {
         res.json({
           success: false,
-          message: 'Error saving new folder',
-          error,
+          message: "Error saving new folder",
+          error
         });
       });
   },
@@ -43,38 +44,45 @@ exports.foldersController = {
   update: (req, res) => {
     const updatedFolder = req.body.data;
     // updated folder
-    Folder.findByIdAndUpdate(updatedFolder._id, updatedFolder, {
-      new: true,
-    }, (error, model) => {
-      if (error) {
-        res.json({
-          success: false,
-          message: error,
-        });
-      } else {
-        res.json({
-          success: true,
-          data: model,
-        });
+    Folder.findByIdAndUpdate(
+      updatedFolder._id,
+      updatedFolder,
+      {
+        new: true
+      },
+      (error, model) => {
+        if (error) {
+          res.json({
+            success: false,
+            message: error
+          });
+        } else {
+          res.json({
+            success: true,
+            data: model
+          });
+        }
       }
-    });
+    );
   },
 
   // Delete A folder and remove folder from users Projects
   deleteById: (req, res) => {
     // Remove folder from users
-    Folder.deleteOne({
-      _id: req.params.id,
-    }, (error) => {
-      if (error) {
-        throw err;
-      } else {
-        return res.json({
-          success: true,
-          message: 'folder deleted',
-        });
+    Folder.deleteOne(
+      {
+        _id: req.params.id
+      },
+      error => {
+        if (error) {
+          throw err;
+        } else {
+          return res.json({
+            success: true,
+            message: "folder deleted"
+          });
+        }
       }
-    });
-  },
-
+    );
+  }
 };

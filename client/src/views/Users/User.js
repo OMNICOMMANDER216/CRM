@@ -11,9 +11,9 @@ class User extends Component {
 
     return (
       <div className="animated fadeIn">
-      {user && 
         <Row>
           <Col className="d-flex justify-content-center" lg={3}>
+            {user && 
             <Card>
               <CardHeader>
                   <CardImg top width="20%" src={user.image} aria-label="User Profile Picture" alt="User Profile"/>
@@ -26,6 +26,7 @@ class User extends Component {
                 </ListGroup>
               </CardBody>
             </Card>
+            }
             </Col>
           <Col lg={9}>
             <Card>
@@ -42,7 +43,7 @@ class User extends Component {
                   </thead>
                     <tbody>
                     {
-                      user.customers && user.customers.map((customer, index) => {
+                      (user && user.customers) && user.customers.map((customer, index) => {
                         return (
                           <tr key={index}>
                             <td>{index + 1}</td>
@@ -59,7 +60,6 @@ class User extends Component {
             </Card>
           </Col>
         </Row>
-      }
       </div>
     )
   }

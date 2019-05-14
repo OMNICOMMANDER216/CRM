@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import { validateAll } from 'indicative';
 import moment from 'moment';
@@ -38,6 +38,8 @@ class Customer extends Component {
       }
     });
   }
+
+    loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   noteHandler = (e) => {
     let note = Object.assign({}, this.state.modalNote);
@@ -121,13 +123,19 @@ class Customer extends Component {
 
     return (
       <div className="animated fadeIn">
+      <Suspense fallback={this.loading()}>
         <Row className="d-flex">
           <Col lg={7} >
             <Card className="full-height">
               <CardHeader>
               <Row>
               <Col lg={4}>
-                <strong><i className="icon-info pr-1"></i>Customer :</strong> {customer.name} <Link className="pl-1" to={{ pathname : `/customer/edit/${customer._id}`, state: {customer: customer} }}><i className="fa fa-edit customerEdit"></i></Link>
+                <strong><i className="icon-info pr-1"></i>Customer :</strong> {customer.name} 
+                <Link 
+                  className="pl-1" 
+                  to={{ pathname : `/customer/edit/${customer._id}`, state: {customer: customer} }}>
+                  <i className="fa fa-edit customerEdit"></i>
+                </Link>
                 </Col>
               <Col lg={4} className="purple">
                 <strong>Final Change:</strong> {customer.finalChangesDate ? this.momentFormat(customer.finalChangesDate) : "Not Set"}
@@ -181,7 +189,13 @@ class Customer extends Component {
           </Col>
         </Row>
         {/* Modal */}
-        <Modal modalNote={this.state.modalNote} closeModal={this.closeModal} openModal={this.openModal} saveNote={this.saveNote} noteHandler={this.noteHandler} errors={this.state.errors}/>
+        <Modal 
+          modalNote={this.state.modalNote} 
+          closeModal={this.closeModal} 
+          openModal={this.openModal} 
+          saveNote={this.saveNote} 
+          noteHandler={this.noteHandler} 
+          errors={this.state.errors}/>
 
         {/* display notes */}
         <Table className="mt-5 text-center">
@@ -199,13 +213,26 @@ class Customer extends Component {
               <tr key={note._id}>
                 <td>{note.date}</td>
                 <td>{note.comment}</td>
-                <td className="text-center" ><button className="oc-btn" onClick={() => this.editNote(note._id)}><i className="fa fa-edit"></i></button></td>
-                <td className="text-center"><button className="oc-btn" onClick={(event) => this.deleteNote(note._id)}><i className="fa fa-trash"></i></button></td>
+                <td className="text-center" >
+                  <button 
+                    className="oc-btn" 
+                    onClick={() => this.editNote(note._id)}>
+                    <i className="fa fa-edit"></i>
+                  </button>
+                </td>
+                <td className="text-center">
+                  <button 
+                    className="oc-btn" 
+                    onClick={(event) => this.deleteNote(note._id)}>
+                    <i className="fa fa-trash"></i>
+                  </button>
+                </td>
               </tr>
             ))
           }
           </tbody>
         </Table>
+        </Suspense>
       </div>
     )
   }

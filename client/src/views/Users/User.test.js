@@ -2,14 +2,20 @@ import React from 'react';
 import {MemoryRouter} from 'react-router-dom';
 import { mount } from 'enzyme'
 import User from './User';
+import { Provider } from 'react-redux';
+import configureStore from '../../store/store';
+
+const store = configureStore();
 
 
 it('renders without crashing', () => {
   const wrapper = mount(
     <MemoryRouter>
-      <User match={{params: {id: "1"}, isExact: true, path: "/users/:id", name: "User details"}}/>
+      <Provider store={store}>
+        <User match={{params: {id: "5c65cd14df79630631beac35"}, isExact: true, path: "/users/:id", name: "User details"}}/>
+      </Provider>
     </MemoryRouter>
   );
-  expect(wrapper.containsMatchingElement(<strong>Samppa Nori</strong>)).toEqual(true)
+  expect(wrapper.containsMatchingElement(<td>Name</td>)).toEqual(true)
   wrapper.unmount()
 });

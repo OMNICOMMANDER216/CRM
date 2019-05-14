@@ -45,20 +45,14 @@ class BoardModal extends Component {
               <NavItem>
                 <NavLink
                   className={classNames({ active: this.state.activeTab === "1" })}
-                  onClick={() => {
-                    this.toggle("1");
-                  }}
-                >
+                  onClick={() => { this.toggle("1") }}>
                   Column
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink
                   className={classNames({ active: this.state.activeTab === "2" })}
-                  onClick={() => {
-                    this.toggle("2");
-                  }}
-                >
+                  onClick={() => { this.toggle("2") }}>
                   Group
                 </NavLink>
               </NavItem>
@@ -73,7 +67,13 @@ class BoardModal extends Component {
                   <Label htmlFor="name">Title</Label>
                 </Col>
                 <Col xs="12" md="12">
-                  <Input type="title" id="title" name="title" placeholder="title" onChange={modalHandler} value={modalColumn.title}/>
+                  <Input 
+                    type="title" 
+                    id="title" 
+                    name="title" 
+                    placeholder="title" 
+                    onChange={modalHandler} 
+                    value={modalColumn.title}/>
                   <FormText color="danger">{errors && errors.title}</FormText>
                 </Col>
               </FormGroup>
@@ -82,37 +82,47 @@ class BoardModal extends Component {
                   <Label htmlFor="name">Column Type</Label>
                 </Col>
                 <Col xs="12" md="12">
-                  <Input type="select" name="type" value={modalColumn.type} onChange={modalHandler} id="type" >
-                  <option value="select">Select</option>
-                { ['name', 'user', 'date', 'status', 'priority', 'last_updated', 'date'].map((data, index) => <option key={index} value={data}>{data}</option>) }
-           </Input>
+                  <Input 
+                    type="select" 
+                    name="type" 
+                    value={modalColumn.type} 
+                    onChange={modalHandler} 
+                    id="type">
+                    <option value="select">Select</option>
+                    { ['name', 'user', 'date', 'status', 'priority', 'last_updated', 'date'].map((data, index) => <option key={index} value={data}>{data}</option>) }
+                  </Input>
                   <FormText color="danger">{errors && errors.type}</FormText>
                 </Col>
               </FormGroup>
               </Form>
-              <Button color="primary" onClick={saveColumn}>Save</Button>{' '}
+              <Button color="primary" onClick={saveColumn} className="mr-3">Save</Button>
               <Button color="secondary" onClick={closeModal}>Cancel</Button>
-              </TabPane>
+            </TabPane>
             <TabPane tabId="2">
               <Form>
-            <FormGroup row>
+                <FormGroup row>
                 <Col md="12">
                   <Label htmlFor="name">Group Title</Label>
                 </Col>
                 <Col xs="12" md="12">
-                  <Input type="title" id="title" name="groupTitle" placeholder="title" onChange={modalHandler} value={modalGroup.title}/>
+                  <Input 
+                    type="title" 
+                    id="title" 
+                    name="groupTitle" 
+                    placeholder="title" 
+                    onChange={modalHandler} 
+                    value={modalGroup.title}/>
                   <FormText color="danger">{errors && errors.title}</FormText>
                 </Col>
-              </FormGroup>
-              <Button color="primary" onClick={saveGroup}>Save</Button>{' '}
-              <Button color="secondary" onClick={closeModal}>Cancel</Button>
+                </FormGroup>
+                <Button color="primary" onClick={saveGroup} className="mr-3">Save</Button>
+                <Button color="secondary" onClick={closeModal}>Cancel</Button>
               </Form>
             </TabPane>
             </TabContent>
           </ModalBody>
         </Modal>
     </React.Fragment>
-  )}
-}
+  )}}
 
 export default BoardModal;

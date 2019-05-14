@@ -1,4 +1,5 @@
 import React, { Component, Fragment, Suspense } from "react";
+import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -343,6 +344,7 @@ class Board extends Component {
     }
     return (
       <Fragment>
+      <Suspense fallback={this.loading()}>
       <ToastContainer autoClose={2000}/>
       <div className="animated fadeIn">
       <span className="d-flex justify-content-between">
@@ -378,7 +380,13 @@ class Board extends Component {
         </h2>
         <FormGroup>
           <Label for="filter">Filter task</Label>
-          <Input type="filter" name="filter" id="filter" placeholder="Search task" value={taskFilter} onChange={this.filter}/>
+          <Input 
+            type="filter" 
+            name="filter" 
+            id="filter" 
+            placeholder="Search task" 
+            value={taskFilter} 
+            onChange={this.filter}/>
         </FormGroup>
         </span>
         {groups}
@@ -393,22 +401,35 @@ class Board extends Component {
           errors={this.state.errors}
         />
         <AppAside fixed>
-            <Suspense fallback={this.loading()}>
-              <DefaultAside task={this.state.sideTask} updateSideTask={this.updateSideTask} setSideTask={this.setSideTask}/>
-            </Suspense>
-          </AppAside>
+          <Suspense fallback={this.loading()}>
+            <DefaultAside 
+              task={this.state.sideTask} 
+              updateSideTask={this.updateSideTask} 
+              setSideTask={this.setSideTask}/>
+          </Suspense>
+        </AppAside>
       </div>
+      </Suspense>
       </Fragment>
     );
   }
 }
 
+Board.propTypes = {
+  folders: PropTypes.array,
+  customers: PropTypes.array,
+  users: PropTypes.array,
+  currentUser: PropTypes.object,
+  groups: PropTypes.array,
+  sideTask: PropTypes.object
+};
+
 let mapStateToProps = state => ({
-  groups: state.groups,
-  customers: state.customers,
-  currentUser: state.auth.user,
-  users: state.users,
   folders: state.folders,
+  customers: state.customers,
+  users: state.users,
+  currentUser: state.auth.user,
+  groups: state.groups,
   sideTask: {...state.sideTask[0]}
 });
 

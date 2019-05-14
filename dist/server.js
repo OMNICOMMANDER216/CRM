@@ -60,6 +60,38 @@ require('./models/Board');
 
 require('./models/Column');
 
+var _route = require('./routes/route.auth');
+
+var _route2 = _interopRequireDefault(_route);
+
+var _route3 = require('./routes/route.users');
+
+var _route4 = _interopRequireDefault(_route3);
+
+var _route5 = require('./routes/route.customers');
+
+var _route6 = _interopRequireDefault(_route5);
+
+var _route7 = require('./routes/route.notes');
+
+var _route8 = _interopRequireDefault(_route7);
+
+var _route9 = require('./routes/route.folders');
+
+var _route10 = _interopRequireDefault(_route9);
+
+var _route11 = require('./routes/route.boards');
+
+var _route12 = _interopRequireDefault(_route11);
+
+var _route13 = require('./routes/route.groups');
+
+var _route14 = _interopRequireDefault(_route13);
+
+var _route15 = require('./routes/route.tasks');
+
+var _route16 = _interopRequireDefault(_route15);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /* eslint-disable func-names */
@@ -78,16 +110,10 @@ var sessionsSecret = require('./config/sessionConfig').secret;
 require('./config/passport')(_passport2.default);
 
 // Load Routes
-var authRoute = require('./routes/route.auth');
-var usersRoute = require('./routes/route.users');
-var customersRoute = require('./routes/route.customers');
-var notesRoute = require('./routes/route.notes');
+
 
 // Load Project routes
-var foldersRoute = require('./routes/route.folders');
-var boardsRoute = require('./routes/route.boards');
-var groupsRoute = require('./routes/route.groups');
-var tasksRoute = require('./routes/route.tasks');
+
 
 // Mongoose connect
 var mongodbUri = 'mongodb://' + _config.db.username + ':' + _config.db.password + '@ds123635.mlab.com:23635/omni-board';
@@ -95,7 +121,6 @@ _mongoose2.default.connect(mongodbUri, { useNewUrlParser: true }).then(function 
   console.log('mongoDB connected');
 }).catch(function (err) {
   throw err;
-  // console.log(' Mongoose connection error', err);
 });
 
 var connection = _mongoose2.default.connection;
@@ -146,19 +171,19 @@ app.use(_passport2.default.session());
 app.get('/loginError', function (req, res) {
   return res.json({
     success: false,
-    message: ' login failed, try again and make sure email belong to Omnicommander'
+    message: 'login failed, try again and make sure email belong to Omnicommander'
   });
 });
 
 // Routes
-app.use('/auth', authRoute);
-app.use('/api/users', usersRoute);
-app.use('/api/customers', customersRoute);
-app.use('/api/notes', notesRoute);
-app.use('/api/folders', foldersRoute);
-app.use('/api/boards', boardsRoute);
-app.use('/api/groups', groupsRoute);
-app.use('/api/tasks', tasksRoute);
+app.use('/auth', _route2.default);
+app.use('/api/users', _route4.default);
+app.use('/api/customers', _route6.default);
+app.use('/api/notes', _route8.default);
+app.use('/api/folders', _route10.default);
+app.use('/api/boards', _route12.default);
+app.use('/api/groups', _route14.default);
+app.use('/api/tasks', _route16.default);
 
 // Serving static files
 app.use(_express2.default.static(_path2.default.resolve(__dirname, '../client/build')));
