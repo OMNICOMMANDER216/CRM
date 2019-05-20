@@ -9,15 +9,16 @@ import { AppAside, } from '@coreui/react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, FormGroup, Label, Input} from "reactstrap";
 import { validateAll } from "indicative";
 import moment from "moment";
+import { isEmpty } from "lodash";
+// api
 import userApi from "../../../api/userApi";
 import boardsApi from "../../../api/boardsApi";
 import groupsApi from "../../../api/groupsApi";
 import TaskApi from "../../../api/tasksApi";
+// Actions
 import * as foldersActions from "../../../store/actions/foldersActions";
 import * as sideTaskActions from "../../../store/actions/sideTask";
 import Group from "./Group/Group";
-import { isEmpty } from "lodash";
-import { log } from "util";
 
 const Modal = React.lazy(() => import("./Modal"));
 const DefaultAside = React.lazy(() => import('../../../containers/DefaultLayout/DefaultAside'));
@@ -171,6 +172,7 @@ class Board extends Component {
           ...board.groups.filter(g => g._id !== selectedGroup._id),
           selectedGroup
         ].sort((group1, group2) => group1._id.localeCompare(group2._id));
+        
         this.setState({ board, editing: {} });
       });
     } else if(this.state.newTask) {
@@ -198,6 +200,7 @@ class Board extends Component {
           ...board.groups.filter(g => g._id !== selectedGroup._id),
           selectedGroup
         ].sort((group1, group2) => group1._id.localeCompare(group2._id));
+
         this.setState({ board });
         toast.info('Task Created', {
           position: toast.POSITION.TOP_CENTER
@@ -280,8 +283,16 @@ class Board extends Component {
   updateSideTask = task => {
     const board = Object.assign({}, this.state.board);
     let group = board.groups.find(g => g._id === task.group);
-    group.tasks = [...group.tasks.filter(t => t._id !== task._id), task];
-    board.groups = [...board.groups.filter(g => g._id !== group._id), group].sort((group1, group2) => group1._id.localeCompare(group2._id));
+    group.tasks = [
+      ...group.tasks.filter(t => t._id !== task._id),
+       task
+       ];
+
+    board.groups = [
+      ...board.groups.filter(g => g._id !== group._id),
+       group
+       ].sort((group1, group2) => group1._id.localeCompare(group2._id));
+
     this.setState({ board, sideTask: task })
   };
   

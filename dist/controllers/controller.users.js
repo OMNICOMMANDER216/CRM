@@ -77,9 +77,8 @@ exports.usersController = {
         userId = _req$body$data.userId,
         notification = _req$body$data.notification;
 
-    console.log(userId);
     new Notification(notification).save().then(function (n) {
-      (0, _user_notification2.default)({ _id: userId }, n);
+      (0, _user_notification2.default)({ _id: mongoose.Types.ObjectId(userId) }, n);
       res.json({
         success: true,
         message: "User Notified"

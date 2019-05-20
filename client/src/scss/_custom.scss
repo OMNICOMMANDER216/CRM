@@ -214,6 +214,10 @@ button.d-md-down-none.navbar-toggler {
         color: $purple;
     }
 }
+
+.navbar-toggler .form-control:disabled {
+    cursor: pointer;
+}
 /*******************************************************/
 // Aside Toggler Style End
 /*******************************************************/
@@ -266,6 +270,9 @@ html:not([dir="rtl"]) .aside-menu {
     margin: 1em;
 }
 
+.ql-snow .ql-tooltip {
+    left: 0 !important;
+}
 /*******************************************************/
 // Quill Style End
 /*******************************************************/

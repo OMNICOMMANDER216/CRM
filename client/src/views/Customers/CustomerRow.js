@@ -8,8 +8,8 @@ function CustomerRow(props) {
   const {customer, deleteCustomer, isAdmin, isBookkeeping} = props;
 
   return (
-    <tr key={customer._id}>
-      <td>
+    <tr key={customer._id} className="text-left">
+      <td className="text-left">
         <Link 
           to={`/customers/${customer._id}`}>
             {customer.name}
@@ -23,7 +23,7 @@ function CustomerRow(props) {
             {customer.url}
         </a>
       </td>
-      <td>{customer.services.toString()}</td>
+      <td className="text-left">{customer.services.toString()}</td>
       <td>
         <Badge color={getBadge(customer.status)}>{customer.status}</Badge>
       </td>

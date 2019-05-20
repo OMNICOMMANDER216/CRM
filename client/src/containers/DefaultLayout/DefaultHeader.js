@@ -21,6 +21,7 @@ import {
   AppSidebarToggler
 } from "@coreui/react";
 import logo from "../../assets/img/brand/oc-logo.png";
+import profile from "../../assets/img/profile.png";
 import sygnet from "../../assets/img/brand/oc-star.svg";
 
 import getCurrentUser from "../../helpers/getCurrentUser";
@@ -90,9 +91,9 @@ class DefaultHeader extends Component {
             <AppHeaderDropdown direction="down">
               <DropdownToggle nav>
                 <img
-                  src={this.props.currentUser.image}
+                  src={this.props.currentUser.image || profile}
                   className="img-avatar"
-                  alt="admin@bootstrapmaster.com"
+                  alt="User avatar"
                 />
               </DropdownToggle>{" "}
               <DropdownMenu

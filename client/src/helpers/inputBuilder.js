@@ -1,10 +1,32 @@
 import React from 'react';
 import { Input, Badge } from 'reactstrap';
 import inputTypeSelector from './inputTypeSelector';
+import { AppAsideToggler } from '@coreui/react';
 import getBadge from '../helpers/getBadge';
+import isEmpty from 'lodash/isEmpty';
 
-export default ( index, users, current, disabled, saveHandler, changeHandler) => {
-    if(current.dataType === 'name' || current.dataType === 'last_updated' || current.dataType === 'date') {
+
+export default ( index, users, current, disabled, saveHandler, changeHandler, sideTask, setSideTask, currentTask, editActive) => {
+    if (current.dataType === 'name' ) {
+        return (
+            <td key={index}>
+                <span onClick={() => isEmpty(editActive) && setSideTask(currentTask)}>
+                <AppAsideToggler 
+                  className="d-md-down-none" 
+                  disabled={(!isEmpty(sideTask) && (sideTask._id !== currentTask._id)) || !isEmpty(editActive)}>
+                    <Input type={inputTypeSelector(current.dataType)} 
+                        id={current._id} 
+                        name={index} 
+                        placeholder={current.title}  
+                        disabled={disabled}
+                        value = {current.value || undefined}
+                        onChange={changeHandler} />
+                </AppAsideToggler>
+                </span>
+            </td>
+            )        
+    }
+    else if( current.dataType === 'last_updated' || current.dataType === 'date') {
         return (
             <td key={index}>
             <Input type={inputTypeSelector(current.dataType)} 

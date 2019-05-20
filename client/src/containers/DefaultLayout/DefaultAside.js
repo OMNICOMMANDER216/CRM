@@ -15,7 +15,6 @@ import classNames from "classnames";
 import {isEmpty} from "lodash";
 import ReactQuill, { Quill } from 'react-quill';
 import { ImageDrop } from 'quill-image-drop-module';
-import  ImageResize  from 'quill-image-resize-module';
 import 'react-quill/dist/quill.snow.css';
 import TaskApi from '../../api/tasksApi';
 import AsideCommentList from './AsideCommentList';
@@ -65,7 +64,6 @@ class DefaultAside extends Component {
       redirect: ""
     };
     Quill.register('modules/imageDrop', ImageDrop);
-    Quill.register('modules/imageResize', ImageResize);
   }
 
   toggle(tab) {

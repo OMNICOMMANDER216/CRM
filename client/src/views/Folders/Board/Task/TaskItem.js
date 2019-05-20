@@ -54,18 +54,19 @@ class TaskItem extends Component {
                 className="m-2">
                 <i className="fa fa-trash"></i> 
               </button>
-              {isEmpty(editActive) && (
-                <span onClick={() => setSideTask(task)}>
-                <AppAsideToggler 
-                  className="d-md-down-none" 
-                  disabled={!isEmpty(sideTask) && (sideTask._id !== task._id)}>
-                  <i className="fa fa-eye"></i>
-                </AppAsideToggler>
-                </span>
-              )}
             </td>
             { task.column && (
-              task.column.map((col, i) => inputBuilder(i, users, col, (editActive._id !== task._id), isEditingHandler, changeHandler)) 
+              task.column.map((col, i) => (
+                inputBuilder(i,
+                   users,
+                   col, 
+                   (editActive._id !== task._id), 
+                   isEditingHandler,
+                   changeHandler,
+                   sideTask, 
+                   setSideTask, 
+                   task, 
+                   editActive))) 
             )}
           </tr>
     )

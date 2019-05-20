@@ -63,9 +63,9 @@ class Customers extends Component {
                 </Row>
               </CardHeader>
               <CardBody>
-                <Table responsive hover >
+                <Table responsive hover>
                   <thead>
-                    <tr>
+                    <tr className="text-left">
                       <th scope="col">Name</th>
                       <th scope="col">Url</th>
                       <th scope="col">Services</th>

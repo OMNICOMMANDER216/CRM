@@ -78,11 +78,10 @@ exports.usersController = {
 
   notify: (req, res) => {
     const { userId, notification } = req.body.data;
-    console.log(userId);
     new Notification(notification)
       .save()
       .then(n => {
-          add_notifications({ _id : userId }, n);
+          add_notifications({ _id : mongoose.Types.ObjectId(userId) }, n);
           res.json({
             success: true,
             message: "User Notified" 
