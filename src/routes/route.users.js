@@ -37,6 +37,11 @@ router.get("/all", isAuthenticated, usersController.getAll);
 // @access   private
 router.get("/:id", isAuthenticated, usersController.getById);
 
+// @route    POST /users/notify
+// @desc     Update a user Role
+// @access   private
+router.post("/notify", isAuthenticated, usersController.notify);
+
 // @route    PUT /users/update-role
 // @desc     Update a user Role
 // @access   private

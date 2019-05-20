@@ -78,6 +78,13 @@ UserSchema.statics.removeCustomer = function(user_id, customer_id) {
   );
 };
 
+UserSchema.statics.add_notifications = function add_notifications(query, notification) {
+  const bulk = this.model("User").collection.initializeOrderedBulkOp();
+  bulk.find(query)
+    .update({ $addToSet: { notifications: notification._id } });
+  bulk.execute(err => err && console.log(err));
+};
+
 UserSchema.methods.setRole = role => (this.role = role);
 
 // Create Collection and add Schema

@@ -1,6 +1,6 @@
-'use strict';
+"use strict";
 
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var NoteSchema = new Schema({
@@ -19,4 +19,4 @@ var NoteSchema = new Schema({
 }, { timestamps: true });
 
 //Create Collection and add Schema
-mongoose.model('Note', NoteSchema);
+mongoose.model("Note", NoteSchema);

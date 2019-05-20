@@ -15,10 +15,10 @@ exports.boardsController = {
       .populate("groups")
       .exec((error, boards) => {
         if (error) {
-          console.log(error);
           return res.json({
             success: false,
-            message: "Error fetching the data"
+            message: "Error fetching the data",
+            error
           });
         }
         return res.json({

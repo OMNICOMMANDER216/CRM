@@ -1,14 +1,14 @@
-'use strict';
+"use strict";
 
 /* eslint-disable no-underscore-dangle */
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
 var Schema = mongoose.Schema;
 
 
-var Task = mongoose.model('Task');
+var Task = mongoose.model("Task");
 
-var defaultGroup = require('./default_groups');
+var defaultGroup = require("./default_groups");
 
 var GroupSchema = new Schema({
   title: {
@@ -17,7 +17,7 @@ var GroupSchema = new Schema({
   },
   color: {
     type: String,
-    Default: '#662c90'
+    Default: "#662c90"
   },
   deleted: {
     type: Boolean,
@@ -33,19 +33,19 @@ var GroupSchema = new Schema({
   },
   tasks: [{
     type: Schema.Types.ObjectId,
-    ref: 'Task'
+    ref: "Task"
   }]
 }, { timestamps: true });
 
 GroupSchema.statics.createInitialGroups = function createInitialGroups(callback) {
-  this.model('Group').collection.insert(defaultGroup, null, callback);
+  this.model("Group").collection.insert(defaultGroup, null, callback);
 };
 
 GroupSchema.statics.addTask = function addTask(task, callback) {
-  this.model('Group').findByIdAndUpdate(task.group, { $addToSet: { tasks: task._id } }, callback);
+  this.model("Group").findByIdAndUpdate(task.group, { $addToSet: { tasks: task._id } }, callback);
 };
 
-GroupSchema.pre('deleteMany', function preRemove(next) {
+GroupSchema.pre("deleteMany", function preRemove(next) {
   // 'this' is the client being removed. Provide callbacks here if you want
   // to be notified of the calls' result.
   // console.log(this);
@@ -54,4 +54,4 @@ GroupSchema.pre('deleteMany', function preRemove(next) {
 });
 
 // Create Collection and add Schema
-mongoose.model('Group', GroupSchema);
+mongoose.model("Group", GroupSchema);

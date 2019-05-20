@@ -1,19 +1,26 @@
-'use strict';
+"use strict";
 
-var mongoose = require('mongoose');
+var _user_notification = require("../helpers/user_notification");
 
-var Customer = mongoose.model('Customer');
-var User = mongoose.model('User');
-var Notification = mongoose.model('Notification');
+var _user_notification2 = _interopRequireDefault(_user_notification);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var mongoose = require("mongoose");
+
+var Customer = mongoose.model("Customer");
+var User = mongoose.model("User");
+var Notification = mongoose.model("Notification");
+
 
 exports.customersController = {
-
   getAll: function getAll(req, res) {
-    Customer.find({}).populate('Pm').populate('Dev').populate('Compliance').exec(function (error, customers) {
+    Customer.find({}).populate("Pm").populate("Dev").populate("Compliance").exec(function (error, customers) {
       if (error) {
         return res.json({
           success: false,
-          message: 'Error fetching the data'
+          message: "Error fetching the data",
+          error: error
         });
       }
       return res.json({
@@ -24,11 +31,11 @@ exports.customersController = {
   },
 
   getById: function getById(req, res) {
-    Customer.findById(req.params.id).populate('dev').populate('pm').populate('Compliance').exec(function (error, model) {
+    Customer.findById(req.params.id).populate("dev").populate("pm").populate("Compliance").exec(function (error, model) {
       if (error) {
         return res.json({
           success: false,
-          message: 'Error retrieving the Customer'
+          message: "Error retrieving the Customer"
         });
       }
       return res.json({
@@ -42,22 +49,18 @@ exports.customersController = {
     var newCustomer = req.body.data;
 
     // Send Email to Compliance if Email services added
-    if (newCustomer.services.includes('email')) {
+    if (newCustomer.services.includes("email")) {
       new Notification({
-        title: 'Email Service Requested',
-        content: newCustomer.name + ' paid for Email',
+        title: "Email Service Requested",
+        content: newCustomer.name + " paid for Email",
         cu: newCustomer._id
       }).save().then(function (notification) {
-        var bulk = User.collection.initializeOrderedBulkOp();
-        bulk.find({ role: 'Compliance' }).update({ $addToSet: { notifications: notification._id } });
-        bulk.execute(function (error) {
-          if (error) console.log(error);
-        });
+        (0, _user_notification2.default)({ role: "Compliance" }, notification);
       });
     }
 
     // Set Initial Status
-    newCustomer.status = 'Signed';
+    newCustomer.status = "Signed";
 
     // Create and update log
     var log = {
@@ -68,26 +71,20 @@ exports.customersController = {
 
     new Customer(newCustomer).save().then(function (customer) {
       new Notification({
-        title: 'New customer',
-        content: customer.name + ' has been added',
+        title: "New customer",
+        content: customer.name + " has been added",
         cu: customer._id
       }).save().then(function (notification) {
-        var bulk = User.collection.initializeOrderedBulkOp();
-        bulk.find({ role: 'Admin' }).update({ $addToSet: { notifications: notification._id } });
-        bulk.find({ role: 'Bookkeeping' }).update({ $addToSet: { notifications: notification._id } });
-        bulk.execute(function (err) {
-          if (err) console.log(err);
-
-          res.json({
-            success: true,
-            data: customer
-          });
-        });
+        (0, _user_notification2.default)({ role: { $in: ["Admin", "Bookkeeping"] } }, notification);
+      });
+      res.json({
+        success: true,
+        data: customer
       });
     }).catch(function (error) {
       res.json({
         success: false,
-        message: 'Error saving new Customer'
+        message: "Error saving new Customer"
       });
     });
   },
@@ -98,7 +95,7 @@ exports.customersController = {
       if (error) {
         return res.json({
           success: false,
-          message: 'Server error'
+          message: "Server error"
         });
       }
       if (dbCustomer.status !== updatedCustomer.status) {
@@ -113,7 +110,7 @@ exports.customersController = {
       // Update Log for Final Invoice
       if (!dbCustomer.finalPayment && updatedCustomer.finalPayment) {
         var _log = {
-          status: 'FinalInvoice',
+          status: "FinalInvoice",
           time: Date.now()
         };
         // add log to customer logs
@@ -144,8 +141,8 @@ exports.customersController = {
 
     // Create a new assignment Notification
     notification = new Notification({
-      title: 'Customer assignment',
-      content: 'You have been assigned ' + updatedCustomer.name,
+      title: "Customer assignment",
+      content: "You have been assigned " + updatedCustomer.name,
       cu: updatedCustomer._id
     });
 
@@ -155,79 +152,60 @@ exports.customersController = {
         return next();
       }
       // send notification to Admin and Bookkeeping on Live if DNS update
-      if (oldCustomer.status !== 'DNS' && updatedCustomer.status === 'DNS') {
+      if (oldCustomer.status !== "DNS" && updatedCustomer.status === "DNS") {
         new Notification({
-          title: 'Ready for DNS',
-          content: updatedCustomer.name + ' is ready for DNS!',
+          title: "Ready for DNS",
+          content: updatedCustomer.name + " is ready for DNS!",
           cu: updatedCustomer._id
         }).save().then(function (notification) {
-          var bulk = User.collection.initializeOrderedBulkOp();
-          bulk.find({ role: 'Admin' }).update({ $addToSet: { notifications: notification._id } });
-          bulk.find({ role: 'DevAdmin' }).update({ $addToSet: { notifications: notification._id } });
-          bulk.execute(function (err) {
-            if (err) console.log(err);
-          });
+          (0, _user_notification2.default)({ role: { $in: ["Admin", "DevAdmin"] } }, notification);
         });
       }
 
       // send notification to Admin and Bookkeeping if Customer Paid
-      if (oldCustomer.status !== 'Deposit' && updatedCustomer.status === 'Deposit') {
+      if (oldCustomer.status !== "Deposit" && updatedCustomer.status === "Deposit") {
         // Notify Admins of deposit being paid
         new Notification({
-          title: 'Deposit Paid',
-          content: updatedCustomer.name + ' paid the Deposit',
+          title: "Deposit Paid",
+          content: updatedCustomer.name + " paid the Deposit",
           cu: updatedCustomer._id
         }).save().then(function (notification) {
-          var bulk = User.collection.initializeOrderedBulkOp();
-          bulk.find({ role: 'Admin' }).update({ $addToSet: { notifications: notification._id } });
-          bulk.execute(function (error) {
-            // if(!error) return next();
-          });
+          (0, _user_notification2.default)({ role: { $in: ["Admin"] } }, notification);
         });
       }
 
       // send notification to Admin and Bookkeeping on Live
-      if (oldCustomer.status !== 'Live' && updatedCustomer.status === 'Live') {
+      if (oldCustomer.status !== "Live" && updatedCustomer.status === "Live") {
         new Notification({
-          title: 'Site Live',
-          content: updatedCustomer.name + ' is now Live!',
+          title: "Site Live",
+          content: updatedCustomer.name + " is now Live!",
           cu: updatedCustomer._id
         }).save().then(function (notification) {
-          var bulk = User.collection.initializeOrderedBulkOp();
-          bulk.find({}).update({ $addToSet: { notifications: notification._id } });
-          bulk.execute(function (err) {
-            // if(!error) return next();
-          });
+          (0, _user_notification2.default)({}, notification);
         });
       }
 
       // send notification to Admin and Sales When Final Payment Received
       if (!oldCustomer.finalPayment && updatedCustomer.finalPayment) {
         new Notification({
-          title: 'Final Payment Received',
-          content: updatedCustomer.name + ' Paid it\'s final Payment!',
+          title: "Final Payment Received",
+          content: updatedCustomer.name + " Paid it's final Payment!",
           cu: updatedCustomer._id
         }).save().then(function (notification) {
-          var bulk = User.collection.initializeOrderedBulkOp();
-          bulk.find({ role: 'Admin' }).update({ $addToSet: { notifications: notification._id } });
-          bulk.find({ role: 'Sales' }).update({ $addToSet: { notifications: notification._id } });
-          bulk.execute(function (err) {
-            // if(!error) return next();
-          });
+          (0, _user_notification2.default)({ role: { $in: ["Admin", "Sales"] } }, notification);
         });
       }
 
       // Create Assignment Notification
       if (oldCustomer.dev !== updatedCustomer.dev || oldCustomer.pm !== updatedCustomer.pm || oldCustomer.compliance !== updatedCustomer.compliance || oldCustomer.QA !== updatedCustomer.QA) {
         new Notification({
-          title: 'Site Assigned',
-          content: 'You have been assigned ' + updatedCustomer.name,
+          title: "Site Assigned",
+          content: "You have been assigned " + updatedCustomer.name,
           cu: updatedCustomer._id
         }).save().then(function (notification) {
           if ((oldCustomer.dev && oldCustomer.dev.toString()) !== updatedCustomer.dev) {
             User.removeCustomer(oldCustomer.dev, oldCustomer._id);
-            console.log(oldCustomer.dev.toString() === updatedCustomer.dev);
-            console.log(updatedCustomer.dev);
+
             if (updatedCustomer.dev) {
               // Save a notification and then pass its value to a user
               User.addCustomer(updatedCustomer.dev, oldCustomer._id, notification._id);
@@ -282,22 +260,16 @@ exports.customersController = {
 
     Customer.findById(customerId, function (error, model) {
       // Update Dev customer list
-      if (model.dev) {
-        User.removeCustomer(model.dev, model._id);
-      }
-      // remove customers from PM's customers array
-      if (model.pm) {
-        User.removeCustomer(model.pm, model._id);
-      }
+      model.dev && User.removeCustomer(model.dev, model._id);
 
-      if (model.compliance) {
-        User.removeCustomer(model.compliance, model._id);
-      }
+      // remove customers from PM's customers array
+      model.pm && User.removeCustomer(model.pm, model._id);
+
+      // remove customers from compliance's customers array
+      model.compliance && User.removeCustomer(model.compliance, model._id);
 
       // Remove customer from users
-      Customer.deleteOne({
-        _id: req.params.id
-      }, function (error) {
+      Customer.deleteOne({ _id: req.params.id }, function (error) {
         if (error) {
           throw err;
         } else {

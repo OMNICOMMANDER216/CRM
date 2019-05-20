@@ -1,18 +1,17 @@
-'use strict';
+"use strict";
 
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
-var Folder = mongoose.model('Folder');
+var Folder = mongoose.model("Folder");
 
 exports.foldersController = {
-
   getAll: function getAll(req, res) {
-    Folder.find().populate('boards').exec(function (error, folders) {
+    Folder.find().populate("boards").exec(function (error, folders) {
       if (error) {
         console.log(error);
         return res.json({
           success: false,
-          message: 'Error fetching the data'
+          message: "Error fetching the data"
         });
       }
       return res.json({
@@ -33,7 +32,7 @@ exports.foldersController = {
     }).catch(function (error) {
       res.json({
         success: false,
-        message: 'Error saving new folder',
+        message: "Error saving new folder",
         error: error
       });
     });
@@ -70,10 +69,9 @@ exports.foldersController = {
       } else {
         return res.json({
           success: true,
-          message: 'folder deleted'
+          message: "folder deleted"
         });
       }
     });
   }
-
 };

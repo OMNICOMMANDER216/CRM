@@ -1,6 +1,6 @@
 "use strict";
 
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var CustomerSchema = new Schema({
@@ -77,4 +77,4 @@ var CustomerSchema = new Schema({
 }, { timestamps: true });
 
 //Create Collection and add Schema
-mongoose.model('Customer', CustomerSchema);
+mongoose.model("Customer", CustomerSchema);

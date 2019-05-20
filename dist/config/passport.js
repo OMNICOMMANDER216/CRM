@@ -1,63 +1,57 @@
-'use strict';
+"use strict";
 
-var GoogleStrategy = require('passport-google-oauth20').Strategy;
-var googleKeys = require('./config').google;
+var GoogleStrategy = require("passport-google-oauth20").Strategy;
+var googleKeys = require("./config").google;
 
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 //load user mmodel
-var User = mongoose.model('User');
+var User = mongoose.model("User");
 
 module.exports = function (passport) {
-    // Google Oauth Strategy
-    passport.use('google', new GoogleStrategy({
-        clientID: googleKeys.clientId,
-        clientSecret: googleKeys.clientSecret,
-        callbackURL: "/auth/google/callback",
-        proxy: true
-    }, function (accessToken, refreshToken, profile, done) {
-        // console.log('accessToken', accessToken);
-        // console.log('refreshToken', refreshToken);
-        // console.log('Profile', profile);
-        var image = profile._json.image.url.replace("/s50", "");
+  // Google Oauth Strategy
+  passport.use("google", new GoogleStrategy({
+    clientID: googleKeys.clientId,
+    clientSecret: googleKeys.clientSecret,
+    callbackURL: "/auth/google/callback",
+    proxy: true
+  }, function (accessToken, refreshToken, profile, done) {
+    var image = profile._json.image.url.replace("/s50", "");
 
-        if (profile._json.domain === "omnicommander.com") {
+    if (profile._json.domain === "omnicommander.com") {
+      var newUser = {
+        googleID: profile.id,
+        firstName: profile.name.givenName,
+        lastName: profile.name.familyName,
+        email: profile.emails[0].value,
+        image: image
+      };
 
-            var newUser = {
-                googleID: profile.id,
-                firstName: profile.name.givenName,
-                lastName: profile.name.familyName,
-                email: profile.emails[0].value,
-                image: image
-            };
-
-            User.findOne({
-                googleID: profile.id
-            }).then(function (user) {
-                if (user) {
-                    done(null, user);
-                } else {
-                    //Create User 
-                    new User(newUser).save().then(function (user) {
-                        done(null, user);
-                    });
-                }
-            });
+      User.findOne({
+        googleID: profile.id
+      }).then(function (user) {
+        if (user) {
+          done(null, user);
         } else {
-            done(null, false);
-        }
-
-        // Check for existing users
-    }));
-
-    passport.serializeUser(function (user, done) {
-        done(null, user.id);
-    });
-
-    passport.deserializeUser(function (id, done) {
-        User.findById(id).then(function (user) {
+          //Create User
+          new User(newUser).save().then(function (user) {
             done(null, user);
-        }).catch(function (err) {
-            console.log(err);
-        });
+          });
+        }
+      });
+    } else {
+      done(null, false);
+    }
+  }));
+
+  passport.serializeUser(function (user, done) {
+    done(null, user.id);
+  });
+
+  passport.deserializeUser(function (id, done) {
+    User.findById(id).then(function (user) {
+      done(null, user);
+    }).catch(function (err) {
+      console.log(err);
     });
+  });
 };

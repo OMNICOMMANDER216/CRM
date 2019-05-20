@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-var secret = require('../config/config');
-var jwt = require('jsonwebtoken');
+var secret = require("../config/config");
+var jwt = require("jsonwebtoken");
 
 exports.authController = {
   googleCallback: function googleCallback(req, res) {
@@ -19,7 +19,7 @@ exports.authController = {
       expire: new Date() + 9999
     });
     // Production
-    return res.redirect('/logged?token=' + token);
+    return res.redirect("/logged?token=" + token);
     // Development
     // return res.redirect('http://localhost:3000?token='+token);
   },

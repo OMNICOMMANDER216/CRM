@@ -1,20 +1,26 @@
-'use strict';
+"use strict";
+
+var _lodash = require("lodash");
+
+var _ = _interopRequireWildcard(_lodash);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 /* eslint-disable no-underscore-dangle */
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 
-var Task = mongoose.model('Task');
-var Group = mongoose.model('Group');
+
+var Task = mongoose.model("Task");
+var Group = mongoose.model("Group");
 
 exports.tasksController = {
-
   getAll: function getAll(req, res) {
-    Task.find().populate('boards').exec(function (error, tasks) {
+    Task.find().populate("boards").exec(function (error, tasks) {
       if (error) {
-        console.log(error);
         return res.json({
           success: false,
-          message: 'Error fetching the data'
+          message: "Error fetching the data",
+          error: error
         });
       }
       return res.json({
@@ -42,7 +48,7 @@ exports.tasksController = {
     }).catch(function (error) {
       res.json({
         success: false,
-        message: 'Error saving new task',
+        message: "Error saving new task",
         error: error
       });
     });
@@ -58,7 +64,8 @@ exports.tasksController = {
       if (error) {
         res.json({
           success: false,
-          message: error
+          message: "Error updating!",
+          error: error
         });
       } else {
         res.json({
@@ -77,13 +84,17 @@ exports.tasksController = {
     }, function (error) {
       if (error) {
         throw error;
+        res.json({
+          success: false,
+          message: "Error updating!",
+          error: error
+        });
       } else {
         return res.json({
           success: true,
-          message: 'task deleted'
+          message: "task deleted"
         });
       }
     });
   }
-
 };

@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const User = mongoose.model("User");
 const Notification = mongoose.model("Notification");
 
+import add_notifications from '../helpers/user_notification';
+
 exports.usersController = {
   getCurrentUser: (req, res) => {
     res.json(req.currentUser);
@@ -12,11 +14,12 @@ exports.usersController = {
     User.find({})
       .populate("customers")
       .populate("notifications")
-      .exec((err, users) => {
-        if (err) {
+      .exec((error, users) => {
+        if (error) {
           res.json({
             success: false,
-            message: "Server error"
+            message: "Server error",
+            error
           });
         } else {
           res.json({
@@ -30,11 +33,12 @@ exports.usersController = {
   getById: (req, res) => {
     User.findById(req.params.id)
       .populate("customers")
-      .exec((err, user) => {
-        if (err) {
+      .exec((error, user) => {
+        if (error) {
           res.json({
             success: false,
-            message: "Error retrieving User"
+            message: "Error retrieving User",
+            error
           });
         } else {
           res.json({
@@ -54,11 +58,12 @@ exports.usersController = {
         {
           new: true
         },
-        (err, user) => {
-          if (err) {
+        (error, user) => {
+          if (error) {
             res.json({
               success: false,
-              message: "Error Updating User"
+              message: "Error Updating User",
+              error
             });
           } else {
             res.json({
@@ -71,6 +76,20 @@ exports.usersController = {
     }
   },
 
+  notify: (req, res) => {
+    const { userId, notification } = req.body.data;
+    console.log(userId);
+    new Notification(notification)
+      .save()
+      .then(n => {
+          add_notifications({ _id : userId }, n);
+          res.json({
+            success: true,
+            message: "User Notified" 
+          })
+      }).catch((error) => console.log(error));
+  },
+
   notificationArchive: (req, res) => {
     const notification = req.body.data;
 
@@ -81,11 +100,12 @@ exports.usersController = {
       User.findById(model._id)
         .populate("notifications")
         .populate("customers")
-        .exec((err, user) => {
-          if (err) {
+        .exec((error, user) => {
+          if (error) {
             res.json({
               success: false,
-              message: "Error Updating User"
+              message: "Error Updating User",
+              error
             });
           } else {
             res.json({

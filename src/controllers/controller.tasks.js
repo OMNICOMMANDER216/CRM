@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 const mongoose = require("mongoose");
+import * as _ from 'lodash';
 
 const Task = mongoose.model("Task");
 const Group = mongoose.model("Group");
@@ -10,10 +11,10 @@ exports.tasksController = {
       .populate("boards")
       .exec((error, tasks) => {
         if (error) {
-          console.log(error);
           return res.json({
             success: false,
-            message: "Error fetching the data"
+            message: "Error fetching the data",
+            error
           });
         }
         return res.json({
@@ -52,7 +53,7 @@ exports.tasksController = {
 
   update: (req, res) => {
     const updatedTask = req.body.data;
-
+    
     // updated task
     Task.findByIdAndUpdate(
       updatedTask._id,
@@ -64,7 +65,8 @@ exports.tasksController = {
         if (error) {
           res.json({
             success: false,
-            message: error
+            message: "Error updating!",
+            error
           });
         } else {
           res.json({
@@ -86,6 +88,11 @@ exports.tasksController = {
       error => {
         if (error) {
           throw error;
+          res.json({
+            success: false,
+            message: "Error updating!",
+            error
+          })
         } else {
           return res.json({
             success: true,

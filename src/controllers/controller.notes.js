@@ -15,7 +15,8 @@ exports.notesController = {
       .catch(error => {
         return res.json({
           success: false,
-          message: "Error fetching the data"
+          message: "Error fetching the data",
+          error
         });
       });
   },
@@ -25,7 +26,8 @@ exports.notesController = {
       if (error) {
         return res.json({
           success: false,
-          data: "Error retrieving Note"
+          data: "Error retrieving Note",
+          error
         });
       } else {
         return res.json({
@@ -50,7 +52,8 @@ exports.notesController = {
       .catch(error => {
         res.json({
           success: false,
-          message: "Error saving new note"
+          message: "Error saving new note",
+          error
         });
       });
   },
@@ -68,7 +71,8 @@ exports.notesController = {
         if (error) {
           res.json({
             success: false,
-            message: error
+            message: "Error updating",
+            error
           });
         } else {
           res.json({
@@ -89,7 +93,7 @@ exports.notesController = {
       },
       function(error) {
         if (error) {
-          throw err;
+          throw error;
         } else {
           return res.json({
             success: true,

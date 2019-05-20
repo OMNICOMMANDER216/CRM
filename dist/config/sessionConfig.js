@@ -1,5 +1,5 @@
 "use strict";
 
 exports.session = {
-    secret: "omniCommanderSecret"
+  secret: "omniCommanderSecret"
 };

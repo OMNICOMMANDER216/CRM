@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Customer = mongoose.model("Customer");
 const User = mongoose.model("User");
 const Notification = mongoose.model("Notification");
+import add_notifications from '../helpers/user_notification';
 
 exports.customersController = {
   getAll: (req, res) => {
@@ -14,7 +15,8 @@ exports.customersController = {
         if (error) {
           return res.json({
             success: false,
-            message: "Error fetching the data"
+            message: "Error fetching the data",
+            error
           });
         }
         return res.json({
@@ -55,13 +57,7 @@ exports.customersController = {
       })
         .save()
         .then(notification => {
-          const bulk = User.collection.initializeOrderedBulkOp();
-          bulk
-            .find({ role: "Compliance" })
-            .update({ $addToSet: { notifications: notification._id } });
-          bulk.execute(error => {
-            if (error) console.log(error);
-          });
+          add_notifications({ role: "Compliance" }, notification);
         });
     }
 
@@ -85,22 +81,15 @@ exports.customersController = {
         })
           .save()
           .then(notification => {
-            const bulk = User.collection.initializeOrderedBulkOp();
-            bulk
-              .find({ role: "Admin" })
-              .update({ $addToSet: { notifications: notification._id } });
-            bulk
-              .find({ role: "Bookkeeping" })
-              .update({ $addToSet: { notifications: notification._id } });
-            bulk.execute(err => {
-              if (err) console.log(err);
-
-              res.json({
-                success: true,
-                data: customer
-              });
-            });
+            add_notifications(
+              { role: { $in: ["Admin", "Bookkeeping"] } },
+              notification
+            );
           });
+        res.json({
+          success: true,
+          data: customer
+        });
       })
       .catch(error => {
         res.json({
@@ -186,16 +175,10 @@ exports.customersController = {
         })
           .save()
           .then(notification => {
-            const bulk = User.collection.initializeOrderedBulkOp();
-            bulk
-              .find({ role: "Admin" })
-              .update({ $addToSet: { notifications: notification._id } });
-            bulk
-              .find({ role: "DevAdmin" })
-              .update({ $addToSet: { notifications: notification._id } });
-            bulk.execute(err => {
-              if (err) console.log(err);
-            });
+            add_notifications(
+              { role: { $in: ["Admin", "DevAdmin"] } },
+              notification
+            );
           });
       }
 
@@ -212,13 +195,7 @@ exports.customersController = {
         })
           .save()
           .then(notification => {
-            const bulk = User.collection.initializeOrderedBulkOp();
-            bulk
-              .find({ role: "Admin" })
-              .update({ $addToSet: { notifications: notification._id } });
-            bulk.execute(error => {
-              // if(!error) return next();
-            });
+            add_notifications({ role: { $in: ["Admin"] } }, notification);
           });
       }
 
@@ -231,11 +208,7 @@ exports.customersController = {
         })
           .save()
           .then(notification => {
-            const bulk = User.collection.initializeOrderedBulkOp();
-            bulk
-              .find({})
-              .update({ $addToSet: { notifications: notification._id } });
-            bulk.execute(err => {});
+            add_notifications({}, notification);
           });
       }
 
@@ -248,14 +221,10 @@ exports.customersController = {
         })
           .save()
           .then(notification => {
-            const bulk = User.collection.initializeOrderedBulkOp();
-            bulk
-              .find({ role: "Admin" })
-              .update({ $addToSet: { notifications: notification._id } });
-            bulk
-              .find({ role: "Sales" })
-              .update({ $addToSet: { notifications: notification._id } });
-            bulk.execute(err => {});
+            add_notifications(
+              { role: { $in: ["Admin", "Sales"] } },
+              notification
+            );
           });
       }
 
@@ -327,8 +296,7 @@ exports.customersController = {
             }
 
             if (
-              (oldCustomer.QA && oldCustomer.QA.toString()) !==
-              updatedCustomer.QA
+              (oldCustomer.QA && oldCustomer.QA.toString()) !== updatedCustomer.QA
             ) {
               User.removeCustomer(oldCustomer.QA, oldCustomer._id);
               if (updatedCustomer.QA) {
@@ -367,10 +335,7 @@ exports.customersController = {
       model.compliance && User.removeCustomer(model.compliance, model._id);
 
       // Remove customer from users
-      Customer.deleteOne(
-        {
-          _id: req.params.id
-        },
+      Customer.deleteOne({ _id: req.params.id },
         error => {
           if (error) {
             throw err;
