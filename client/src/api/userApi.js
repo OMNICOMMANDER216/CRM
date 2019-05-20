@@ -15,6 +15,10 @@ const token  = getToken();
 
     updateUser:  (user) => axios.put('/api/users/update-role', {data: user, headers: { 'Content-Type': 'application/json','Access-Control-Allow-Methods' : '*' } }).then(res => res.data),
 
+    notify:  (data) => {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        return axios.post('/api/users/notify', {data: data, headers: { 'Content-Type': 'application/json' , 'Authorization': 'Bearer ' + token,'Access-Control-Allow-Methods' : '*' }, mode: 'cors' }).then(res => res.data)},
+
     archiveNotification:  (notification) => axios.put('/api/users/notificationArchive', {data: notification, headers: { 'Content-Type': 'application/json','Access-Control-Allow-Methods' : '*'} }).then(res => res.data)
 };
 

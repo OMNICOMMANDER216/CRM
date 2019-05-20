@@ -7,6 +7,5 @@ export default {
     isAuthenticated: false,
     user: {},
   },
-  sideTask: [],
   loading: false,
 };

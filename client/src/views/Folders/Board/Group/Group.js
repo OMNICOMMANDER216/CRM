@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import { Card, CardBody, CardHeader, Row, Table } from 'reactstrap';
 const TaskList = React.lazy(() => import('../Task/TaskList'));
 
@@ -8,11 +9,15 @@ const styles = {
   },
   card: {
     minWidth: '100%'
+  },
+  contextMenu: {
+    backgroundColor: '#FFF',
+    padding: '1em'
   }
 }
 const loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
-export default (props) => {
+const Group =  (props) => {
   const {group, users, columns, changeHandler, saveHandler, isEditingHandler, editActive, editHandler, setSideTask, sideTask, taskFilter, removeTask, removeColumnHandler, disabled} = props;
 
 
@@ -22,7 +27,22 @@ export default (props) => {
     <Row className="full-width">
       <Card style={styles.card}>
         <CardHeader>
+        <ContextMenuTrigger id={group._id}>
           <i className="fa fa-align-justify"></i>  <h3> {group && group.title} </h3>
+          </ContextMenuTrigger>
+
+          <ContextMenu id={group._id} style={styles.contextMenu}>
+            <MenuItem data={{foo: 'bar'}} >
+              ContextMenu Item 1
+            </MenuItem>
+            <MenuItem data={{foo: 'bar'}} >
+              ContextMenu Item 2
+            </MenuItem>
+            <MenuItem divider />
+            <MenuItem data={{foo: 'bar'}} >
+              ContextMenu Item 3
+            </MenuItem>
+          </ContextMenu>
         </CardHeader>
         <CardBody>
         <Suspense fallback={loading()}>
@@ -57,3 +77,5 @@ export default (props) => {
     </React.Fragment>
   )
 }
+
+export default Group;

@@ -9,6 +9,7 @@ import { AppAside, } from '@coreui/react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, FormGroup, Label, Input} from "reactstrap";
 import { validateAll } from "indicative";
 import moment from "moment";
+import userApi from "../../../api/userApi";
 import boardsApi from "../../../api/boardsApi";
 import groupsApi from "../../../api/groupsApi";
 import TaskApi from "../../../api/tasksApi";
@@ -16,6 +17,7 @@ import * as foldersActions from "../../../store/actions/foldersActions";
 import * as sideTaskActions from "../../../store/actions/sideTask";
 import Group from "./Group/Group";
 import { isEmpty } from "lodash";
+import { log } from "util";
 
 const Modal = React.lazy(() => import("./Modal"));
 const DefaultAside = React.lazy(() => import('../../../containers/DefaultLayout/DefaultAside'));
@@ -139,6 +141,15 @@ class Board extends Component {
       let editing = Object.assign({}, this.state.editing);
       editing.column[e.target.name].value = e.target.value;
       this.setState({ editing });
+      if(editing.column[e.target.name].dataType === 'user') {
+        const userId= e.target.value;
+        const notification = {
+            title: "Assignment",
+            content: `${this.props.currentUser.firstName} assigned you to task ${editing.column[0].value}`,
+          }
+
+          userApi.notify({userId, notification}).then((res) => console.log(res.success))
+      }
     }
   };
 
@@ -429,8 +440,7 @@ let mapStateToProps = state => ({
   customers: state.customers,
   users: state.users,
   currentUser: state.auth.user,
-  groups: state.groups,
-  sideTask: {...state.sideTask[0]}
+  groups: state.groups
 });
 
 let mapDispatchToProps = dispatch => ({

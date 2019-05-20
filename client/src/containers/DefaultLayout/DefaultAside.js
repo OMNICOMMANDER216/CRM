@@ -13,7 +13,9 @@ import {
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import {isEmpty} from "lodash";
-import ReactQuill from 'react-quill';
+import ReactQuill, { Quill } from 'react-quill';
+import { ImageDrop } from 'quill-image-drop-module';
+import  ImageResize  from 'quill-image-resize-module';
 import 'react-quill/dist/quill.snow.css';
 import TaskApi from '../../api/tasksApi';
 import AsideCommentList from './AsideCommentList';
@@ -40,6 +42,7 @@ const modules = {
       ['link', 'code-block', 'image', 'video'],
       ['clean']
     ],
+    imageDrop: {}
   };
 
   const formats = [
@@ -61,6 +64,8 @@ class DefaultAside extends Component {
       editing: false,
       redirect: ""
     };
+    Quill.register('modules/imageDrop', ImageDrop);
+    Quill.register('modules/imageResize', ImageResize);
   }
 
   toggle(tab) {

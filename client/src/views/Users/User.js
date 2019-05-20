@@ -34,7 +34,7 @@ class User extends Component {
               <CardBody>
                   <Table responsive hover>
                   <thead>
-                  <tr>
+                  <tr className="text-center">
                     <td>#</td>
                     <td>Name</td>
                     <td>Status</td>
