@@ -1,17 +1,17 @@
-"use strict";
+'use strict';
 
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 
-var Folder = mongoose.model("Folder");
+var Folder = mongoose.model('Folder');
 
 exports.foldersController = {
   getAll: function getAll(req, res) {
-    Folder.find().populate("boards").exec(function (error, folders) {
+    Folder.find().populate('boards').exec(function (error, folders) {
       if (error) {
-        console.log(error);
         return res.json({
           success: false,
-          message: "Error fetching the data"
+          message: 'Error fetching the data',
+          error: error
         });
       }
       return res.json({
@@ -21,7 +21,7 @@ exports.foldersController = {
     });
   },
 
-  create: function create(req, res, next) {
+  create: function create(req, res) {
     var newFolder = req.body.data;
 
     new Folder(newFolder).save().then(function (folder) {
@@ -32,7 +32,7 @@ exports.foldersController = {
     }).catch(function (error) {
       res.json({
         success: false,
-        message: "Error saving new folder",
+        message: 'Error saving new folder',
         error: error
       });
     });
@@ -65,13 +65,16 @@ exports.foldersController = {
       _id: req.params.id
     }, function (error) {
       if (error) {
-        throw err;
-      } else {
         return res.json({
-          success: true,
-          message: "folder deleted"
+          success: false,
+          message: 'Error deleting folder',
+          error: error
         });
       }
+      return res.json({
+        success: true,
+        message: 'folder deleted'
+      });
     });
   }
 };

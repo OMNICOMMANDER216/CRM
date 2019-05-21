@@ -1,72 +1,72 @@
-const mongoose = require("mongoose");
-const Group = mongoose.model("Group");
-const Board = mongoose.model("Board");
+const mongoose = require('mongoose');
+
+const Group = mongoose.model('Group');
+const Board = mongoose.model('Board');
 
 exports.groupsController = {
   getAll: (req, res) => {
     Group.find()
-      .populate("boards")
+      .populate('boards')
       .exec((error, groups) => {
         if (error) {
           return res.json({
             success: false,
-            message: "Error fetching the data"
-          });
-        } else {
-          return res.json({
-            success: true,
-            data: groups
+            message: 'Error fetching the data',
           });
         }
+        return res.json({
+          success: true,
+          data: groups,
+        });
       });
   },
 
-  create: (req, res, next) => {
-    let { group, boardId } = req.body.data;
+  create: (req, res) => {
+    const { group, boardId } = req.body.data;
 
     new Group(group)
       .save()
-      .then(saveGroup => {
+      .then((saveGroup) => {
         // Add to board
-        Board.addGroup(boardId, saveGroup._id, (error, board) => {
+        Board.addGroup(boardId, saveGroup._id, (error) => {
           if (error) throw error;
           res.json({
             success: true,
-            data: saveGroup
+            data: saveGroup,
           });
         });
       })
-      .catch(error => {
+      .catch((error) => {
         res.json({
           success: false,
-          message: "Error saving new group",
-          error: error
+          message: 'Error saving new group',
+          error,
         });
       });
   },
 
   update: (req, res) => {
-    let updatedGroup = req.body.data;
+    const updatedGroup = req.body.data;
     // updated group
     Group.findByIdAndUpdate(
       updatedGroup._id,
       updatedGroup,
       {
-        new: true
+        new: true,
       },
-      function(error, model) {
+      (error, model) => {
         if (error) {
           res.json({
             success: false,
-            message: error
+            message: error,
           });
         } else {
           res.json({
             success: true,
-            data: model
+            data: model,
           });
         }
-      }
+      },
     );
   },
 
@@ -75,18 +75,18 @@ exports.groupsController = {
     // Remove group from users
     Group.deleteOne(
       {
-        _id: req.params.id
+        _id: req.params.id,
       },
-      function(error) {
+      (error) => {
         if (error) {
           throw err;
         } else {
           return res.json({
             success: true,
-            message: "group deleted"
+            message: 'group deleted',
           });
         }
-      }
+      },
     );
-  }
+  },
 };

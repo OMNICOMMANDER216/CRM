@@ -1,27 +1,27 @@
-"use strict";
+'use strict';
 
-var mongoose = require("mongoose");
-var Group = mongoose.model("Group");
-var Board = mongoose.model("Board");
+var mongoose = require('mongoose');
+
+var Group = mongoose.model('Group');
+var Board = mongoose.model('Board');
 
 exports.groupsController = {
   getAll: function getAll(req, res) {
-    Group.find().populate("boards").exec(function (error, groups) {
+    Group.find().populate('boards').exec(function (error, groups) {
       if (error) {
         return res.json({
           success: false,
-          message: "Error fetching the data"
-        });
-      } else {
-        return res.json({
-          success: true,
-          data: groups
+          message: 'Error fetching the data'
         });
       }
+      return res.json({
+        success: true,
+        data: groups
+      });
     });
   },
 
-  create: function create(req, res, next) {
+  create: function create(req, res) {
     var _req$body$data = req.body.data,
         group = _req$body$data.group,
         boardId = _req$body$data.boardId;
@@ -29,7 +29,7 @@ exports.groupsController = {
 
     new Group(group).save().then(function (saveGroup) {
       // Add to board
-      Board.addGroup(boardId, saveGroup._id, function (error, board) {
+      Board.addGroup(boardId, saveGroup._id, function (error) {
         if (error) throw error;
         res.json({
           success: true,
@@ -39,7 +39,7 @@ exports.groupsController = {
     }).catch(function (error) {
       res.json({
         success: false,
-        message: "Error saving new group",
+        message: 'Error saving new group',
         error: error
       });
     });
@@ -76,7 +76,7 @@ exports.groupsController = {
       } else {
         return res.json({
           success: true,
-          message: "group deleted"
+          message: 'group deleted'
         });
       }
     });

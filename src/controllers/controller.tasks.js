@@ -1,25 +1,26 @@
 /* eslint-disable no-underscore-dangle */
-const mongoose = require("mongoose");
 import * as _ from 'lodash';
 
-const Task = mongoose.model("Task");
-const Group = mongoose.model("Group");
+const mongoose = require('mongoose');
+
+const Task = mongoose.model('Task');
+const Group = mongoose.model('Group');
 
 exports.tasksController = {
   getAll: (req, res) => {
     Task.find()
-      .populate("boards")
+      .populate('boards')
       .exec((error, tasks) => {
         if (error) {
           return res.json({
             success: false,
-            message: "Error fetching the data",
-            error
+            message: 'Error fetching the data',
+            error,
           });
         }
         return res.json({
           success: true,
-          data: tasks
+          data: tasks,
         });
       });
   },
@@ -28,7 +29,7 @@ exports.tasksController = {
     const newTask = req.body.data;
     new Task(newTask)
       .save()
-      .then(task => {
+      .then((task) => {
         // save  task in Group then return task
 
         Group.addTask(task, (error, model) => {
@@ -38,43 +39,43 @@ exports.tasksController = {
           // return inserted task
           res.json({
             success: true,
-            data: task
+            data: task,
           });
         });
       })
-      .catch(error => {
+      .catch((error) => {
         res.json({
           success: false,
-          message: "Error saving new task",
-          error
+          message: 'Error saving new task',
+          error,
         });
       });
   },
 
   update: (req, res) => {
     const updatedTask = req.body.data;
-    
+
     // updated task
     Task.findByIdAndUpdate(
       updatedTask._id,
       updatedTask,
       {
-        new: true
+        new: true,
       },
       (error, model) => {
         if (error) {
           res.json({
             success: false,
-            message: "Error updating!",
-            error
+            message: 'Error updating!',
+            error,
           });
         } else {
           res.json({
             success: true,
-            data: model
+            data: model,
           });
         }
-      }
+      },
     );
   },
 
@@ -83,23 +84,23 @@ exports.tasksController = {
     // Remove task from users
     Task.deleteOne(
       {
-        _id: req.params.id
+        _id: req.params.id,
       },
-      error => {
+      (error) => {
         if (error) {
           throw error;
           res.json({
             success: false,
-            message: "Error updating!",
-            error
-          })
+            message: 'Error updating!',
+            error,
+          });
         } else {
           return res.json({
             success: true,
-            message: "task deleted"
+            message: 'task deleted',
           });
         }
-      }
+      },
     );
-  }
+  },
 };

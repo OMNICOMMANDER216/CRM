@@ -1,23 +1,24 @@
-"use strict";
+'use strict';
 
-var GoogleStrategy = require("passport-google-oauth20").Strategy;
-var googleKeys = require("./config").google;
+/* eslint-disable no-underscore-dangle */
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
+var mongoose = require('mongoose');
+var googleKeys = require('./config').google;
 
-var mongoose = require("mongoose");
-//load user mmodel
-var User = mongoose.model("User");
+// load user mmodel
+var User = mongoose.model('User');
 
 module.exports = function (passport) {
   // Google Oauth Strategy
-  passport.use("google", new GoogleStrategy({
+  passport.use('google', new GoogleStrategy({
     clientID: googleKeys.clientId,
     clientSecret: googleKeys.clientSecret,
-    callbackURL: "/auth/google/callback",
+    callbackURL: '/auth/google/callback',
     proxy: true
   }, function (accessToken, refreshToken, profile, done) {
-    var image = profile._json.image.url.replace("/s50", "");
+    var image = profile._json.image.url.replace('/s50', '');
 
-    if (profile._json.domain === "omnicommander.com") {
+    if (profile._json.domain === 'omnicommander.com') {
       var newUser = {
         googleID: profile.id,
         firstName: profile.name.givenName,
@@ -32,9 +33,9 @@ module.exports = function (passport) {
         if (user) {
           done(null, user);
         } else {
-          //Create User
-          new User(newUser).save().then(function (user) {
-            done(null, user);
+          // Create User
+          new User(newUser).save().then(function (model) {
+            done(null, model);
           });
         }
       });
@@ -51,7 +52,7 @@ module.exports = function (passport) {
     User.findById(id).then(function (user) {
       done(null, user);
     }).catch(function (err) {
-      console.log(err);
+      throw err;
     });
   });
 };

@@ -1,5 +1,8 @@
-"use strict";
+'use strict';
 
-exports.session = {
-  secret: "omniCommanderSecret"
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  secret: 'omniCommanderSecret'
 };

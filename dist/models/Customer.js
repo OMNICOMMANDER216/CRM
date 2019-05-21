@@ -1,7 +1,9 @@
-"use strict";
+'use strict';
 
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
+
 var Schema = mongoose.Schema;
+
 
 var CustomerSchema = new Schema({
   name: {
@@ -12,7 +14,7 @@ var CustomerSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ["Signed", "Deposit", "Assigned", "QA", "DNS", "Live", "Idle", "FinalInvoice"]
+    enum: ['Signed', 'Deposit', 'Assigned', 'QA', 'DNS', 'Live', 'Idle', 'FinalInvoice']
   },
   kickoffDate: {
     type: String
@@ -47,34 +49,34 @@ var CustomerSchema = new Schema({
   log: [{
     status: {
       type: String,
-      enum: ["Signed", "Deposit", "Assigned", "QA", "DNS", "Live", "Idle", "FinalInvoice"]
+      enum: ['Signed', 'Deposit', 'Assigned', 'QA', 'DNS', 'Live', 'Idle', 'FinalInvoice']
     },
     time: Date
   }],
   services: [{
     type: String,
-    enum: ["website", "social-media", "email", "live-chat", "branding", "promet", "form-stack", "logo", "digital-signage", "domain"]
+    enum: ['website', 'social-media', 'email', 'live-chat', 'branding', 'promet', 'form-stack', 'logo', 'digital-signage', 'domain']
   }],
   pdfs: {
     type: String
   },
   pm: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: 'User'
   },
   dev: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: 'User'
   },
   compliance: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: 'User'
   },
   QA: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: 'User'
   }
 }, { timestamps: true });
 
-//Create Collection and add Schema
-mongoose.model("Customer", CustomerSchema);
+// Create Collection and add Schema
+mongoose.model('Customer', CustomerSchema);

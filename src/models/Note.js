@@ -1,23 +1,24 @@
-const mongoose = require("mongoose");
-let Schema = mongoose.Schema;
+const mongoose = require('mongoose');
 
-let NoteSchema = new Schema(
+const { Schema } = mongoose;
+
+const NoteSchema = new Schema(
   {
     date: {
       type: String,
-      required: true
+      required: true,
     },
     comment: {
       type: String,
-      required: true
+      required: true,
     },
     cu: {
       type: Schema.Types.ObjectId,
-      ref: "Customer"
-    }
+      ref: 'Customer',
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-//Create Collection and add Schema
-mongoose.model("Note", NoteSchema);
+// Create Collection and add Schema
+mongoose.model('Note', NoteSchema);

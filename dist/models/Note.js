@@ -1,7 +1,9 @@
-"use strict";
+'use strict';
 
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
+
 var Schema = mongoose.Schema;
+
 
 var NoteSchema = new Schema({
   date: {
@@ -14,9 +16,9 @@ var NoteSchema = new Schema({
   },
   cu: {
     type: Schema.Types.ObjectId,
-    ref: "Customer"
+    ref: 'Customer'
   }
 }, { timestamps: true });
 
-//Create Collection and add Schema
-mongoose.model("Note", NoteSchema);
+// Create Collection and add Schema
+mongoose.model('Note', NoteSchema);

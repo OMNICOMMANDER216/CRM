@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
@@ -8,50 +8,50 @@ const FolderSchema = new Schema(
       type: String,
       required: true,
       enum: [
-        "Overview",
-        "Implementation",
-        "Compliance",
-        "QA",
-        "Accounting",
-        "Live Sites",
-        "IT"
-      ]
+        'Overview',
+        'Implementation',
+        'Compliance',
+        'QA',
+        'Accounting',
+        'Live Sites',
+        'IT',
+      ],
     },
     boards: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Board"
-      }
-    ]
+        ref: 'Board',
+      },
+    ],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 FolderSchema.statics.addBoard = function addBoard(
   folder_id,
   board_id,
-  callback
+  callback,
 ) {
-  this.model("Folder").findByIdAndUpdate(
+  this.model('Folder').findByIdAndUpdate(
     folder_id,
     { $addToSet: { boards: board_id } },
     { new: true },
-    callback
+    callback,
   );
 };
 
 FolderSchema.statics.removeBoard = function removeBoard(
   folder_id,
   board_id,
-  callback
+  callback,
 ) {
-  this.model("Folder").findByIdAndUpdate(
+  this.model('Folder').findByIdAndUpdate(
     folder_id,
     { $pull: { boards: board_id } },
     { new: true },
-    callback
+    callback,
   );
 };
 
 // Create Collection and add Schema
-mongoose.model("Folder", FolderSchema);
+mongoose.model('Folder', FolderSchema);

@@ -1,9 +1,9 @@
-const mongoose = require("mongoose");
-
-const User = mongoose.model("User");
-const Notification = mongoose.model("Notification");
-
 import add_notifications from '../helpers/user_notification';
+
+const mongoose = require('mongoose');
+
+const User = mongoose.model('User');
+const Notification = mongoose.model('Notification');
 
 exports.usersController = {
   getCurrentUser: (req, res) => {
@@ -12,19 +12,19 @@ exports.usersController = {
 
   getAll: (req, res) => {
     User.find({})
-      .populate("customers")
-      .populate("notifications")
+      .populate('customers')
+      .populate('notifications')
       .exec((error, users) => {
         if (error) {
           res.json({
             success: false,
-            message: "Server error",
-            error
+            message: 'Server error',
+            error,
           });
         } else {
           res.json({
             success: true,
-            data: users
+            data: users,
           });
         }
       });
@@ -32,18 +32,18 @@ exports.usersController = {
 
   getById: (req, res) => {
     User.findById(req.params.id)
-      .populate("customers")
+      .populate('customers')
       .exec((error, user) => {
         if (error) {
           res.json({
             success: false,
-            message: "Error retrieving User",
-            error
+            message: 'Error retrieving User',
+            error,
           });
         } else {
           res.json({
             success: true,
-            data: user
+            data: user,
           });
         }
       });
@@ -56,22 +56,22 @@ exports.usersController = {
         userToUpdate._id,
         { role: userToUpdate.role },
         {
-          new: true
+          new: true,
         },
         (error, user) => {
           if (error) {
             res.json({
               success: false,
-              message: "Error Updating User",
-              error
+              message: 'Error Updating User',
+              error,
             });
           } else {
             res.json({
               success: true,
-              data: user
+              data: user,
             });
           }
-        }
+        },
       );
     }
   },
@@ -80,13 +80,13 @@ exports.usersController = {
     const { userId, notification } = req.body.data;
     new Notification(notification)
       .save()
-      .then(n => {
-          add_notifications({ _id : mongoose.Types.ObjectId(userId) }, n);
-          res.json({
-            success: true,
-            message: "User Notified" 
-          })
-      }).catch((error) => console.log(error));
+      .then((n) => {
+        add_notifications({ _id: mongoose.Types.ObjectId(userId) }, n);
+        res.json({
+          success: true,
+          message: 'User Notified',
+        });
+      }).catch(error => console.log(error));
   },
 
   notificationArchive: (req, res) => {
@@ -94,25 +94,25 @@ exports.usersController = {
 
     // delete notification
     User.findByIdAndUpdate(req.currentUser._id, {
-      $pull: { notifications: notification._id }
-    }).then(model => {
+      $pull: { notifications: notification._id },
+    }).then((model) => {
       User.findById(model._id)
-        .populate("notifications")
-        .populate("customers")
+        .populate('notifications')
+        .populate('customers')
         .exec((error, user) => {
           if (error) {
             res.json({
               success: false,
-              message: "Error Updating User",
-              error
+              message: 'Error Updating User',
+              error,
             });
           } else {
             res.json({
               success: true,
-              data: user
+              data: user,
             });
           }
         });
     });
-  }
+  },
 };

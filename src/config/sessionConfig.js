@@ -1,3 +1,3 @@
-exports.session = {
-  secret: "omniCommanderSecret"
+export default {
+  secret: 'omniCommanderSecret',
 };

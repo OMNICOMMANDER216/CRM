@@ -1,26 +1,26 @@
 module.exports = [
   {
-    title: "Pre Call"
+    title: 'Pre Call',
   },
   {
-    title: "Kickoff"
+    title: 'Kickoff',
   },
   {
-    title: "Develop Framework"
+    title: 'Develop Framework',
   },
   {
-    title: "Walkthrough"
+    title: 'Walkthrough',
   },
   {
-    title: "ADA Compliance"
+    title: 'ADA Compliance',
   },
   {
-    title: "Quality Assurance"
+    title: 'Quality Assurance',
   },
   {
-    title: "Go Live Process"
+    title: 'Go Live Process',
   },
   {
-    title: "QA Findings"
-  }
+    title: 'QA Findings',
+  },
 ];

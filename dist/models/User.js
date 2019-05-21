@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
 /* eslint-disable func-names */
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
@@ -26,45 +26,45 @@ var UserSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ["Bookkeeping", "Sales", "Pm", "DevAdmin", "Developer", "Compliance", "Admin"]
+    enum: ['Bookkeeping', 'Sales', 'Pm', 'DevAdmin', 'Developer', 'Compliance', 'Admin']
   },
   customers: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Customer"
+    ref: 'Customer'
   }],
   notifications: [{
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Notification"
+    ref: 'Notification'
   }]
 }, { timestamps: true });
 
-UserSchema.statics.addCustomer = function (user_id, customer_id, notification_id) {
-  this.model("User").findByIdAndUpdate(user_id, { $addToSet: { customers: customer_id, notifications: notification_id } }, function (error, model) {
+UserSchema.statics.addCustomer = function (userId, customerId, notificationId) {
+  this.model('User').findByIdAndUpdate(userId, { $addToSet: { customers: customerId, notifications: notificationId } }, function (error, model) {
     if (error) {
-      console.log(error);
+      throw error;
     }
   });
 };
 
-UserSchema.statics.removeCustomer = function (user_id, customer_id) {
-  this.model("User").findByIdAndUpdate(user_id, { $pull: { customers: customer_id } }, function (error, model) {
+UserSchema.statics.removeCustomer = function (userId, customerId) {
+  this.model('User').findByIdAndUpdate(userId, { $pull: { customers: customerId } }, function (error, model) {
     if (error) {
-      console.log(error);
+      throw error;
     }
   });
 };
 
-UserSchema.statics.add_notifications = function add_notifications(query, notification) {
-  var bulk = this.model("User").collection.initializeOrderedBulkOp();
+UserSchema.statics.addNotifications = function addNotifications(query, notification) {
+  var bulk = this.model('User').collection.initializeOrderedBulkOp();
   bulk.find(query).update({ $addToSet: { notifications: notification._id } });
   bulk.execute(function (err) {
-    return err && console.log(err);
+    if (err) throw err;
   });
 };
 
 UserSchema.methods.setRole = function (role) {
-  return undefined.role = role;
+  undefined.role = role;
 };
 
 // Create Collection and add Schema
-mongoose.model("User", UserSchema);
+mongoose.model('User', UserSchema);

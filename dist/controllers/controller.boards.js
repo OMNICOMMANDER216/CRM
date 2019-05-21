@@ -1,22 +1,22 @@
-"use strict";
+'use strict';
 
 /* eslint-disable no-underscore-dangle */
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 
-var Board = mongoose.model("Board");
-var Folder = mongoose.model("Folder");
-var Group = mongoose.model("Group");
-var Task = mongoose.model("Task");
+var Board = mongoose.model('Board');
+var Folder = mongoose.model('Folder');
+var Group = mongoose.model('Group');
+var Task = mongoose.model('Task');
 
-var initialColumns = require("../models/default_column");
+var initialColumns = require('../models/default_column');
 
 exports.boardsController = {
   getAll: function getAll(req, res) {
-    Board.find().populate("columns").populate("groups").exec(function (error, boards) {
+    Board.find().populate('columns').populate('groups').exec(function (error, boards) {
       if (error) {
         return res.json({
           success: false,
-          message: "Error fetching the data",
+          message: 'Error fetching the data',
           error: error
         });
       }
@@ -30,8 +30,8 @@ exports.boardsController = {
   getById: function getById(req, res) {
     // Remove board from users
     Board.findById(req.params.id).populate({
-      path: "groups",
-      populate: { path: "tasks", model: "Task" }
+      path: 'groups',
+      populate: { path: 'tasks', model: 'Task' }
     }).exec(function (error, board) {
       res.json({
         success: true,
@@ -40,7 +40,7 @@ exports.boardsController = {
     });
   },
 
-  create: function create(req, res, next) {
+  create: function create(req, res) {
     var newBoard = req.body.data;
     newBoard.columns = initialColumns;
     // Create initial groups
@@ -57,7 +57,7 @@ exports.boardsController = {
         Folder.addBoard(board.folder, board._id, function (err, folder) {
           if (err) console.log(err);
           // populate
-          Folder.populate(folder, "boards", function (folderError) {
+          Folder.populate(folder, 'boards', function (folderError) {
             if (folderError) throw folderError;
 
             res.json({
@@ -69,7 +69,7 @@ exports.boardsController = {
       }).catch(function (error) {
         res.json({
           success: false,
-          message: "Error saving new board",
+          message: 'Error saving new board',
           error: error
         });
       });
@@ -91,7 +91,8 @@ exports.boardsController = {
         Folder.findById(board.folder, function (FolderError, folder) {
           if (FolderError) console.log(FolderError);
           // populate
-          Folder.populate(folder, "boards", function (err) {
+          Folder.populate(folder, 'boards', function (err) {
+            if (err) throw err;
             res.json({
               success: true,
               data: folder
@@ -121,12 +122,11 @@ exports.boardsController = {
       if (error) throw error;
 
       //  Get all Folders and send back
-      Folder.find().populate("boards").exec(function (error, folders) {
-        if (error) {
-          console.log(error);
+      Folder.find().populate('boards').exec(function (execError, folders) {
+        if (execError) {
           return res.json({
             success: false,
-            message: "Error fetching the data"
+            message: 'Error fetching the data'
           });
         }
         return res.json({
@@ -150,11 +150,11 @@ exports.boardsController = {
         _id: mongoose.Types.ObjectId()
       };
       Task.addColumn(newCol, function (error) {
-        if (error) console.log(error);
+        if (error) throw error;
         // query and populate Board
         Board.findById(model._id).populate({
-          path: "groups",
-          populate: { path: "tasks", model: "Task" }
+          path: 'groups',
+          populate: { path: 'tasks', model: 'Task' }
         }).exec(function (boardError, board) {
           if (boardError) {
             res.json({
@@ -183,13 +183,14 @@ exports.boardsController = {
     bulk.find({}).update({
       $pull: { column: { colRef: mongoose.Types.ObjectId(columnId) } }
     });
+
     bulk.execute(function (err) {
-      if (err) console.log(err);
+      if (err) throw err;
 
       // Remove column from Board
       Board.findByIdAndUpdate(mongoose.Types.ObjectId(board._id), { $pull: { columns: { _id: mongoose.Types.ObjectId(columnId) } } }, { new: true }).populate({
-        path: "groups",
-        populate: { path: "tasks", model: "Task" }
+        path: 'groups',
+        populate: { path: 'tasks', model: 'Task' }
       }).exec(function (boardError, model) {
         if (boardError) {
           res.json({
@@ -219,9 +220,9 @@ exports.boardsController = {
         Task.deleteMany({ board: board._id }).exec();
 
         Folder.removeBoard(board.folder, board._id, function (err, folder) {
-          if (err) console.log(err);
+          if (err) throw err;
           // populate
-          Folder.populate(folder, "boards", function (folderError) {
+          Folder.populate(folder, 'boards', function (folderError) {
             if (folderError) throw folderError;
             res.json({
               success: true,

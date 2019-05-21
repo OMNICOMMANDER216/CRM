@@ -1,50 +1,51 @@
-let GoogleStrategy = require("passport-google-oauth20").Strategy;
-const googleKeys = require("./config").google;
+/* eslint-disable no-underscore-dangle */
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const mongoose = require('mongoose');
+const googleKeys = require('./config').google;
 
-const mongoose = require("mongoose");
-//load user mmodel
-const User = mongoose.model("User");
+// load user mmodel
+const User = mongoose.model('User');
 
-module.exports = passport => {
+module.exports = (passport) => {
   // Google Oauth Strategy
   passport.use(
-    "google",
+    'google',
     new GoogleStrategy(
       {
         clientID: googleKeys.clientId,
         clientSecret: googleKeys.clientSecret,
-        callbackURL: "/auth/google/callback",
-        proxy: true
+        callbackURL: '/auth/google/callback',
+        proxy: true,
       },
       (accessToken, refreshToken, profile, done) => {
-        const image = profile._json.image.url.replace("/s50", "");
+        const image = profile._json.image.url.replace('/s50', '');
 
-        if (profile._json.domain === "omnicommander.com") {
+        if (profile._json.domain === 'omnicommander.com') {
           const newUser = {
             googleID: profile.id,
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
             email: profile.emails[0].value,
-            image: image
+            image,
           };
 
           User.findOne({
-            googleID: profile.id
-          }).then(user => {
+            googleID: profile.id,
+          }).then((user) => {
             if (user) {
               done(null, user);
             } else {
-              //Create User
-              new User(newUser).save().then(user => {
-                done(null, user);
+              // Create User
+              new User(newUser).save().then((model) => {
+                done(null, model);
               });
             }
           });
         } else {
           done(null, false);
         }
-      }
-    )
+      },
+    ),
   );
 
   passport.serializeUser((user, done) => {
@@ -53,11 +54,11 @@ module.exports = passport => {
 
   passport.deserializeUser((id, done) => {
     User.findById(id)
-      .then(user => {
+      .then((user) => {
         done(null, user);
       })
-      .catch(err => {
-        console.log(err);
+      .catch((err) => {
+        throw err;
       });
   });
 };

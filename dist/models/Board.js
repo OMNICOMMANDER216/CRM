@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
@@ -12,7 +12,7 @@ var BoardSchema = new Schema({
   },
   customer: {
     type: Schema.Types.ObjectId,
-    ref: "Customer",
+    ref: 'Customer',
     required: true
   },
   description: {
@@ -20,7 +20,7 @@ var BoardSchema = new Schema({
   },
   folder: {
     type: Schema.Types.ObjectId,
-    ref: "Folder",
+    ref: 'Folder',
     required: true
   },
   columns: [{
@@ -30,23 +30,23 @@ var BoardSchema = new Schema({
     },
     type: {
       type: String,
-      enum: ["name", "user", "status", "priority", "last_updated", "date"],
+      enum: ['name', 'user', 'status', 'priority', 'last_updated', 'date'],
       required: true
     }
   }],
   groups: [{
     type: Schema.Types.ObjectId,
-    ref: "Group"
+    ref: 'Group'
   }]
 }, { timestamps: true });
 
-BoardSchema.statics.addGroup = function addGroup(board_id, group_id, callback) {
-  this.model("Board").findByIdAndUpdate(board_id, { $addToSet: { groups: group_id } }, { new: true }, callback);
+BoardSchema.statics.addGroup = function addGroup(boardId, groupId, callback) {
+  this.model('Board').findByIdAndUpdate(boardId, { $addToSet: { groups: groupId } }, { new: true }, callback);
 };
 
-BoardSchema.statics.removeGroup = function removeGroup(board_id, group_id, callback) {
-  this.model("Board").findByIdAndUpdate(board_id, { $pull: { groups: group_id } }, { new: true }, callback);
+BoardSchema.statics.removeGroup = function removeGroup(boardId, groupId, callback) {
+  this.model('Board').findByIdAndUpdate(boardId, { $pull: { groups: groupId } }, { new: true }, callback);
 };
 
 // Create Collection and add Schema
-mongoose.model("Board", BoardSchema);
+mongoose.model('Board', BoardSchema);

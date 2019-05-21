@@ -1,91 +1,95 @@
 /* eslint-disable func-names */
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
 const UserSchema = new Schema(
   {
     googleID: {
-      type: String
+      type: String,
     },
     email: {
       type: String,
       required: true,
-      unique: true
+      unique: true,
     },
     firstName: {
-      type: String
+      type: String,
     },
     lastName: {
-      type: String
+      type: String,
     },
     image: {
-      type: String
+      type: String,
     },
     role: {
       type: String,
       enum: [
-        "Bookkeeping",
-        "Sales",
-        "Pm",
-        "DevAdmin",
-        "Developer",
-        "Compliance",
-        "Admin"
-      ]
+        'Bookkeeping',
+        'Sales',
+        'Pm',
+        'DevAdmin',
+        'Developer',
+        'Compliance',
+        'Admin',
+      ],
     },
     customers: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Customer"
-      }
+        ref: 'Customer',
+      },
     ],
     notifications: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Notification"
-      }
-    ]
+        ref: 'Notification',
+      },
+    ],
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-UserSchema.statics.addCustomer = function(
-  user_id,
-  customer_id,
-  notification_id
+UserSchema.statics.addCustomer = function (
+  userId,
+  customerId,
+  notificationId,
 ) {
-  this.model("User").findByIdAndUpdate(
-    user_id,
-    { $addToSet: { customers: customer_id, notifications: notification_id } },
+  this.model('User').findByIdAndUpdate(
+    userId,
+    { $addToSet: { customers: customerId, notifications: notificationId } },
     (error, model) => {
       if (error) {
-        console.log(error);
+        throw error;
       }
-    }
+    },
   );
 };
 
-UserSchema.statics.removeCustomer = function(user_id, customer_id) {
-  this.model("User").findByIdAndUpdate(
-    user_id,
-    { $pull: { customers: customer_id } },
+UserSchema.statics.removeCustomer = function (userId, customerId) {
+  this.model('User').findByIdAndUpdate(
+    userId,
+    { $pull: { customers: customerId } },
     (error, model) => {
       if (error) {
-        console.log(error);
+        throw error;
       }
-    }
+    },
   );
 };
 
-UserSchema.statics.add_notifications = function add_notifications(query, notification) {
-  const bulk = this.model("User").collection.initializeOrderedBulkOp();
+UserSchema.statics.addNotifications = function addNotifications(query, notification) {
+  const bulk = this.model('User').collection.initializeOrderedBulkOp();
   bulk.find(query)
     .update({ $addToSet: { notifications: notification._id } });
-  bulk.execute(err => err && console.log(err));
+  bulk.execute((err) => {
+    if (err) throw err;
+  });
 };
 
-UserSchema.methods.setRole = role => (this.role = role);
+UserSchema.methods.setRole = (role) => {
+  this.role = role;
+};
 
 // Create Collection and add Schema
-mongoose.model("User", UserSchema);
+mongoose.model('User', UserSchema);

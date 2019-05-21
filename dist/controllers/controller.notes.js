@@ -1,12 +1,14 @@
-"use strict";
+'use strict';
 
-var mongoose = require("mongoose");
-var Customer = mongoose.model("Customer");
-var Note = mongoose.model("Note");
+var mongoose = require('mongoose');
+
+var Customer = mongoose.model('Customer');
+var Note = mongoose.model('Note');
 
 exports.notesController = {
   getAll: function getAll(req, res) {
     var id = req.params.id;
+
     Note.find({ cu: mongoose.Types.ObjectId(id) }).then(function (notes) {
       return res.json({
         success: true,
@@ -15,7 +17,7 @@ exports.notesController = {
     }).catch(function (error) {
       return res.json({
         success: false,
-        message: "Error fetching the data",
+        message: 'Error fetching the data',
         error: error
       });
     });
@@ -26,15 +28,14 @@ exports.notesController = {
       if (error) {
         return res.json({
           success: false,
-          data: "Error retrieving Note",
+          data: 'Error retrieving Note',
           error: error
         });
-      } else {
-        return res.json({
-          success: true,
-          data: model
-        });
       }
+      return res.json({
+        success: true,
+        data: model
+      });
     });
   },
 
@@ -49,7 +50,7 @@ exports.notesController = {
     }).catch(function (error) {
       res.json({
         success: false,
-        message: "Error saving new note",
+        message: 'Error saving new note',
         error: error
       });
     });
@@ -64,7 +65,7 @@ exports.notesController = {
       if (error) {
         res.json({
           success: false,
-          message: "Error updating",
+          message: 'Error updating',
           error: error
         });
       } else {
@@ -87,7 +88,7 @@ exports.notesController = {
       } else {
         return res.json({
           success: true,
-          message: "customer deleted"
+          message: 'customer deleted'
         });
       }
     });

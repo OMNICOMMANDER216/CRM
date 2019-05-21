@@ -1,26 +1,27 @@
-const mongoose = require("mongoose");
-let Schema = mongoose.Schema;
+const mongoose = require('mongoose');
 
-let NotificationSchema = new Schema(
+const { Schema } = mongoose;
+
+const NotificationSchema = new Schema(
   {
     title: {
-      type: String
+      type: String,
     },
     content: {
       type: String,
-      required: true
+      required: true,
     },
     isRead: {
       type: Boolean,
-      default: false
+      default: false,
     },
     cu: {
       type: Schema.Types.ObjectId,
-      ref: "Customer"
-    }
+      ref: 'Customer',
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-//Create Collection and add Schema
-mongoose.model("Notification", NotificationSchema);
+// Create Collection and add Schema
+mongoose.model('Notification', NotificationSchema);

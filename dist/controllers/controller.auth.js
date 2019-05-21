@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-var secret = require("../config/config");
-var jwt = require("jsonwebtoken");
+var jwt = require('jsonwebtoken');
+var secret = require('../config/config');
 
 exports.authController = {
   googleCallback: function googleCallback(req, res) {
@@ -15,18 +15,16 @@ exports.authController = {
       image: req.user.image
     }, secret.jwtSecret.secret);
 
-    res.cookie("t", token, {
+    res.cookie('t', token, {
       expire: new Date() + 9999
     });
     // Production
-    return res.redirect("/logged?token=" + token);
-    // Development
-    // return res.redirect('http://localhost:3000?token='+token);
+    return res.redirect('/logged?token=' + token);
   },
 
   logout: function logout(req, res) {
-    res.clearCookie("t");
+    res.clearCookie('t');
     req.logout();
-    res.redirect("/");
+    res.redirect('/');
   }
 };

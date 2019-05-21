@@ -1,42 +1,42 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const Folder = mongoose.model("Folder");
+const Folder = mongoose.model('Folder');
 
 exports.foldersController = {
   getAll: (req, res) => {
     Folder.find()
-      .populate("boards")
+      .populate('boards')
       .exec((error, folders) => {
         if (error) {
-          console.log(error);
           return res.json({
             success: false,
-            message: "Error fetching the data"
+            message: 'Error fetching the data',
+            error,
           });
         }
         return res.json({
           success: true,
-          data: folders
+          data: folders,
         });
       });
   },
 
-  create: (req, res, next) => {
+  create: (req, res) => {
     const newFolder = req.body.data;
 
     new Folder(newFolder)
       .save()
-      .then(folder => {
+      .then((folder) => {
         res.json({
           success: true,
-          data: folder
+          data: folder,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         res.json({
           success: false,
-          message: "Error saving new folder",
-          error
+          message: 'Error saving new folder',
+          error,
         });
       });
   },
@@ -48,21 +48,21 @@ exports.foldersController = {
       updatedFolder._id,
       updatedFolder,
       {
-        new: true
+        new: true,
       },
       (error, model) => {
         if (error) {
           res.json({
             success: false,
-            message: error
+            message: error,
           });
         } else {
           res.json({
             success: true,
-            data: model
+            data: model,
           });
         }
-      }
+      },
     );
   },
 
@@ -71,18 +71,22 @@ exports.foldersController = {
     // Remove folder from users
     Folder.deleteOne(
       {
-        _id: req.params.id
+        _id: req.params.id,
       },
-      error => {
+      (error) => {
         if (error) {
-          throw err;
-        } else {
+          return res.json({
+            success: false,
+            message: 'Error deleting folder',
+            error
+          });
+        } 
           return res.json({
             success: true,
-            message: "folder deleted"
+            message: 'folder deleted',
           });
-        }
-      }
+        
+      },
     );
-  }
+  },
 };

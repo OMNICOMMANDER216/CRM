@@ -1,15 +1,15 @@
-"use strict";
+'use strict';
 
-var _user_notification = require("../helpers/user_notification");
+var _user_notification = require('../helpers/user_notification');
 
 var _user_notification2 = _interopRequireDefault(_user_notification);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
 
-var User = mongoose.model("User");
-var Notification = mongoose.model("Notification");
+var User = mongoose.model('User');
+var Notification = mongoose.model('Notification');
 
 exports.usersController = {
   getCurrentUser: function getCurrentUser(req, res) {
@@ -17,11 +17,11 @@ exports.usersController = {
   },
 
   getAll: function getAll(req, res) {
-    User.find({}).populate("customers").populate("notifications").exec(function (error, users) {
+    User.find({}).populate('customers').populate('notifications').exec(function (error, users) {
       if (error) {
         res.json({
           success: false,
-          message: "Server error",
+          message: 'Server error',
           error: error
         });
       } else {
@@ -34,11 +34,11 @@ exports.usersController = {
   },
 
   getById: function getById(req, res) {
-    User.findById(req.params.id).populate("customers").exec(function (error, user) {
+    User.findById(req.params.id).populate('customers').exec(function (error, user) {
       if (error) {
         res.json({
           success: false,
-          message: "Error retrieving User",
+          message: 'Error retrieving User',
           error: error
         });
       } else {
@@ -59,7 +59,7 @@ exports.usersController = {
         if (error) {
           res.json({
             success: false,
-            message: "Error Updating User",
+            message: 'Error Updating User',
             error: error
           });
         } else {
@@ -81,7 +81,7 @@ exports.usersController = {
       (0, _user_notification2.default)({ _id: mongoose.Types.ObjectId(userId) }, n);
       res.json({
         success: true,
-        message: "User Notified"
+        message: 'User Notified'
       });
     }).catch(function (error) {
       return console.log(error);
@@ -95,11 +95,11 @@ exports.usersController = {
     User.findByIdAndUpdate(req.currentUser._id, {
       $pull: { notifications: notification._id }
     }).then(function (model) {
-      User.findById(model._id).populate("notifications").populate("customers").exec(function (error, user) {
+      User.findById(model._id).populate('notifications').populate('customers').exec(function (error, user) {
         if (error) {
           res.json({
             success: false,
-            message: "Error Updating User",
+            message: 'Error Updating User',
             error: error
           });
         } else {

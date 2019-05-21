@@ -1,7 +1,9 @@
-"use strict";
+'use strict';
 
-var mongoose = require("mongoose");
+var mongoose = require('mongoose');
+
 var Schema = mongoose.Schema;
+
 
 var NotificationSchema = new Schema({
   title: {
@@ -17,9 +19,9 @@ var NotificationSchema = new Schema({
   },
   cu: {
     type: Schema.Types.ObjectId,
-    ref: "Customer"
+    ref: 'Customer'
   }
 }, { timestamps: true });
 
-//Create Collection and add Schema
-mongoose.model("Notification", NotificationSchema);
+// Create Collection and add Schema
+mongoose.model('Notification', NotificationSchema);

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
 
@@ -9,43 +9,43 @@ const TaskSchema = new Schema(
         value: Schema.Types.Mixed,
         dataType: String,
         colRef: {
-          type: Schema.Types.ObjectId
-        }
-      }
+          type: Schema.Types.ObjectId,
+        },
+      },
     ],
 
     comments: [
       {
         author: {
           type: Schema.Types.ObjectId,
-          ref: "User"
+          ref: 'User',
         },
         body: String,
         date: {
           type: Date,
-          default: Date.now()
-        }
-      }
+          default: Date.now(),
+        },
+      },
     ],
 
     group: {
       type: Schema.Types.ObjectId,
-      ref: "Group"
+      ref: 'Group',
     },
 
     board: {
       type: Schema.Types.ObjectId,
-      ref: "Board"
-    }
+      ref: 'Board',
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 TaskSchema.statics.addColumn = function addColumn(type, callback) {
-  const bulk = this.model("Task").collection.initializeOrderedBulkOp();
+  const bulk = this.model('Task').collection.initializeOrderedBulkOp();
   bulk.find({}).update({ $addToSet: { column: { ...type } } });
   bulk.execute(callback);
 };
 
 // Create Collection and add Schema
-mongoose.model("Task", TaskSchema);
+mongoose.model('Task', TaskSchema);
