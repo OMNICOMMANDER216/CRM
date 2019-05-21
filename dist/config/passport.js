@@ -18,30 +18,26 @@ module.exports = function (passport) {
   }, function (accessToken, refreshToken, profile, done) {
     var image = profile._json.image.url.replace('/s50', '');
 
-    if (profile._json.domain === 'omnicommander.com') {
-      var newUser = {
-        googleID: profile.id,
-        firstName: profile.name.givenName,
-        lastName: profile.name.familyName,
-        email: profile.emails[0].value,
-        image: image
-      };
+    var newUser = {
+      googleID: profile.id,
+      firstName: profile.name.givenName,
+      lastName: profile.name.familyName,
+      email: profile.emails[0].value,
+      image: image
+    };
 
-      User.findOne({
-        googleID: profile.id
-      }).then(function (user) {
-        if (user) {
-          done(null, user);
-        } else {
-          // Create User
-          new User(newUser).save().then(function (model) {
-            done(null, model);
-          });
-        }
-      });
-    } else {
-      done(null, false);
-    }
+    User.findOne({
+      googleID: profile.id
+    }).then(function (user) {
+      if (user) {
+        done(null, user);
+      } else {
+        // Create User
+        new User(newUser).save().then(function (model) {
+          done(null, model);
+        });
+      }
+    });
   }));
 
   passport.serializeUser(function (user, done) {
