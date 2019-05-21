@@ -20,7 +20,6 @@ module.exports = (passport) => {
       (accessToken, refreshToken, profile, done) => {
         const image = profile._json.image.url.replace('/s50', '');
 
-        if (profile._json.domain === 'omnicommander.com') {
           const newUser = {
             googleID: profile.id,
             firstName: profile.name.givenName,
@@ -41,9 +40,6 @@ module.exports = (passport) => {
               });
             }
           });
-        } else {
-          done(null, false);
-        }
       },
     ),
   );

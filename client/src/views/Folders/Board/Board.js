@@ -142,6 +142,7 @@ class Board extends Component {
       let editing = Object.assign({}, this.state.editing);
       editing.column[e.target.name].value = e.target.value;
       this.setState({ editing });
+
       if(editing.column[e.target.name].dataType === 'user') {
         const userId= e.target.value;
         const notification = {
@@ -150,6 +151,10 @@ class Board extends Component {
           }
 
           userApi.notify({userId, notification}).then((res) => console.log(res.success))
+      }
+      if(editing.column[e.target.name].dataType !== 'name'){
+        // Only save on change if not test type
+          this.saveHandler(id);
       }
     }
   };
@@ -201,7 +206,7 @@ class Board extends Component {
           selectedGroup
         ].sort((group1, group2) => group1._id.localeCompare(group2._id));
 
-        this.setState({ board });
+        this.setState({ board, newTask: ""});
         toast.info('Task Created', {
           position: toast.POSITION.TOP_CENTER
         });
