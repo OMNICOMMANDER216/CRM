@@ -35,7 +35,11 @@ class TaskItem extends Component {
                 size="md" 
                 color="primary" 
                 className="m-2">
-                <AppAsideToggler className="d-md-down-none" disabled={isEmpty(sideTask)}><i className="fa fa-pencil"></i></AppAsideToggler>
+                  <AppAsideToggler 
+                    className="d-md-down-none" 
+                    disabled={isEmpty(sideTask)}>
+                    <i className="fa fa-pencil"></i>
+                  </AppAsideToggler>
               </span> 
             )}
             { (editActive._id === task._id) && (
@@ -57,16 +61,19 @@ class TaskItem extends Component {
             </td>
             { task.column && (
               task.column.map((col, i) => (
-                inputBuilder(i,
+                inputBuilder(
+                   i,
                    users,
                    col, 
                    (editActive._id !== task._id), 
-                   isEditingHandler,
                    changeHandler,
                    sideTask, 
                    setSideTask, 
                    task, 
-                   editActive))) 
+                   editActive,
+                   isEditingHandler,
+                   saveHandler,
+                   removeTask))) 
             )}
           </tr>
     )

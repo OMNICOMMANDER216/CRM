@@ -21,8 +21,6 @@ exports.authController = {
     });
     // Production
     return res.redirect("/logged?token=" + token);
-    // Development
-    // return res.redirect('http://localhost:3000?token='+token);
   },
 
   logout: (req, res) => {

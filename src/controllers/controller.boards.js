@@ -196,6 +196,7 @@ exports.boardsController = {
       .update({
         $pull: { column: { colRef: mongoose.Types.ObjectId(columnId) } }
       });
+      
     bulk.execute(err => {
       if (err) console.log(err);
 
