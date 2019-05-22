@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
 
 export default ({ user }) => (
-  <div className="m-4">
+  <div className="m-4 rounded defaultShadow">
     <ListGroup>
       <ListGroupItem active tag="button" action>
         {`${user.firstName} ${user.lastName}`}

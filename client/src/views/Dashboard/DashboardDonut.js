@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Card, CardBody, CardHeader } from 'reactstrap';
 
@@ -35,23 +35,19 @@ const doughnut = {
     }],
 };
 
-class Charts extends Component {
-  render() {
-    return (
-      <div className="animated fadeIn d-flex justify-content-center" style={styles.animated_div}>
-        <Card style={styles.card}>
-          <CardHeader>
+const Charts = () => (
+  <div className="animated fadeIn d-flex justify-content-center" style={styles.animated_div}>
+    <Card style={styles.card} className="defaultShadow">
+      <CardHeader>
               Doughnut Chart
-          </CardHeader>
-          <CardBody>
-            <div className="chart-wrapper">
-              <Doughnut data={doughnut} />
-            </div>
-          </CardBody>
-        </Card>
-      </div>
-    );
-  }
-}
+      </CardHeader>
+      <CardBody>
+        <div className="chart-wrapper">
+          <Doughnut data={doughnut} />
+        </div>
+      </CardBody>
+    </Card>
+  </div>
+);
 
 export default Charts;

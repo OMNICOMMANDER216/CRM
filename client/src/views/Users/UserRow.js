@@ -1,10 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {
   FormGroup,
   Input,
   Label,
 } from 'reactstrap';
+
+const roles = ['Bookkeeping', 'Sales', 'Pm', 'DevAdmin', 'Developer', 'Compliance', 'QA', 'Admin'];
 
 function UserRow(props) {
   const { user, setRole } = props;
@@ -20,14 +23,21 @@ function UserRow(props) {
           <Label for="developer">Role</Label>
           <Input type="select" name="role" value={user.role} onChange={event => setRole(event, user)} id="developer">
             <option value="select">Select</option>
-            {
-                    ['Bookkeeping', 'Sales', 'Pm', 'DevAdmin', 'Developer', 'Compliance', 'Admin'].map((data, index) => <option key={index} value={data}>{data}</option>)
-                      }
+            { roles.map((data, index) => <option key={index} value={data}>{data}</option>) }
           </Input>
         </FormGroup>
       </td>
     </tr>
   );
 }
+
+UserRow.propTypes = {
+  user: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    email: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+  }).isRequired,
+  setRole: PropTypes.func.isRequired,
+};
 
 export default UserRow;

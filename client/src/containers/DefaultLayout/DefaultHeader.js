@@ -1,7 +1,6 @@
+/* eslint-disable react/prefer-stateless-function */
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { Component } from 'react';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   Badge,
@@ -14,6 +13,7 @@ import {
 } from 'reactstrap';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
 
 import {
   AppHeaderDropdown,
@@ -24,22 +24,16 @@ import logo from '../../assets/img/brand/oc-logo.png';
 import profile from '../../assets/img/profile.png';
 import sygnet from '../../assets/img/brand/oc-star.svg';
 
-import getCurrentUser from '../../helpers/getCurrentUser';
-
-const propTypes = {
-  children: PropTypes.node,
-};
-
-const defaultProps = {};
 
 class DefaultHeader extends Component {
   render() {
-    const isAdmin = this.props.currentUser && this.props.currentUser.role === 'Admin';
-
     // eslint-disable-next-line
-    const { children, currentUser } = this.props;
 
-    const unopenNotification = (currentUser
+    const { currentUser, onLogout } = this.props;
+
+    const isAdmin = currentUser && currentUser.role === 'Admin';
+
+    const unopenNotification = (!isEmpty(currentUser)
         && !!currentUser.notifications[0]
         && currentUser.notifications.filter(el => !el.isRead))
       || [];
@@ -83,7 +77,7 @@ class DefaultHeader extends Component {
           {' '}
         </Nav>
         {' '}
-        {this.props.currentUser && (
+        {currentUser && (
           <Nav className="ml-auto" navbar>
             <NavItem className="d-md-down-none">
               <NavLink href="/notification">
@@ -101,7 +95,7 @@ class DefaultHeader extends Component {
             <AppHeaderDropdown direction="down">
               <DropdownToggle nav>
                 <img
-                  src={this.props.currentUser.image || profile}
+                  src={currentUser.image || profile}
                   className="img-avatar"
                   alt="User avatar"
                 />
@@ -118,7 +112,7 @@ class DefaultHeader extends Component {
                   <strong> Account </strong>
                 </DropdownItem>
                 <DropdownItem>
-                  <Link to={`/users/${this.props.currentUser._id}`}>
+                  <Link to={`/users/${currentUser._id}`}>
                     <i className="fa fa-user"> </i>
                     {' '}
 Profile
@@ -127,7 +121,7 @@ Profile
                 </DropdownItem>
                 {' '}
                 <DropdownItem divider />
-                <DropdownItem onClick={e => this.props.onLogout(e)}>
+                <DropdownItem onClick={e => onLogout(e)}>
                   <i className="fa fa-lock" />
                   {' '}
 Logout
@@ -146,16 +140,16 @@ Logout
   }
 }
 
-DefaultHeader.propTypes = propTypes;
-DefaultHeader.defaultProps = defaultProps;
+DefaultHeader.propTypes = {
+  currentUser: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    notifications: PropTypes.array.isRequired,
+  }),
+  onLogout: PropTypes.func.isRequired,
+};
 
-function mapStateToProps(state) {
-  return {
-    currentUser: state.users.find(user => user._id === getCurrentUser()._id),
-  };
-}
+DefaultHeader.defaultProps = {
+  currentUser: {},
+};
 
-export default connect(
-  mapStateToProps,
-  null,
-)(DefaultHeader);
+export default DefaultHeader;

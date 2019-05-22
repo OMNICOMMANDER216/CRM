@@ -4,6 +4,7 @@ const secret = require('../config/config');
 exports.authController = {
   googleCallback: (req, res) => {
     // Successful authentication, redirect home.
+    console.log(req);
 
     const token = jwt.sign(
       {

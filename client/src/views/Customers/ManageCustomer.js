@@ -169,10 +169,9 @@ const mapStateToProps = (state) => ({
   currentUser: state.auth.user
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
+const mapDispatchToProps = (dispatch) => ({
     customersActions: bindActionCreators(customersActions, dispatch)
-  };
-}
+})
+   
 
 export default connect(mapStateToProps, mapDispatchToProps)(requireRole(['Admin'],ManageCustomerPage));

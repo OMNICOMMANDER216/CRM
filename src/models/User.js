@@ -25,14 +25,17 @@ const UserSchema = new Schema(
     role: {
       type: String,
       enum: [
+        'Employee',
         'Bookkeeping',
         'Sales',
         'Pm',
         'DevAdmin',
         'Developer',
         'Compliance',
+        'QA',
         'Admin',
       ],
+      default: 'Employee',
     },
     customers: [
       {

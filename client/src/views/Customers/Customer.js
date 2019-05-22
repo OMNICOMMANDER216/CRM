@@ -1,4 +1,5 @@
 import React, { Component, Suspense } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { validateAll } from 'indicative';
 import moment from 'moment';
@@ -134,7 +135,8 @@ class Customer extends Component {
                 <Link 
                   className="pl-1" 
                   to={{ pathname : `/customer/edit/${customer._id}`, state: {customer: customer} }}>
-                  <i className="fa fa-edit customerEdit"></i>
+                  {(this.props.currentUser.role === "Admin") &&
+                  <i className="fa fa-edit customerEdit"></i>}
                 </Link>
                 </Col>
               <Col lg={4} className="purple">
@@ -238,4 +240,8 @@ class Customer extends Component {
   }
 }
 
-export default Customer;
+const mapStateToProps = (state) => ({
+  currentUser: state.auth.user,
+})
+
+export default connect(mapStateToProps, null)(Customer);

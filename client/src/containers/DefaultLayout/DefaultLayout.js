@@ -20,9 +20,11 @@ import {
 import navigation from '../../_nav';
 // routes config
 import routes from '../../routes';
+import getCurrentUser from '../../helpers/getCurrentUser';
 
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
 const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
+
 
 
 class DefaultLayout extends Component {
@@ -36,12 +38,13 @@ class DefaultLayout extends Component {
 
   render() {
     const nav = { items: [ ...navigation.items, ...navigationMaker(this.props.folders) ]};
+    const { currentUser } = this.props;
     // this.setState({nav}); 
     return (
       <div className="app">
         <AppHeader fixed>
           <Suspense  fallback={this.loading()}>
-            <DefaultHeader onLogout={e=>this.signOut(e)}/>
+            <DefaultHeader onLogout={e=>this.signOut(e)} currentUser={currentUser}/>
           </Suspense>
         </AppHeader>
         <div className="app-body">
@@ -94,7 +97,8 @@ class DefaultLayout extends Component {
 
 function mapStateToProps(state) {
   return {
-    folders: state.folders
+    folders: state.folders,
+    currentUser: state.users.find(user => user._id === getCurrentUser()._id),
   };
 }
 

@@ -44,7 +44,7 @@ class Dashboard extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col xs="12" sm="6" lg="3">
-            <Card className="text-white text-center bg-info p-4">
+            <Card className="text-white text-center bg-info p-4 defaultShadow">
               <CardBody className="pb-0">
                 <div className="text-value">{dashboardData.currentMonth}</div>
                 <div>Live this Month</div>
@@ -53,7 +53,7 @@ class Dashboard extends Component {
           </Col>
 
           <Col xs="12" sm="6" lg="3">
-            <Card className="text-white text-center bg-primary p-4">
+            <Card className="text-white text-center bg-primary p-4 defaultShadow">
               <CardBody className="pb-0">
                 <div className="text-value">{dashboardData.monthlyProjection}</div>
                 <div>Projection for Current Month</div>
@@ -62,7 +62,7 @@ class Dashboard extends Component {
           </Col>
 
           <Col xs="12" sm="6" lg="3">
-            <Card className="text-white text-center bg-warning p-4">
+            <Card className="text-white text-center bg-warning p-4 defaultShadow">
               <CardBody className="pb-0">
                 <div className="text-value">{dashboardData.inDev}</div>
                 <div>Currently in Development </div>
@@ -71,7 +71,7 @@ class Dashboard extends Component {
           </Col>
 
           <Col xs="12" sm="6" lg="3">
-            <Card className="text-white text-center bg-success p-4">
+            <Card className="text-white text-center bg-success p-4 defaultShadow">
               <CardBody className="pb-0">
                 <div className="text-value">{dashboardData.total}</div>
                 <div>Total Website Live</div>
