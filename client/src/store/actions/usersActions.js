@@ -1,20 +1,20 @@
+import axios from 'axios';
 import action from '../actionTypes';
 import api from '../../api/userApi';
-import axios from 'axios';
 import getToken from '../../helpers/getToken';
 
 const token = getToken();
 
-export function loadUsersSuccess(users) {    
+export function loadUsersSuccess(users) {
   return {
     type: action.LOAD_USERS_SUCCESS,
-    users
+    users,
   };
 }
 export function loadUsersFailed(message) {
   return {
     type: action.LOAD_USERS_FAILED,
-    message
+    message,
   };
 }
 
@@ -22,22 +22,21 @@ export function loadUser(users, _id) {
   return {
     type: action.LOAD_USER,
     users,
-    _id
+    _id,
   };
 }
 
 export function updateUserSuccess(user) {
-  
   return {
     type: action.UPDATE_USER_SUCCESS,
-    user
+    user,
   };
 }
 
 export function updateUserFailed(message) {
   return {
     type: action.UPDATE_USER_FAILED,
-    message
+    message,
   };
 }
 
@@ -45,10 +44,9 @@ export function getCurrentUser() {
   return function (dispatch) {
     try {
       return api.getCurrentUser().then(data => console.log(data))
-          .catch(err => {
-            console.log(err);
-          });
-
+        .catch((err) => {
+          console.log(err);
+        });
     } catch (error) {
       return dispatch(loadUsersFailed(error.message));
     }
@@ -56,11 +54,10 @@ export function getCurrentUser() {
 }
 
 export function loadUsers() {
-    
   return function (dispatch) {
     try {
-      return api.loadUsers().then(res => dispatch(loadUsersSuccess(res.data)) )
-        .catch(err => console.log("Error with the Api request"));
+      return api.loadUsers().then(res => dispatch(loadUsersSuccess(res.data)))
+        .catch(err => console.log('Error with the Api request'));
     } catch (error) {
       return dispatch(loadUsersFailed(error.message));
     }
@@ -68,12 +65,12 @@ export function loadUsers() {
 }
 
 export function loadUsersInit(initToken) {
-  console.log("users");
-  
+  console.log('users');
+
   return function (dispatch) {
     try {
-      return api.loadUsersInit(initToken).then(res => dispatch(loadUsersSuccess(res.data)) )
-        .catch(err => console.log("Error with the Api request"));
+      return api.loadUsersInit(initToken).then(res => dispatch(loadUsersSuccess(res.data)))
+        .catch(err => console.log('Error with the Api request'));
     } catch (error) {
       return dispatch(loadUsersFailed(error.message));
     }
@@ -83,14 +80,13 @@ export function loadUsersInit(initToken) {
 export function updateUser(updatedUser) {
   return function (dispatch, getState) {
     if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
     } else {
-      delete axios.defaults.headers.common['Authorization'];
+      delete axios.defaults.headers.common.Authorization;
     }
     try {
       return api.updateUser(updatedUser).then(res => dispatch(updateUserSuccess(res.data)))
-          .catch(err => console.log(err) );
-
+        .catch(err => console.log(err));
     } catch (error) {
       return updatedUser._id ? dispatch(updateUserFailed(error.message)) : dispatch(updateUserFailed(error.message));
     }
@@ -100,15 +96,14 @@ export function updateUser(updatedUser) {
 export function archiveNotification(notification) {
   return function (dispatch, getState) {
     if (token) {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      axios.defaults.headers.common.Authorization = `Bearer ${token}`;
     } else {
-      delete axios.defaults.headers.common['Authorization'];
+      delete axios.defaults.headers.common.Authorization;
     }
     try {
-        return api.archiveNotification(notification)
-          .then(res => dispatch(updateUserSuccess(res.data)))
-          .catch(err => console.log("Error with the Api request") );
-
+      return api.archiveNotification(notification)
+        .then(res => dispatch(updateUserSuccess(res.data)))
+        .catch(err => console.log('Error with the Api request'));
     } catch (error) {
       return notification._id ? dispatch(updateUserFailed(error.message)) : dispatch(updateUserFailed(error.message));
     }

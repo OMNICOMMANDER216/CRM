@@ -19,7 +19,6 @@ import {
 } from 'reactstrap';
 
 class ButtonGroups extends Component {
-
   constructor(props) {
     super(props);
 
@@ -30,7 +29,7 @@ class ButtonGroups extends Component {
   }
 
   toggle(i) {
-    const newArray = this.state.dropdownOpen.map((element, index) => { return (index === i ? !element : false); });
+    const newArray = this.state.dropdownOpen.map((element, index) => (index === i ? !element : false));
     this.setState({
       dropdownOpen: newArray,
     });
@@ -43,7 +42,8 @@ class ButtonGroups extends Component {
           <Col md="6">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Button Group</strong>
+                <i className="fa fa-align-justify" />
+                <strong>Button Group</strong>
                 <div className="card-header-actions">
                   <a href="https://reactstrap.github.io/components/button-group/" rel="noreferrer noopener" target="_blank" className="card-header-action">
                     <small className="text-muted">docs</small>
@@ -60,7 +60,8 @@ class ButtonGroups extends Component {
             </Card>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Vertical variation</strong>
+                <i className="fa fa-align-justify" />
+                <strong>Vertical variation</strong>
               </CardHeader>
               <CardBody>
                 <ButtonGroup vertical>
@@ -80,7 +81,8 @@ class ButtonGroups extends Component {
             </Card>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Button Toolbar</strong>
+                <i className="fa fa-align-justify" />
+                <strong>Button Toolbar</strong>
               </CardHeader>
               <CardBody>
                 <ButtonToolbar>
@@ -105,7 +107,8 @@ class ButtonGroups extends Component {
           <Col md={6}>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Sizing</strong>
+                <i className="fa fa-align-justify" />
+                <strong>Sizing</strong>
               </CardHeader>
               <CardBody>
                 <ButtonGroup size="lg">
@@ -129,7 +132,8 @@ class ButtonGroups extends Component {
             </Card>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Nesting</strong>
+                <i className="fa fa-align-justify" />
+                <strong>Nesting</strong>
               </CardHeader>
               <CardBody>
                 <ButtonGroup>
@@ -153,7 +157,10 @@ class ButtonGroups extends Component {
           <Col>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Button Toolbar</strong> <small>with input groups</small>
+                <i className="fa fa-align-justify" />
+                <strong>Button Toolbar</strong>
+                {' '}
+                <small>with input groups</small>
               </CardHeader>
               <CardBody>
                 <ButtonToolbar className="mb-3">

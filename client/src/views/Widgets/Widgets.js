@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { CardGroup, Col, Row } from 'reactstrap';
+import { Line } from 'react-chartjs-2';
 import Widget01 from './Widget01';
 import Widget02 from './Widget02';
 import Widget03 from './Widget03';
 import Widget04 from './Widget04';
-import { Line } from 'react-chartjs-2';
 
 
 // Brand Card Chart
@@ -76,8 +76,13 @@ class Widgets extends Component {
             </Widget01>
           </Col>
           <Col xs="12" sm="6" lg="3">
-            <Widget01 color="danger" value="95" header="1.9 TB" mainText="Danger!"
-                      smallText="This is your final warning..." />
+            <Widget01
+              color="danger"
+              value="95"
+              header="1.9 TB"
+              mainText="Danger!"
+              smallText="This is your final warning..."
+            />
           </Col>
           <Col xs="12" sm="6" lg="3">
             <Widget01 color="primary" variant="inverse" header="89.9%" />
@@ -91,8 +96,14 @@ class Widgets extends Component {
             </Widget01>
           </Col>
           <Col xs="12" sm="6" lg="3">
-            <Widget01 color="info" variant="inverse" value="95" header="1.9 TB" mainText="Danger!"
-                      smallText="This is your final warning..." />
+            <Widget01
+              color="info"
+              variant="inverse"
+              value="95"
+              header="1.9 TB"
+              mainText="Danger!"
+              smallText="This is your final warning..."
+            />
           </Col>
         </Row>
         <Row>
@@ -149,28 +160,28 @@ class Widgets extends Component {
         </Row>
         <Row>
           <Col xs={12} sm={6} md={3}>
-            <Widget03 dataBox={() => ({ variant: 'facebook', friends: '89k', feeds: '459' })} >
+            <Widget03 dataBox={() => ({ variant: 'facebook', friends: '89k', feeds: '459' })}>
               <div className="chart-wrapper">
                 <Line data={makeSocialBoxData(0)} options={socialChartOpts} height={90} />
               </div>
             </Widget03>
           </Col>
           <Col xs={12} sm={6} md={3}>
-            <Widget03 dataBox={() => ({ variant: 'twitter', followers: '973k', tweets: '1.792' })} >
+            <Widget03 dataBox={() => ({ variant: 'twitter', followers: '973k', tweets: '1.792' })}>
               <div className="chart-wrapper">
                 <Line data={makeSocialBoxData(1)} options={socialChartOpts} height={90} />
               </div>
             </Widget03>
           </Col>
           <Col xs={12} sm={6} md={3}>
-            <Widget03 dataBox={() => ({ variant: 'linkedin', contacts: '500+', feeds: '292' })} >
+            <Widget03 dataBox={() => ({ variant: 'linkedin', contacts: '500+', feeds: '292' })}>
               <div className="chart-wrapper">
                 <Line data={makeSocialBoxData(2)} options={socialChartOpts} height={90} />
               </div>
             </Widget03>
           </Col>
           <Col xs={12} sm={6} md={3}>
-            <Widget03 dataBox={() => ({ variant: 'google-plus', followers: '894', circles: '92' })} >
+            <Widget03 dataBox={() => ({ variant: 'google-plus', followers: '894', circles: '92' })}>
               <div className="chart-wrapper">
                 <Line data={makeSocialBoxData(3)} options={socialChartOpts} height={90} />
               </div>

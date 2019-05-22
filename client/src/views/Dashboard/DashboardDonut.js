@@ -4,13 +4,13 @@ import { Card, CardBody, CardHeader } from 'reactstrap';
 
 const styles = {
   animated_div: {
-    width: "100%",
+    width: '100%',
   },
-  card : {
-    width: "50%",
-    minWidth: "300px",
-    margin: "0 auto"
-  }
+  card: {
+    width: '50%',
+    minWidth: '300px',
+    margin: '0 auto',
+  },
 };
 
 const doughnut = {
@@ -39,16 +39,16 @@ class Charts extends Component {
   render() {
     return (
       <div className="animated fadeIn d-flex justify-content-center" style={styles.animated_div}>
-          <Card style={styles.card}>
-            <CardHeader>
+        <Card style={styles.card}>
+          <CardHeader>
               Doughnut Chart
-            </CardHeader>
-            <CardBody>
-              <div className="chart-wrapper">
-                <Doughnut data={doughnut} />
-              </div>
-            </CardBody>
-          </Card>
+          </CardHeader>
+          <CardBody>
+            <div className="chart-wrapper">
+              <Doughnut data={doughnut} />
+            </div>
+          </CardBody>
+        </Card>
       </div>
     );
   }

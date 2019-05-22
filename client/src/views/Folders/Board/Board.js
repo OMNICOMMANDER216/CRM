@@ -222,7 +222,7 @@ class Board extends Component {
     this.setState({
       editing: Object.assign({}, task),
       disabled: "",
-      newTask: task,
+      newTask: "",
       sideTask: {}
     });
   };
@@ -417,6 +417,7 @@ class Board extends Component {
         </FormGroup>
         </span>
         {groups}
+        
         {/* Modal */}
         <Modal
           modalColumn={this.state.modalColumn}

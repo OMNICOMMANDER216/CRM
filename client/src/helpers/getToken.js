@@ -1,3 +1,3 @@
-export default function() {
-    return localStorage.getItem('jwtToken');
+export default function () {
+  return localStorage.getItem('jwtToken');
 }

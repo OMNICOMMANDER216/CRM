@@ -158,7 +158,7 @@ exports.boardsController = {
           colRef: cols[cols.length - 1]._id,
           _id: mongoose.Types.ObjectId(),
         };
-        Task.addColumn(newCol, (error) => {
+        Task.addColumn(newCol, model._id, (error) => {
           if (error) throw error;
           // query and populate Board
           Board.findById(model._id)

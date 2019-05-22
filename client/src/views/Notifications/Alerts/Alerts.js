@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Alert, Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
+import {
+  Alert, Card, CardBody, CardHeader, Col, Row,
+} from 'reactstrap';
 
 class Alerts extends Component {
   constructor(props) {
@@ -23,7 +25,8 @@ class Alerts extends Component {
           <Col xs="12" md="6">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Alerts</strong>
+                <i className="fa fa-align-justify" />
+                <strong>Alerts</strong>
                 <div className="card-header-actions">
                   <a href="https://reactstrap.github.io/components/alerts/" rel="noreferrer noopener" target="_blank" className="card-header-action">
                     <small className="text-muted">docs</small>
@@ -61,40 +64,47 @@ class Alerts extends Component {
           <Col xs="12" md="6">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Alerts</strong>
-                <small> use <code>.alert-link</code> to provide links</small>
+                <i className="fa fa-align-justify" />
+                <strong>Alerts</strong>
+                <small>
+                  {' '}
+use
+                  <code>.alert-link</code>
+                  {' '}
+to provide links
+                </small>
               </CardHeader>
               <CardBody>
                 <Alert color="primary">
-                  {/*eslint-disable-next-line*/}
+                  {/* eslint-disable-next-line */}
                   This is a primary alert with <a href="#" className="alert-link">an example link</a>. Give it a click if you like.
                 </Alert>
                 <Alert color="secondary">
-                  {/*eslint-disable-next-line*/}
+                  {/* eslint-disable-next-line */}
                   This is a secondary alert with <a href="#" className="alert-link">an example link</a>. Give it a click if you like.
                 </Alert>
                 <Alert color="success">
-                  {/*eslint-disable-next-line*/}
+                  {/* eslint-disable-next-line */}
                   This is a success alert with <a href="#" className="alert-link">an example link</a>. Give it a click if you like.
                 </Alert>
                 <Alert color="danger">
-                  {/*eslint-disable-next-line*/}
+                  {/* eslint-disable-next-line */}
                   This is a danger alert with <a href="#" className="alert-link">an example link</a>. Give it a click if you like.
                 </Alert>
                 <Alert color="warning">
-                  {/*eslint-disable-next-line*/}
+                  {/* eslint-disable-next-line */}
                   This is a warning alert with <a href="#" className="alert-link">an example link</a>. Give it a click if you like.
                 </Alert>
                 <Alert color="info">
-                  {/*eslint-disable-next-line*/}
+                  {/* eslint-disable-next-line */}
                   This is a info alert with <a href="#" className="alert-link">an example link</a>. Give it a click if you like.
                 </Alert>
                 <Alert color="light">
-                  {/*eslint-disable-next-line*/}
+                  {/* eslint-disable-next-line */}
                   This is a light alert with <a href="#" className="alert-link">an example link</a>. Give it a click if you like.
                 </Alert>
                 <Alert color="dark">
-                  {/*eslint-disable-next-line*/}
+                  {/* eslint-disable-next-line */}
                   This is a dark alert with <a href="#" className="alert-link">an example link</a>. Give it a click if you like.
                 </Alert>
               </CardBody>
@@ -105,7 +115,8 @@ class Alerts extends Component {
           <Col xs="12" md="6">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Alerts</strong>
+                <i className="fa fa-align-justify" />
+                <strong>Alerts</strong>
                 <small>additional content</small>
               </CardHeader>
               <CardBody>
@@ -127,7 +138,8 @@ class Alerts extends Component {
           <Col xs="12" md="6">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Alerts</strong>
+                <i className="fa fa-align-justify" />
+                <strong>Alerts</strong>
                 <small>dismissing</small>
               </CardHeader>
               <CardBody>

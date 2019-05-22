@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { Label, Input, FormGroup, Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
-import UserRow from "./UserRow";
+import {
+  Label, Input, FormGroup, Card, CardBody, CardHeader, Col, Row, Table,
+} from 'reactstrap';
+import UserRow from './UserRow';
 import * as usersActions from '../../store/actions/usersActions';
 import RequireAdmin from '../../helpers/RequireAdmin';
 
@@ -12,7 +14,7 @@ class Users extends Component {
     super(props);
 
     this.state = {
-      filter: ""
+      filter: '',
     };
 
     this.setRole = this.setRole.bind(this);
@@ -21,48 +23,50 @@ class Users extends Component {
   }
 
   componentWillMount() {
-    if(this.props.users !== [] ) {    
+    if (this.props.users !== []) {
       this.props.usersActions.loadUsers();
     }
   }
 
   setRole(event, user) {
     event.preventDefault();
-    let updatedUser = Object.assign({}, user);
+    const updatedUser = Object.assign({}, user);
     updatedUser.role = event.target.value;
     this.props.usersActions.updateUser(updatedUser);
   }
 
   setFilter(e) {
-    this.setState({filter: e.target.value});
+    this.setState({ filter: e.target.value });
   }
 
   filter(users) {
-    if(this.state.filter) {
+    if (this.state.filter) {
       return users.filter(user => user.role === this.state.filter);
-    } else {
-      return users;
     }
+    return users;
   }
 
   render() {
-    
     return (
       <div className="animated fadeIn">
         <Row>
           <Col xl={12}>
             <Card>
               <CardHeader className="d-flex justify-content-between">
-                <span><i className="fa fa-align-justify"></i> Users </span>
+                <span>
+                  <i className="fa fa-align-justify" />
+                  {' '}
+Users
+                </span>
                 <FormGroup className="filter-form d-flex  align-items-end">
-          <Label for="developer" className="mr-1">Role</Label>
-          <Input type="select" name="filter" value={this.state.filter} onChange={this.setFilter} id="developer"  >
-             <option value="">Select</option>
-                {
-                    ["Bookkeeping", "Sales", "Pm", "DevAdmin", "Developer", "Compliance", "Admin"].map((data, index) => <option key={index} value={data}>{data}</option>)
+                  <Label for="developer" className="mr-1">Role</Label>
+                  <Input type="select" name="filter" value={this.state.filter} onChange={this.setFilter} id="developer">
+                    <option value="">Select</option>
+                    {
+                    ['Bookkeeping', 'Sales', 'Pm', 'DevAdmin', 'Developer', 'Compliance', 'Admin'].map((data, index) => <option key={index} value={data}>{data}</option>)
                       }
-           </Input>
-         </FormGroup>
+                  </Input>
+                </FormGroup>
               </CardHeader>
               <CardBody>
                 <Table responsive hover>
@@ -75,9 +79,7 @@ class Users extends Component {
                     </tr>
                   </thead>
                   <tbody>
-                    {this.filter(this.props.users).map((user, index) =>
-                      <UserRow key={index} user={user} setRole={this.setRole}/>
-                    )}
+                    {this.filter(this.props.users).map((user, index) => <UserRow key={index} user={user} setRole={this.setRole} />)}
                   </tbody>
                 </Table>
               </CardBody>
@@ -85,20 +87,20 @@ class Users extends Component {
           </Col>
         </Row>
       </div>
-    )
+    );
   }
 }
 
 Users.prototypes = {
-  users: PropTypes.array
-}
+  users: PropTypes.array,
+};
 
 const mapDispatchToProps = dispatch => ({
-  usersActions : bindActionCreators(usersActions, dispatch)
+  usersActions: bindActionCreators(usersActions, dispatch),
 });
 
 const mapStateToProps = state => ({
-  users: state.users
+  users: state.users,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RequireAdmin(Users));

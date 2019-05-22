@@ -1,11 +1,11 @@
 import add_notifications from '../helpers/user_notification';
 
 const mongoose = require('mongoose');
-
 const User = mongoose.model('User');
 const Notification = mongoose.model('Notification');
 
 exports.usersController = {
+  
   getCurrentUser: (req, res) => {
     res.json(req.currentUser);
   },

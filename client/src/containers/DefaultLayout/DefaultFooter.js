@@ -9,14 +9,21 @@ const defaultProps = {};
 
 class DefaultFooter extends Component {
   render() {
-
     // eslint-disable-next-line
     const { children, ...attributes } = this.props;
 
     return (
       <React.Fragment>
-        <span><a href="https://www.omnicommander.com/" target="_blank" rel="noopener noreferrer">OMNICOMMANDER</a> &copy; </span>
-        <span className="ml-auto">Powered by <a href="https://www.omnicommander.com/" target="_blank" rel="noopener noreferrer">OMNICOMMANDER</a></span>
+        <span>
+          <a href="https://www.omnicommander.com/" target="_blank" rel="noopener noreferrer">OMNICOMMANDER</a>
+          {' '}
+&copy;
+          {' '}
+        </span>
+        <span className="ml-auto">
+Powered by
+          <a href="https://www.omnicommander.com/" target="_blank" rel="noopener noreferrer">OMNICOMMANDER</a>
+        </span>
       </React.Fragment>
     );
   }

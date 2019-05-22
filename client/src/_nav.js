@@ -2,7 +2,7 @@ export default {
   items: [
     {
       title: true,
-      name: 'Oumar',
+      name: 'CRM',
       image: 'icon-speedometer',
     },
     {
@@ -13,11 +13,11 @@ export default {
     {
       title: true,
       name: 'CUSTOMERS',
-      wrapper: {            // optional wrapper object
-        element: '',        // required valid HTML5 element tag
-        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
+      wrapper: { // optional wrapper object
+        element: '', // required valid HTML5 element tag
+        attributes: {}, // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
       },
-      class: ''             // optional class names space delimited list for title item ex: "text-center"
+      class: '', // optional class names space delimited list for title item ex: "text-center"
     },
     {
       name: 'Customers Overview',
@@ -35,16 +35,16 @@ export default {
     {
       name: 'messages',
       url: '/notification',
-      icon: 'icon-envelope-letter'
+      icon: 'icon-envelope-letter',
     },
     {
       title: true,
       name: 'PROJECTS',
-      wrapper: {            // optional wrapper object
-        element: '',        // required valid HTML5 element tag
-        attributes: {}        // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
+      wrapper: { // optional wrapper object
+        element: '', // required valid HTML5 element tag
+        attributes: {}, // optional valid JS object with JS API naming ex: { className: "my-class", style: { fontFamily: "Verdana" }, id: "my-id"}
       },
-      class: ''             // optional class names space delimited list for title item ex: "text-center"
+      class: '', // optional class names space delimited list for title item ex: "text-center"
     },
     {
       name: 'Overview',

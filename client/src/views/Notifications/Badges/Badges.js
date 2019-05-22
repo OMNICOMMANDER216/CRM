@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Badge, Button, Card, CardBody, CardFooter, CardHeader, Col, Row } from 'reactstrap';
+import {
+  Badge, Button, Card, CardBody, CardFooter, CardHeader, Col, Row,
+} from 'reactstrap';
 
 class Badges extends Component {
   render() {
@@ -9,7 +11,8 @@ class Badges extends Component {
           <Col xs="12" md="6">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Badges</strong>
+                <i className="fa fa-align-justify" />
+                <strong>Badges</strong>
                 <div className="card-header-actions">
                   <a href="https://reactstrap.github.io/components/badge/" rel="noreferrer noopener" target="_blank" className="card-header-action">
                     <small className="text-muted">docs</small>
@@ -17,16 +20,36 @@ class Badges extends Component {
                 </div>
               </CardHeader>
               <CardBody>
-                <h1>Heading <Badge color="secondary">New</Badge></h1>
-                <h2>Heading <Badge color="secondary">New</Badge></h2>
-                <h3>Heading <Badge color="secondary">New</Badge></h3>
-                <h4>Heading <Badge color="secondary">New</Badge></h4>
-                <h5>Heading <Badge color="secondary">New</Badge></h5>
-                <h6>Heading <Badge color="secondary">New</Badge></h6>
+                <h1>
+Heading
+                  <Badge color="secondary">New</Badge>
+                </h1>
+                <h2>
+Heading
+                  <Badge color="secondary">New</Badge>
+                </h2>
+                <h3>
+Heading
+                  <Badge color="secondary">New</Badge>
+                </h3>
+                <h4>
+Heading
+                  <Badge color="secondary">New</Badge>
+                </h4>
+                <h5>
+Heading
+                  <Badge color="secondary">New</Badge>
+                </h5>
+                <h6>
+Heading
+                  <Badge color="secondary">New</Badge>
+                </h6>
               </CardBody>
               <CardFooter>
                 <Button color="primary" outline>
-                  Notifications <Badge color="secondary" pill style={{ position: 'static' }}>9</Badge>
+                  Notifications
+                  {' '}
+                  <Badge color="secondary" pill style={{ position: 'static' }}>9</Badge>
                 </Button>
               </CardFooter>
             </Card>
@@ -34,7 +57,10 @@ class Badges extends Component {
           <Col xs="12" md="6">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Badges</strong> <small>contextual variations</small>
+                <i className="fa fa-align-justify" />
+                <strong>Badges</strong>
+                {' '}
+                <small>contextual variations</small>
               </CardHeader>
               <CardBody>
                 <Badge className="mr-1" color="primary">Primary</Badge>
@@ -49,7 +75,10 @@ class Badges extends Component {
             </Card>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Badges</strong> <small>pill badges</small>
+                <i className="fa fa-align-justify" />
+                <strong>Badges</strong>
+                {' '}
+                <small>pill badges</small>
               </CardHeader>
               <CardBody>
                 <Badge className="mr-1" color="primary" pill>Primary</Badge>
@@ -64,7 +93,10 @@ class Badges extends Component {
             </Card>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Badges</strong> <small>links</small>
+                <i className="fa fa-align-justify" />
+                <strong>Badges</strong>
+                {' '}
+                <small>links</small>
               </CardHeader>
               <CardBody>
                 <Badge className="mr-1" href="#" color="primary">Primary</Badge>

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Card, CardBody, CardHeader, Col, Row } from 'reactstrap';
+import {
+  Button, Card, CardBody, CardHeader, Col, Row,
+} from 'reactstrap';
 
 class Buttons extends Component {
   render() {
@@ -114,7 +116,11 @@ class Buttons extends Component {
           </CardHeader>
           <CardBody>
             <p>
-              Use <code>outline</code> prop
+              Use
+              {' '}
+              <code>outline</code>
+              {' '}
+prop
             </p>
             <Row className="align-items-center">
               <Col col="12" xl className="mb-3 mb-xl-0">
@@ -144,7 +150,7 @@ class Buttons extends Component {
               <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
                 <Button block outline color="dark">Dark</Button>
               </Col>
-              <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0"></Col>
+              <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0" />
             </Row>
             <Row className="align-items-center mt-3">
               <Col col="12" xl className="mb-3 mb-xl-0">
@@ -174,7 +180,7 @@ class Buttons extends Component {
               <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
                 <Button block outline active color="dark" aria-pressed="true">Dark</Button>
               </Col>
-              <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0"></Col>
+              <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0" />
             </Row>
             <Row className="align-items-center mt-3">
               <Col col="12" xl className="mb-3 mb-xl-0">
@@ -204,7 +210,7 @@ class Buttons extends Component {
               <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
                 <Button block outline color="dark" disabled>Dark</Button>
               </Col>
-              <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0"></Col>
+              <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0" />
             </Row>
           </CardBody>
         </Card>
@@ -215,7 +221,9 @@ class Buttons extends Component {
           <CardBody>
             <p>
               Use
-              <code>.btn-ghost-*</code> class for ghost buttons.
+              <code>.btn-ghost-*</code>
+              {' '}
+class for ghost buttons.
             </p>
             <Row className="align-items-center">
               <Col col="12" xl className="mb-3 mb-xl-0">
@@ -245,7 +253,7 @@ class Buttons extends Component {
               <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
                 <Button block color="ghost-dark">Dark</Button>
               </Col>
-              <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0"></Col>
+              <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0" />
             </Row>
             <Row className="align-items-center mt-3">
               <Col col="12" xl className="mb-3 mb-xl-0">
@@ -275,7 +283,7 @@ class Buttons extends Component {
               <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
                 <Button block active color="ghost-dark" aria-pressed="true">Dark</Button>
               </Col>
-              <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0"></Col>
+              <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0" />
             </Row>
             <Row className="align-items-center mt-3">
               <Col col="12" xl className="mb-3 mb-xl-0">
@@ -305,7 +313,7 @@ class Buttons extends Component {
               <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0">
                 <Button block color="ghost-dark" disabled>Dark</Button>
               </Col>
-              <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0"></Col>
+              <Col col="6" sm="4" md="2" xl className="mb-3 mb-xl-0" />
             </Row>
           </CardBody>
         </Card>
@@ -316,7 +324,9 @@ class Buttons extends Component {
           <CardBody>
             <p>
               Use
-              <code>.btn-square</code> class for square buttons.
+              <code>.btn-square</code>
+              {' '}
+class for square buttons.
             </p>
             <Row className="align-items-center">
               <Col col="12" xl className="mb-3 mb-xl-0">
@@ -423,7 +433,9 @@ class Buttons extends Component {
           <CardBody>
             <p>
               Use
-              <code>.btn-pill</code> class for pill buttons.
+              <code>.btn-pill</code>
+              {' '}
+class for pill buttons.
             </p>
             <Row className="align-items-center">
               <Col col="12" xl className="mb-3 mb-xl-0">
@@ -528,7 +540,15 @@ class Buttons extends Component {
             <strong>Sizes</strong>
           </CardHeader>
           <CardBody>
-            <p>Fancy larger or smaller buttons? Add <code>size="lg"</code> or <code>size="sm"</code> for additional sizes.</p>
+            <p>
+Fancy larger or smaller buttons? Add
+              <code>size="lg"</code>
+              {' '}
+or
+              <code>size="sm"</code>
+              {' '}
+for additional sizes.
+            </p>
             <Row className="align-items-center">
               <Col col="2" xl className="mb-3 mb-xl-0">
                 Small
@@ -557,7 +577,7 @@ class Buttons extends Component {
                 <Button color="primary">Standard Button</Button>
               </Col>
               <Col col="2" className="mb-3 mb-xl-0 text-center">
-                <Button outline color="secondary" >Outline Button</Button>
+                <Button outline color="secondary">Outline Button</Button>
               </Col>
               <Col col="2" className="mb-3 mb-xl-0 text-center">
                 <Button color="ghost-success">Ghost Button</Button>
@@ -576,7 +596,7 @@ class Buttons extends Component {
               <Col col="2" className="mb-3 mb-xl-0 text-center">
                 <Button color="primary" size="lg">Standard Button</Button>
               </Col>
-              <Col col="2"className="mb-3 mb-xl-0 text-center">
+              <Col col="2" className="mb-3 mb-xl-0 text-center">
                 <Button outline color="secondary" size="lg">Outline Button</Button>
               </Col>
               <Col col="2" className="mb-3 mb-xl-0 text-center">
@@ -599,27 +619,32 @@ class Buttons extends Component {
             <Row className="align-items-center mt-3">
               <Col sm xs="12" className="text-center mt-3">
                 <Button color="primary">
-                  <i className="fa fa-lightbulb-o"></i>&nbsp;Standard Button
+                  <i className="fa fa-lightbulb-o" />
+&nbsp;Standard Button
                 </Button>
               </Col>
               <Col sm xs="12" className="text-center mt-3">
                 <Button color="secondary" outline>
-                  <i className="fa fa-lightbulb-o"></i>&nbsp;Outline Button
+                  <i className="fa fa-lightbulb-o" />
+&nbsp;Outline Button
                 </Button>
               </Col>
               <Col sm xs="12" className="text-center mt-3">
                 <Button color="ghost-success">
-                  <i className="fa fa-lightbulb-o"></i>&nbsp;Ghost Button
+                  <i className="fa fa-lightbulb-o" />
+&nbsp;Ghost Button
                 </Button>
               </Col>
               <Col sm xs="12" className="text-center mt-3">
                 <Button color="warning" className="btn-square">
-                  <i className="fa fa-lightbulb-o"></i>&nbsp;Square Button
+                  <i className="fa fa-lightbulb-o" />
+&nbsp;Square Button
                 </Button>
               </Col>
               <Col sm xs="12" className="text-center mt-3">
                 <Button color="danger" className="btn-pill">
-                  <i className="fa fa-lightbulb-o"></i>&nbsp;Pill Button
+                  <i className="fa fa-lightbulb-o" />
+&nbsp;Pill Button
                 </Button>
               </Col>
             </Row>
@@ -632,7 +657,10 @@ class Buttons extends Component {
                 <strong>Block Level Buttons</strong>
               </CardHeader>
               <CardBody>
-                <p>Add prop <code>block</code></p>
+                <p>
+Add prop
+                  <code>block</code>
+                </p>
                 <Button color="secondary" size="lg" block>Block level button</Button>
                 <Button color="primary" size="lg" block>Block level button</Button>
                 <Button color="success" size="lg" block>Block level button</Button>
@@ -649,7 +677,10 @@ class Buttons extends Component {
                 <strong>Block Level Buttons</strong>
               </CardHeader>
               <CardBody>
-                <p>Add prop <code>block</code></p>
+                <p>
+Add prop
+                  <code>block</code>
+                </p>
                 <Button outline color="secondary" size="lg" block>Block level button</Button>
                 <Button outline color="primary" size="lg" block>Block level button</Button>
                 <Button outline color="success" size="lg" block>Block level button</Button>

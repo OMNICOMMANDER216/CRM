@@ -6,6 +6,7 @@ import CustomerForm from './Form/CustomerForm';
 import CustomerModel from './CustomerModel';
 import { validateAll } from 'indicative';
 import * as customersActions from '../../store/actions/customersActions';
+import requireRole from '../../helpers/RequireRole';
 
 class ManageCustomerPage extends React.Component { 
   constructor(props, context) {
@@ -174,4 +175,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageCustomerPage);
+export default connect(mapStateToProps, mapDispatchToProps)(requireRole(['Admin'],ManageCustomerPage));

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Badge, Button, Card, CardBody, CardFooter, CardHeader, Col, Collapse, Fade, Row } from 'reactstrap';
+import {
+  Badge, Button, Card, CardBody, CardFooter, CardHeader, Col, Collapse, Fade, Row,
+} from 'reactstrap';
 
 class Collapses extends Component {
-
   constructor(props) {
     super(props);
     this.onEntering = this.onEntering.bind(this);
@@ -44,9 +45,8 @@ class Collapses extends Component {
   }
 
   toggleAccordion(tab) {
-
     const prevState = this.state.accordion;
-    const state = prevState.map((x, index) => tab === index ? !x : false);
+    const state = prevState.map((x, index) => (tab === index ? !x : false));
 
     this.setState({
       accordion: state,
@@ -54,9 +54,8 @@ class Collapses extends Component {
   }
 
   toggleCustom(tab) {
-
     const prevState = this.state.custom;
-    const state = prevState.map((x, index) => tab === index ? !x : false);
+    const state = prevState.map((x, index) => (tab === index ? !x : false));
 
     this.setState({
       custom: state,
@@ -74,7 +73,8 @@ class Collapses extends Component {
           <Col xl="6">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Collapse</strong>
+                <i className="fa fa-align-justify" />
+                <strong>Collapse</strong>
                 <div className="card-header-actions">
                   <a href="https://reactstrap.github.io/components/collapse/" rel="noreferrer noopener" target="_blank" className="card-header-action">
                     <small className="text-muted">docs</small>
@@ -103,14 +103,18 @@ class Collapses extends Component {
                 </CardBody>
               </Collapse>
               <CardFooter>
-                <Button color="primary" onClick={this.toggle} className={'mb-1'} id="toggleCollapse1">Toggle</Button>
-                <hr/>
-                <h5>Current state: {this.state.status}</h5>
+                <Button color="primary" onClick={this.toggle} className="mb-1" id="toggleCollapse1">Toggle</Button>
+                <hr />
+                <h5>
+Current state:
+                  {this.state.status}
+                </h5>
               </CardFooter>
             </Card>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Fade</strong>
+                <i className="fa fa-align-justify" />
+                <strong>Fade</strong>
                 <div className="card-header-actions">
                   <a href="https://reactstrap.github.io/components/fade/" rel="noreferrer noopener" target="_blank" className="card-header-action">
                     <small className="text-muted">docs</small>
@@ -130,7 +134,11 @@ class Collapses extends Component {
           <Col xl="6">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i> Collapse <small>accordion</small>
+                <i className="fa fa-align-justify" />
+                {' '}
+Collapse
+                {' '}
+                <small>accordion</small>
                 <div className="card-header-actions">
                   <Badge>NEW</Badge>
                 </div>
@@ -190,7 +198,11 @@ class Collapses extends Component {
             </Card>
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i> Collapse <small>custom accordion</small>
+                <i className="fa fa-align-justify" />
+                {' '}
+Collapse
+                {' '}
+                <small>custom accordion</small>
                 <div className="card-header-actions">
                   <Badge>NEW</Badge>
                 </div>

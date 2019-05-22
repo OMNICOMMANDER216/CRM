@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { mount } from 'enzyme/build';
 import Forms from './Forms';
-import {mount} from 'enzyme/build';
 
 it('renders without crashing', () => {
   const div = document.createElement('div');
@@ -9,7 +9,7 @@ it('renders without crashing', () => {
   ReactDOM.unmountComponentAtNode(div);
 });
 
-describe('toggle clicks', function() {
+describe('toggle clicks', () => {
   // it('dropdowns without crashing', () => {
   //   const wrapper = mount(<Forms />);
   //   for (let i = 0; i < 4; i++) {
@@ -36,4 +36,4 @@ describe('toggle clicks', function() {
   //   expect(wrapper.state().fadeIn).toEqual(false);
   //   wrapper.unmount()
   // });
-})
+});

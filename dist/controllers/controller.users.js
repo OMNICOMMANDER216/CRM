@@ -7,11 +7,11 @@ var _user_notification2 = _interopRequireDefault(_user_notification);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var mongoose = require('mongoose');
-
 var User = mongoose.model('User');
 var Notification = mongoose.model('Notification');
 
 exports.usersController = {
+
   getCurrentUser: function getCurrentUser(req, res) {
     res.json(req.currentUser);
   },

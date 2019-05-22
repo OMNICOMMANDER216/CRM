@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { Button, Card, CardBody, CardHeader, Popover, PopoverBody, PopoverHeader } from 'reactstrap';
+import {
+  Button, Card, CardBody, CardHeader, Popover, PopoverBody, PopoverHeader,
+} from 'reactstrap';
 
 class PopoverItem extends Component {
   constructor(props) {
@@ -20,10 +22,10 @@ class PopoverItem extends Component {
   render() {
     return (
       <Fragment>
-        <Button className="mr-1" color="secondary" id={'Popover-' + this.props.id} onClick={this.toggle}>
+        <Button className="mr-1" color="secondary" id={`Popover-${this.props.id}`} onClick={this.toggle}>
           {this.props.item.text}
         </Button>
-        <Popover placement={this.props.item.placement} isOpen={this.state.popoverOpen} target={'Popover-' + this.props.id} toggle={this.toggle}>
+        <Popover placement={this.props.item.placement} isOpen={this.state.popoverOpen} target={`Popover-${this.props.id}`} toggle={this.toggle}>
           <PopoverHeader>Popover Title</PopoverHeader>
           <PopoverBody>Sed posuere consectetur est at lobortis. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.</PopoverBody>
         </Popover>
@@ -33,7 +35,6 @@ class PopoverItem extends Component {
 }
 
 class Popovers extends Component {
-
   constructor(props) {
     super(props);
 
@@ -72,7 +73,8 @@ class Popovers extends Component {
       <div className="animated fadeIn">
         <Card>
           <CardHeader>
-            <i className="fa fa-align-justify"></i><strong>Popovers</strong>
+            <i className="fa fa-align-justify" />
+            <strong>Popovers</strong>
             <div className="card-header-actions">
               <a href="https://reactstrap.github.io/components/popovers/" rel="noreferrer noopener" target="_blank" className="card-header-action">
                 <small className="text-muted">docs</small>
@@ -91,13 +93,12 @@ class Popovers extends Component {
         </Card>
         <Card>
           <CardHeader>
-            <i className="fa fa-align-justify"></i><strong>Popovers</strong>
+            <i className="fa fa-align-justify" />
+            <strong>Popovers</strong>
             <small> list</small>
           </CardHeader>
           <CardBody>
-            {this.state.popovers.map((popover, i) => {
-              return <PopoverItem key={i} item={popover} id={i} />;
-            })}
+            {this.state.popovers.map((popover, i) => <PopoverItem key={i} item={popover} id={i} />)}
           </CardBody>
         </Card>
       </div>

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardHeader, Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem, Col, Row } from 'reactstrap';
+import {
+  Card, CardBody, CardHeader, Carousel, CarouselCaption, CarouselControl, CarouselIndicators, CarouselItem, Col, Row,
+} from 'reactstrap';
 
 const items = [
   {
@@ -20,7 +22,6 @@ const items = [
 ];
 
 class Carousels extends Component {
-
   constructor(props) {
     super(props);
     this.state = { activeIndex: 0 };
@@ -59,26 +60,22 @@ class Carousels extends Component {
   render() {
     const { activeIndex } = this.state;
 
-    const slides = items.map((item) => {
-      return (
-        <CarouselItem onExiting={this.onExiting} onExited={this.onExited} key={item.src}>
-          <img className="d-block w-100" src={item.src} alt={item.altText} />
-        </CarouselItem>
-      );
-    });
+    const slides = items.map(item => (
+      <CarouselItem onExiting={this.onExiting} onExited={this.onExited} key={item.src}>
+        <img className="d-block w-100" src={item.src} alt={item.altText} />
+      </CarouselItem>
+    ));
 
-    const slides2 = items.map((item) => {
-      return (
-        <CarouselItem
-          onExiting={this.onExiting}
-          onExited={this.onExited}
-          key={item.src}
-        >
-          <img className="d-block w-100" src={item.src} alt={item.altText} />
-          <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
-        </CarouselItem>
-      );
-    });
+    const slides2 = items.map(item => (
+      <CarouselItem
+        onExiting={this.onExiting}
+        onExited={this.onExited}
+        key={item.src}
+      >
+        <img className="d-block w-100" src={item.src} alt={item.altText} />
+        <CarouselCaption captionText={item.caption} captionHeader={item.caption} />
+      </CarouselItem>
+    ));
 
     return (
       <div className="animated fadeIn">
@@ -86,7 +83,8 @@ class Carousels extends Component {
           <Col xs="12" xl="6">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Carousel</strong>
+                <i className="fa fa-align-justify" />
+                <strong>Carousel</strong>
                 <div className="card-header-actions">
                   <a href="https://reactstrap.github.io/components/carousel/" rel="noreferrer noopener" target="_blank" className="card-header-action">
                     <small className="text-muted">docs</small>
@@ -103,7 +101,8 @@ class Carousels extends Component {
           <Col xs="12" xl="6">
             <Card>
               <CardHeader>
-                <i className="fa fa-align-justify"></i><strong>Carousel</strong>
+                <i className="fa fa-align-justify" />
+                <strong>Carousel</strong>
               </CardHeader>
               <CardBody>
                 <Carousel activeIndex={activeIndex} next={this.next} previous={this.previous}>

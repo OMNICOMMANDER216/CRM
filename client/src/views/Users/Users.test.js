@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { MemoryRouter } from 'react-router-dom';
-import Users from './Users';
 import { Provider } from 'react-redux';
+import Users from './Users';
 import configureStore from '../../store/store';
 
 const store = configureStore();

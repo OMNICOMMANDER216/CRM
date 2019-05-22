@@ -39,9 +39,9 @@ var TaskSchema = new Schema({
   }
 }, { timestamps: true });
 
-TaskSchema.statics.addColumn = function addColumn(type, callback) {
+TaskSchema.statics.addColumn = function addColumn(column, boardId, callback) {
   var bulk = this.model('Task').collection.initializeOrderedBulkOp();
-  bulk.find({}).update({ $addToSet: { column: _extends({}, type) } });
+  bulk.find({ board: boardId }).update({ $addToSet: { column: _extends({}, column) } });
   bulk.execute(callback);
 };
 

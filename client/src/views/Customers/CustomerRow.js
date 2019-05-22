@@ -5,22 +5,26 @@ import getBadge from '../../helpers/getBadge';
 
 
 function CustomerRow(props) {
-  const {customer, deleteCustomer, isAdmin, isBookkeeping} = props;
+  const {
+    customer, deleteCustomer, isAdmin, isBookkeeping,
+  } = props;
 
   return (
     <tr key={customer._id} className="text-left">
       <td className="text-left">
-        <Link 
-          to={`/customers/${customer._id}`}>
-            {customer.name}
+        <Link
+          to={`/customers/${customer._id}`}
+        >
+          {customer.name}
         </Link>
       </td>
       <td>
-        <a 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          href={`https://${customer.url}`}>
-            {customer.url}
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href={`https://${customer.url}`}
+        >
+          {customer.url}
         </a>
       </td>
       <td className="text-left">{customer.services.toString()}</td>
@@ -28,31 +32,38 @@ function CustomerRow(props) {
         <Badge color={getBadge(customer.status)}>{customer.status}</Badge>
       </td>
       <td className="text-center">
-        <Link 
-          to={`/customers/${customer._id}`}>
-            <i className="fa fa-eye"></i>
+        <Link
+          to={`/customers/${customer._id}`}
+        >
+          <i className="fa fa-eye" />
         </Link>
       </td>
 
-      {(isAdmin || isBookkeeping) && 
+      {(isAdmin || isBookkeeping)
+      && (
       <td className="text-center">
-        <Link 
-          to={{ pathname : `/customer/edit/${customer._id}`, state: {customer: customer} }}>
-            <i className="fa fa-edit"></i>
+        <Link
+          to={{ pathname: `/customer/edit/${customer._id}`, state: { customer } }}
+        >
+          <i className="fa fa-edit" />
         </Link>
-      </td>}
+      </td>
+      )}
 
-      {(isAdmin) && 
+      {(isAdmin)
+        && (
         <td className="text-center">
-          <button 
-            to="/customer" 
-            onClick={(event) => window.confirm('Are You Sure ?') && deleteCustomer(event, customer._id)}>
-              <i className="fa fa-trash"></i>
+          <button
+            to="/customer"
+            onClick={event => window.confirm('Are You Sure ?') && deleteCustomer(event, customer._id)}
+          >
+            <i className="fa fa-trash" />
           </button>
         </td>
+        )
       }
-      </tr>
-  )
+    </tr>
+  );
 }
 
 export default CustomerRow;

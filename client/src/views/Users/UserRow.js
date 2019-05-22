@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import {
   FormGroup,
   Input,
-  Label
+  Label,
 } from 'reactstrap';
 
 function UserRow(props) {
-  const {user, setRole} = props;
+  const { user, setRole } = props;
   const userLink = `/users/${user._id}`;
 
   return (
@@ -18,16 +18,16 @@ function UserRow(props) {
       <td>
         <FormGroup>
           <Label for="developer">Role</Label>
-          <Input type="select" name="role" value={user.role} onChange={(event) => setRole(event, user)} id="developer"  >
-             <option value="select">Select</option>
-                {
-                    ["Bookkeeping", "Sales", "Pm", "DevAdmin", "Developer", "Compliance", "Admin"].map((data, index) => <option key={index} value={data}>{data}</option>)
+          <Input type="select" name="role" value={user.role} onChange={event => setRole(event, user)} id="developer">
+            <option value="select">Select</option>
+            {
+                    ['Bookkeeping', 'Sales', 'Pm', 'DevAdmin', 'Developer', 'Compliance', 'Admin'].map((data, index) => <option key={index} value={data}>{data}</option>)
                       }
-           </Input>
-         </FormGroup>
-         </td>
+          </Input>
+        </FormGroup>
+      </td>
     </tr>
-  )
+  );
 }
 
 export default UserRow;

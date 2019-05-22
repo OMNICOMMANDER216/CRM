@@ -8,42 +8,42 @@ import  * as authActions from '../store/actions/authActions';
 
 export default function (ComposedComponent) {
   class StoreInit extends Component {
-
-    componentWillMount () {
-        if(!this.props.auth.isAuthenticated) {  
-            this.props.authActions.initAuth();
-        }
-        if(!this.props.users.length) {
-            this.props.userActions.loadUsers();
-        }
-        if(!this.props.customers.length) {
-            this.props.customerActions.loadCustomers();
-        }
+    componentWillMount() {
+      if (!this.props.auth.isAuthenticated) {
+        this.props.authActions.initAuth();
+      }
+      if (!this.props.users.length) {
+        this.props.userActions.loadUsers();
+      }
+      if (!this.props.customers.length) {
+        this.props.customerActions.loadCustomers();
+      }
     }
+
     render() {
-      return <ComposedComponent  {...this.props} />;
+      return <ComposedComponent {...this.props} />;
     }
   }
 
   StoreInit.propTypes = {
-    authenticated: PropTypes.bool
+    authenticated: PropTypes.bool,
   };
 
-function mapStateToProps(state, ownProps) {
-  return {
-    auth: state.auth,
-    customers: state.customers,
-    users: state.users
-  };
-}
+  function mapStateToProps(state, ownProps) {
+    return {
+      auth: state.auth,
+      customers: state.customers,
+      users: state.users,
+    };
+  }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    userActions: bindActionCreators(userActions, dispatch),
-    customerActions: bindActionCreators(customerActions, dispatch),
-    authActions: bindActionCreators(authActions, dispatch)
-  };
-}
+  function mapDispatchToProps(dispatch) {
+    return {
+      userActions: bindActionCreators(userActions, dispatch),
+      customerActions: bindActionCreators(customerActions, dispatch),
+      authActions: bindActionCreators(authActions, dispatch),
+    };
+  }
 
   return connect(mapStateToProps, mapDispatchToProps)(StoreInit);
 }

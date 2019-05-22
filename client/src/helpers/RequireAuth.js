@@ -9,25 +9,26 @@ export default function (ComposedComponent) {
       super(props);
 
       this.state = {
-        loggedIn: false
+        loggedIn: false,
       };
     }
 
-    componentWillMount () {
-      if(getToken()) {
-        this.setState({loggedIn: true});
+    componentWillMount() {
+      if (getToken()) {
+        this.setState({ loggedIn: true });
       }
     }
+
     render() {
-      if(this.state.loggedIn) {
-        return <ComposedComponent  {...this.props} />;
-      } 
-      return <Redirect to='/login' />;
+      if (this.state.loggedIn) {
+        return <ComposedComponent {...this.props} />;
+      }
+      return <Redirect to="/login" />;
     }
   }
 
   Authentication.propTypes = {
-    authenticated: PropTypes.bool
+    authenticated: PropTypes.bool,
   };
 
   return Authentication;

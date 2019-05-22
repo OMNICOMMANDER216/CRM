@@ -1,13 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Input } from 'reactstrap';
 const TaskItem = React.lazy(() => import('../Task/TaskItem'));
 
-const clearInput = () => {
-  document.querySelector('input[name="new"]').value="";
-}
+export default class TaskLIst extends Component {
+  state = {
+    new: ""
+  }
 
-export default (props) => {
-  let {tasks, group, columns, users, isEditingHandler, saveHandler, editHandler, disabled, changeHandler, editActive, setSideTask, taskFilter, sideTask, removeTask} = props;
+  localNew = (e) => {
+    this.setState({new: e.target.value});
+  }
+
+  clearInput = () => {
+    this.setState({new: ""});
+  }
+
+  render() {
+  let {tasks, group, columns, users, isEditingHandler, saveHandler, editHandler, disabled, changeHandler, editActive, setSideTask, taskFilter, sideTask, removeTask} = this.props;
   tasks = tasks.sort((t1, t2) => t1._id.localeCompare(t2._id))
   // tasks = tasks.filter(t => t.column[0].value.toLowerCase().includes(taskFilter))
   return (
@@ -36,7 +45,7 @@ export default (props) => {
                   </button> }
                   
                   <button type="submit" 
-                    onClick={() => saveHandler(group._id) || clearInput()} 
+                    onClick={() => saveHandler(group._id) || this.clearInput()} 
                     size="md" 
                     color="primary" 
                     className="m-2">
@@ -51,12 +60,14 @@ export default (props) => {
                   name="new" 
                   placeholder="name"  
                   disabled={disabled !== group._id} 
-                  onBlur={() => saveHandler(group._id) || clearInput()}
-                  onKeyDown={e => (e.keyCode === 13) && (saveHandler(group._id) || clearInput())}
-                  onChange={changeHandler}
+                  onBlur={() => saveHandler(group._id) || this.clearInput()}
+                  onKeyDown={e => (e.keyCode === 13) && (saveHandler(group._id) || this.clearInput())}
+                  onChange={(e) => this.localNew(e) || changeHandler(e, group._id)}
+                  value={this.state.new}
                    />
               </th>
             </tr>
         </tbody>
   )
+  }
 }

@@ -23,7 +23,7 @@ class Forms extends Component {
     this.state = {
       collapse: true,
       fadeIn: true,
-      timeout: 300
+      timeout: 300,
     };
   }
 
@@ -32,14 +32,14 @@ class Forms extends Component {
   }
 
   toggleFade() {
-    this.setState((prevState) => { return { fadeIn: !prevState }});
+    this.setState(prevState => ({ fadeIn: !prevState }));
   }
 
   render() {
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col xs="12" md="12" >
+          <Col xs="12" md="12">
             <Card>
               <CardHeader>
                 <strong>Customer Form</strong>
@@ -123,8 +123,16 @@ class Forms extends Component {
                 </Form>
               </CardBody>
               <CardFooter className="d-flex justify-content-center">
-                <Button type="submit" size="md" color="primary" className="m-2"><i className="fa fa-dot-circle-o"></i> Submit</Button>
-                <Button type="reset" size="md" color="danger" className="m-2"><i className="fa fa-ban"></i> Reset</Button>
+                <Button type="submit" size="md" color="primary" className="m-2">
+                  <i className="fa fa-dot-circle-o" />
+                  {' '}
+Submit
+                </Button>
+                <Button type="reset" size="md" color="danger" className="m-2">
+                  <i className="fa fa-ban" />
+                  {' '}
+Reset
+                </Button>
               </CardFooter>
             </Card>
           </Col>

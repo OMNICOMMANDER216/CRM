@@ -1,26 +1,26 @@
+import jwtDecode from 'jwt-decode';
 import actions from '../actionTypes';
 import setAuthorizationToken from '../../helpers/setAuthorizationToken';
-import jwtDecode from 'jwt-decode';
 import setToken from '../../helpers/setToken';
 
 export function setCurrentUser(user) {
   return {
     type: actions.SET_CURRENT_USER,
-    user
+    user,
   };
 }
 
 export function login(token) {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(setCurrentUser(jwtDecode(token)));
     setToken(token);
-    
-      return Promise.resolve();
+
+    return Promise.resolve();
   };
 }
 
 export function logout() {
-  return dispatch => {
+  return (dispatch) => {
     localStorage.removeItem('jwtToken');
     setAuthorizationToken(false);
     dispatch(setCurrentUser({}));
@@ -37,17 +37,17 @@ export function logout() {
 //   };
 // }
 
-export function initAuth() { 
-  return dispatch => {
+export function initAuth() {
+  return (dispatch) => {
     const token = localStorage.getItem('jwtToken');
-    if(token) {
+    if (token) {
       // setAuthorizationToken(token);
-     return dispatch(setCurrentUser(jwtDecode(token)));
+      return dispatch(setCurrentUser(jwtDecode(token)));
     }
   };
 }
 
 export function getCurrentUser() {
 //   return dispatch => api.getCurrentUser().then(data => dispatch(setCurrentUser(data)))
-    // .catch(Error => {throw Error;});
+  // .catch(Error => {throw Error;});
 }

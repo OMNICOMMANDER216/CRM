@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import DefaultAside from '../DefaultAside';
 import { Provider } from 'react-redux';
+import DefaultAside from '../DefaultAside';
 import configureStore from '../../../store/store';
 
 const store = configureStore();
