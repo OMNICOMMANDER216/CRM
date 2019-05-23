@@ -83,9 +83,7 @@ exports.boardsController = {
       });
     } else {
       // Save document
-      console.log('here');
       newBoard = (0, _lodash.omit)(newBoard, 'customer');
-      console.log(newBoard);
       new Board(newBoard).save().then(function (board) {
         console.log(board);
         // insert borad into folder

@@ -82,9 +82,7 @@ exports.boardsController = {
       });
     } else {
       // Save document
-      console.log('here');
       newBoard = omit(newBoard, 'customer');
-      console.log(newBoard);
       new Board(newBoard)
         .save()
         .then((board) => {
