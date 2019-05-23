@@ -9,7 +9,7 @@ import { AppAside, } from '@coreui/react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, FormGroup, Input} from "reactstrap";
 import { validateAll } from "indicative";
 import moment from "moment";
-import { isEmpty } from "lodash";
+import { isEmpty, isString } from "lodash";
 // api
 import userApi from "../../../api/userApi";
 import boardsApi from "../../../api/boardsApi";
@@ -180,7 +180,7 @@ class Board extends Component {
         
         this.setState({ board, editing: {} });
       });
-    } else if(this.state.newTask) {
+    } else if(this.state.newTask && isString(this.state.newTask)) {
       const board = Object.assign({}, this.state.board);
       let task = {};
 

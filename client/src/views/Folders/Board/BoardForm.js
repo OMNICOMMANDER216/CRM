@@ -40,6 +40,7 @@ class BoardForm extends Component {
     const options = customers.map(customer => {
       return {value: customer._id, label: customer.name}
     });
+    options.unshift({value: "", label: 'Select'})
 
 
     return (

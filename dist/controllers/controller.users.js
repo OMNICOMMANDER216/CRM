@@ -1,14 +1,15 @@
-'use strict';
 
-var _user_notification = require('../helpers/user_notification');
 
-var _user_notification2 = _interopRequireDefault(_user_notification);
+let _user_notification = require('../helpers/user_notification');
+
+let _user_notification2 = _interopRequireDefault(_user_notification);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var mongoose = require('mongoose');
-var User = mongoose.model('User');
-var Notification = mongoose.model('Notification');
+let mongoose = require('mongoose');
+
+let User = mongoose.model('User');
+let Notification = mongoose.model('Notification');
 
 exports.usersController = {
 
@@ -17,7 +18,7 @@ exports.usersController = {
   },
 
   getAll: function getAll(req, res) {
-    User.find({}).populate('customers').populate('notifications').exec(function (error, users) {
+    User.find({}).populate('customers').populate('notifications').exec((error, users) => {
       if (error) {
         res.json({
           success: false,
@@ -34,7 +35,7 @@ exports.usersController = {
   },
 
   getById: function getById(req, res) {
-    User.findById(req.params.id).populate('customers').exec(function (error, user) {
+    User.findById(req.params.id).populate('customers').exec((error, user) => {
       if (error) {
         res.json({
           success: false,
@@ -52,10 +53,10 @@ exports.usersController = {
 
   updateRole: function updateRole(req, res) {
     if (req.currentUser) {
-      var userToUpdate = req.body.data;
+      let userToUpdate = req.body.data;
       User.findByIdAndUpdate(userToUpdate._id, { role: userToUpdate.role }, {
-        new: true
-      }, function (error, user) {
+        new: true,
+      }, (error, user) => {
         if (error) {
           res.json({
             success: false,
@@ -74,31 +75,31 @@ exports.usersController = {
 
   notify: function notify(req, res) {
     // eslint-disable-next-line prefer-const
-    var _req$body$data = req.body.data,
-        userIds = _req$body$data.userIds,
-        notification = _req$body$data.notification;
+    let _req$body$data = req.body.data;
+        var userIds = _req$body$data.userIds;
+        var {notification} = _req$body$data;
 
-    userIds = userIds.map(function (id) {
+    userIds = userIds.map((id) => {
       return mongoose.Types.ObjectId(id);
     });
-    new Notification(notification).save().then(function (n) {
+    new Notification(notification).save().then((n) => {
       (0, _user_notification2.default)(userIds, n);
       res.json({
         success: true,
         message: 'User Notified'
       });
-    }).catch(function (error) {
+    }).catch((error) => {
       return console.log(error);
     });
   },
 
   notificationArchive: function notificationArchive(req, res) {
-    var notification = req.body.data;
+    let notification = req.body.data;
 
     // delete notification
     User.findByIdAndUpdate(req.currentUser._id, {
-      $pull: { notifications: notification._id }
-    }).then(function (model) {
+      $pull: { notifications: notification._id },
+    }).then((model) => {
       User.findById(model._id).populate('notifications').populate('customers').exec(function (error, user) {
         if (error) {
           res.json({
@@ -114,5 +115,5 @@ exports.usersController = {
         }
       });
     });
-  }
+  },
 };
