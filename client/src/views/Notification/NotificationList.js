@@ -31,14 +31,13 @@ class NotificationList extends React.Component {
     let notificationList = [];
 
     if (!isEmpty(user) && !isEmpty(user.notifications)) {
-      console.log(user.notifications);
       // Map notifications to notificationLIst and sort by Not Read
       notificationList = !isEmpty(user.notifications) ? user.notifications.map(notification => (
         <Notification
-        key={notification._id}
-        notification={notification}
-        onClick={() => this.onClick(notification)}
-      />
+          key={notification._id}
+          notification={notification}
+          onClick={() => this.onClick(notification)}
+        />
       )).sort((a, b) => ((a === b) ? 0 : a ? -1 : 1)) : [];
     }
 
