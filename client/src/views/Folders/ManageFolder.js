@@ -6,6 +6,7 @@ import BoardForm from './Board/BoardForm';
 import BoardModel from './Board/BoardModel';
 import { validateAll } from 'indicative';
 import * as foldersActions from '../../store/actions/foldersActions';
+import BoardApi from '../../api/boardsApi';
 
 class ManageBoardPage extends React.Component { 
   constructor(props, context) {
@@ -35,9 +36,12 @@ class ManageBoardPage extends React.Component {
 
      if(this.props.location.state && this.props.location.state.boardId) {
        const id = this.props.location.state.boardId;
-       const board = this.props.folder.boards.find(board => board._id === id);
-       const selectedCustomer = board.customer ? {value: board.customer, label: this.props.customers.length && this.props.customers.find(cust => cust._id === board.customer).name} : {value: "", label: 'Select'};
-       this.setState({board, selectedCustomer});
+        BoardApi.loadBoardById(id)
+        .then(res => {
+            const board = res.data;
+            const selectedCustomer = board.customer ? {value: board.customer, label: this.props.customers.length && this.props.customers.find(cust => cust._id === board.customer).name} : {value: "", label: 'Select'};
+            this.setState({board, selectedCustomer});
+        });
      } else {
         this.setState({board: BoardModel});
      }

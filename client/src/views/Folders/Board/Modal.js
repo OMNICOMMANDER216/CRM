@@ -87,6 +87,7 @@ class BoardModal extends Component {
                     name="type" 
                     value={modalColumn.type} 
                     onChange={modalHandler} 
+                    onKeyDown={e => (e.keyCode === 13) && saveColumn() }
                     id="type">
                     <option value="select">Select</option>
                     { ['name', 'user', 'date', 'status', 'priority', 'last_updated', 'date'].map((data, index) => <option key={index} value={data}>{data}</option>) }
@@ -111,7 +112,9 @@ class BoardModal extends Component {
                     name="groupTitle" 
                     placeholder="title" 
                     onChange={modalHandler} 
-                    value={modalGroup.title}/>
+                    value={modalGroup.title}
+                    onKeyDown={e => (e.keyCode === 13) && saveGroup() }
+                    />
                   <FormText color="danger">{errors && errors.title}</FormText>
                 </Col>
                 </FormGroup>
