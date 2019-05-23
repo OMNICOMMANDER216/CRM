@@ -135,9 +135,9 @@ Current state:
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify" />
-                {' '}
+                
 Collapse
-                {' '}
+                
                 <small>accordion</small>
                 <div className="card-header-actions">
                   <Badge>NEW</Badge>
@@ -199,9 +199,9 @@ Collapse
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify" />
-                {' '}
+                
 Collapse
-                {' '}
+                
                 <small>custom accordion</small>
                 <div className="card-header-actions">
                   <Badge>NEW</Badge>

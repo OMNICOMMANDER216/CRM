@@ -26,7 +26,8 @@ var UserSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ['Bookkeeping', 'Sales', 'Pm', 'DevAdmin', 'Developer', 'Compliance', 'Admin']
+    enum: ['Employee', 'Bookkeeping', 'Sales', 'Pm', 'DevAdmin', 'Developer', 'Compliance', 'QA', 'Admin'],
+    default: 'Employee'
   },
   customers: [{
     type: mongoose.Schema.Types.ObjectId,

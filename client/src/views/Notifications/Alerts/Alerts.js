@@ -67,10 +67,10 @@ class Alerts extends Component {
                 <i className="fa fa-align-justify" />
                 <strong>Alerts</strong>
                 <small>
-                  {' '}
+                  
 use
                   <code>.alert-link</code>
-                  {' '}
+                  
 to provide links
                 </small>
               </CardHeader>

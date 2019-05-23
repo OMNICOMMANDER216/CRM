@@ -159,7 +159,7 @@ class ButtonGroups extends Component {
               <CardHeader>
                 <i className="fa fa-align-justify" />
                 <strong>Button Toolbar</strong>
-                {' '}
+                
                 <small>with input groups</small>
               </CardHeader>
               <CardBody>

@@ -125,12 +125,12 @@ class Forms extends Component {
               <CardFooter className="d-flex justify-content-center">
                 <Button type="submit" size="md" color="primary" className="m-2">
                   <i className="fa fa-dot-circle-o" />
-                  {' '}
+                  
 Submit
                 </Button>
                 <Button type="reset" size="md" color="danger" className="m-2">
                   <i className="fa fa-ban" />
-                  {' '}
+                  
 Reset
                 </Button>
               </CardFooter>

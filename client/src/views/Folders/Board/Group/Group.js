@@ -27,11 +27,11 @@ const Group =  (props) => {
     <Row className="full-width">
       <Card style={styles.card}>
         <CardHeader>
-        <ContextMenuTrigger id={group._id}>
+        <ContextMenuTrigger id={(group && group._id) || 'test'}>
           <i className="fa fa-align-justify"></i>  <h3> {group && group.title} </h3>
           </ContextMenuTrigger>
 
-          <ContextMenu id={group._id} style={styles.contextMenu}>
+          <ContextMenu id={(group && group._id) || "test"} style={styles.contextMenu}>
             <MenuItem data={{foo: 'bar'}} >
               ContextMenu Item 1
             </MenuItem>

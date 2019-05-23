@@ -6,7 +6,7 @@ import { bindActionCreators } from "redux";
 import { Redirect } from "react-router";
 import { ToastContainer, toast } from 'react-toastify';
 import { AppAside, } from '@coreui/react';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, FormGroup, Label, Input} from "reactstrap";
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, FormGroup, Input} from "reactstrap";
 import { validateAll } from "indicative";
 import moment from "moment";
 import { isEmpty } from "lodash";
@@ -106,9 +106,8 @@ class Board extends Component {
         groupsApi
           .createGroup(data)
           .then(res => {
-            console.log(res)
-            // board.groups.push(res.data);
-            // this.setState(board);
+            board.groups.push(res.data);
+            this.setState(board);
           });
 
         // reset inpput
@@ -144,13 +143,14 @@ class Board extends Component {
       this.setState({ editing });
 
       if(editing.column[e.target.name].dataType === 'user') {
-        const userId= e.target.value;
+        const userIds= [e.target.value];
         const notification = {
-            title: "Assignment",
-            content: `${this.props.currentUser.firstName} assigned you to task ${editing.column[0].value}`,
-          }
-
-          userApi.notify({userId, notification}).then((res) => console.log(res.success))
+          title: "Assignment",
+          content: `${this.props.currentUser.firstName} assigned you to task ${editing.column[0].value}`,
+          board: editing.board
+        }
+          console.log(notification)
+          userApi.notify({userIds, notification}).then((res) => console.log(res.success));
       }
       if(editing.column[e.target.name].dataType !== 'name'){
         // Only save on change if not test type
@@ -405,8 +405,7 @@ class Board extends Component {
             </DropdownMenu>
           </Dropdown>
         </h2>
-        <FormGroup>
-          <Label for="filter">Filter task</Label>
+        <FormGroup className="taskFilter">
           <Input 
             type="filter" 
             name="filter" 

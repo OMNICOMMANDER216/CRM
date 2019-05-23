@@ -1,5 +1,6 @@
 /* eslint-disable no-underscore-dangle */
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
+import { omit } from 'lodash';
 
 const Board = mongoose.model('Board');
 const Folder = mongoose.model('Folder');
@@ -44,21 +45,55 @@ exports.boardsController = {
   },
 
   create: (req, res) => {
-    const newBoard = req.body.data;
+    let newBoard = req.body.data;
     newBoard.columns = initialColumns;
-    // Create initial groups
-    Group.createInitialGroups((groupError, docs) => {
-      if (groupError) console.log(groupError);
-      const groupsIds = Object.values(docs.insertedIds).map(id => mongoose.Types.ObjectId(id));
-      newBoard.groups = groupsIds;
+    if (newBoard.customer) {
+      // Create initial groups
+      Group.createInitialGroups((groupError, docs) => {
+        if (groupError) console.log(groupError);
+        const groupsIds = Object.values(docs.insertedIds).map(id => mongoose.Types.ObjectId(id));
+        newBoard.groups = groupsIds;
 
+        // Save document
+        new Board(newBoard)
+          .save()
+          .then((board) => {
+          // insert borad into folder
+            Folder.addBoard(board.folder, board._id, (err, folder) => {
+              if (err) console.log(err);
+              // populate
+              Folder.populate(folder, 'boards', (folderError) => {
+                if (folderError) throw folderError;
+
+                res.json({
+                  success: true,
+                  data: folder,
+                });
+              });
+            });
+          })
+          .catch((error) => {
+            res.json({
+              success: false,
+              message: 'Error saving new board',
+              error,
+            });
+          });
+      });
+    } else {
       // Save document
+      console.log('here');
+      newBoard = omit(newBoard, 'customer');
+      console.log(newBoard);
       new Board(newBoard)
         .save()
         .then((board) => {
+          console.log(board);
           // insert borad into folder
           Folder.addBoard(board.folder, board._id, (err, folder) => {
             if (err) console.log(err);
+            console.log(folder);
+
             // populate
             Folder.populate(folder, 'boards', (folderError) => {
               if (folderError) throw folderError;
@@ -77,7 +112,7 @@ exports.boardsController = {
             error,
           });
         });
-    });
+    }
   },
 
   update: (req, res) => {

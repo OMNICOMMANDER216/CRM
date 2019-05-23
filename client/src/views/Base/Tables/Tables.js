@@ -12,7 +12,7 @@ class Tables extends Component {
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify" />
-                {' '}
+                
 Simple Table
               </CardHeader>
               <CardBody>
@@ -96,7 +96,7 @@ Simple Table
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify" />
-                {' '}
+                
 Striped Table
               </CardHeader>
               <CardBody>
@@ -173,7 +173,7 @@ Striped Table
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify" />
-                {' '}
+                
 Condensed Table
               </CardHeader>
               <CardBody>
@@ -247,7 +247,7 @@ Condensed Table
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify" />
-                {' '}
+                
 Bordered Table
               </CardHeader>
               <CardBody>
@@ -324,7 +324,7 @@ Bordered Table
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify" />
-                {' '}
+                
 Combined All Table
               </CardHeader>
               <CardBody>

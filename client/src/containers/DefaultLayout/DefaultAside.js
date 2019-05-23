@@ -12,11 +12,11 @@ import {
 } from "reactstrap";
 import PropTypes from "prop-types";
 import classNames from "classnames";
-import {isEmpty} from "lodash";
-import ReactQuill, { Quill } from 'react-quill';
-import { ImageDrop } from 'quill-image-drop-module';
+import {isEmpty, uniq} from 'lodash';
+import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import TaskApi from '../../api/tasksApi';
+import UserApi from '../../api/userApi';
 import AsideCommentList from './AsideCommentList';
 
 const propTypes = {
@@ -41,7 +41,6 @@ const modules = {
       ['link', 'code-block', 'image', 'video'],
       ['clean']
     ],
-    imageDrop: {}
   };
 
   const formats = [
@@ -63,7 +62,6 @@ class DefaultAside extends Component {
       editing: false,
       redirect: ""
     };
-    Quill.register('modules/imageDrop', ImageDrop);
   }
 
   toggle(tab) {
@@ -96,10 +94,12 @@ class DefaultAside extends Component {
   clearInput = () => this.setState({text: ''});
 
   saveHandler = () => {
+    const { currentUser } =  this.props;
     if(this.state.text) {
       let task = Object.assign({}, this.props.task);
+
       const comment = {
-        author: this.props.currentUser._id,
+        author: currentUser._id,
         body: this.state.text
       }
 
@@ -116,6 +116,14 @@ class DefaultAside extends Component {
             autoClose: 2000
         });
       })
+      const userIds = uniq(task.column.filter(c => c.dataType === 'user').map(c => c.value));
+      const notification = {
+          title: "New Comment",
+          content: `${currentUser.firstName} added a comment to ${task.column[0].value}`,
+          board: task.board
+        }
+        
+        UserApi.notify({userIds, notification}).then((res) => console.log(res.success))
       }
   };
 

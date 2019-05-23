@@ -22,7 +22,7 @@ class BrandButtons extends Component {
                 <h6>
 Size Small
                   <small>
-                    {' '}
+                    
 Add this class
                     <code>.btn-sm</code>
                   </small>
@@ -235,7 +235,7 @@ Add this class
                 <h6>
 Size Large
                   <small>
-                    {' '}
+                    
 Add this class
                     <code>.btn-lg</code>
                   </small>
@@ -360,7 +360,7 @@ Add this class
                 <h6>
 Size Small
                   <small>
-                    {' '}
+                    
 Add this class
                     <code>.btn-sm</code>
                   </small>
@@ -423,7 +423,7 @@ Add this class
                 <h6>
 Size Large
                   <small>
-                    {' '}
+                    
 Add this class
                     <code>.btn-lg</code>
                   </small>
@@ -473,7 +473,7 @@ Add this class
                 <h6>
 Size Small
                   <small>
-                    {' '}
+                    
 Add this class
                     <code>.btn-sm</code>
                   </small>
@@ -536,7 +536,7 @@ Add this class
                 <h6>
 Size Large
                   <small>
-                    {' '}
+                    
 Add this class
                     <code>.btn-lg</code>
                   </small>

@@ -12,8 +12,7 @@ var BoardSchema = new Schema({
   },
   customer: {
     type: Schema.Types.ObjectId,
-    ref: 'Customer',
-    required: true
+    ref: 'Customer'
   },
   description: {
     type: String

@@ -94,6 +94,7 @@ class BoardForm extends Component {
                   </Col>
                   </FormGroup>
                   <FormGroup row  className="mt-3"> 
+                  <Col className="offset-md-4 col-md-6"><FormText color="info">Select a customer for a project Board</FormText></Col>
                     <Col md="3">
                       <Label for="pm"><strong>Customer</strong></Label>
                     </Col>

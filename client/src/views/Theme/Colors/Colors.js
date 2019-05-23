@@ -66,7 +66,7 @@ class Colors extends Component {
         <div className="card">
           <div className="card-header">
             <i className="icon-drop" />
-            {' '}
+            
 Theme colors
           </div>
           <div className="card-body">
@@ -101,7 +101,7 @@ Theme colors
         <div className="card">
           <div className="card-header">
             <i className="icon-drop" />
-            {' '}
+            
 Grays
           </div>
           <div className="card-body">
@@ -139,7 +139,7 @@ Grays
         <div className="card">
           <div className="card-header">
             <i className="icon-drop" />
-            {' '}
+            
 Additional colors
           </div>
           <div className="card-body">

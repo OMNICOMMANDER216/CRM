@@ -50,7 +50,7 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 3d Switch
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -70,9 +70,9 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 3d Switch
-                {' '}
+                
                 <small><code>disabled</code></small>
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -93,9 +93,9 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 3d Switch
-                {' '}
+                
                 <small><code>outline="alt"</code></small>
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -115,9 +115,9 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 3d Switch
-                {' '}
+                
                 <small><code>label</code></small>
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -137,9 +137,9 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 3d Switch
-                {' '}
+                
                 <small><code>outline="alt" label</code></small>
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -159,9 +159,9 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 3d Switch
-                {' '}
+                
                 <small><code>outline="alt" label</code></small>
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -181,7 +181,7 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 Switch outline
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -201,7 +201,7 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 Switch outline pills
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -221,7 +221,7 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 Switch outline alternative
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -242,7 +242,7 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 Switch outline alternative - pills
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -263,7 +263,7 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 Switch with text
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -283,7 +283,7 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 Switch with text pills
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -303,7 +303,7 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 Switch with text outline
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -323,7 +323,7 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 Switch with text outline pills
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -343,7 +343,7 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 Switch with text outline alternative pills
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -363,7 +363,7 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 Switch with text outline alternative pills
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -384,7 +384,7 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 Switch with text outline alternative
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -404,7 +404,7 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 Switch with text outline alternative pills
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -425,7 +425,7 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 Switch with text outline alternative
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -445,7 +445,7 @@ class Switches extends Component {
             <Card>
               <CardHeader>
                 Switch with text outline alternative pills
-                {' '}
+                
                 <a href="https://coreui.io/pro/react/" className="badge badge-danger">CoreUI Pro</a>
               </CardHeader>
               <CardBody>
@@ -486,7 +486,7 @@ class Switches extends Component {
                       </td>
                       <td>
                       Add
-                        {' '}
+                        
                         <code>
 size=
                           {'lg'}
@@ -513,7 +513,7 @@ size=
                       </td>
                       <td>
                       Add
-                        {' '}
+                        
                         <code>
 size=
                           {'sm'}

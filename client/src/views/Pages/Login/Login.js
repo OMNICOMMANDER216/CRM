@@ -16,7 +16,7 @@ class Login extends Component {
                     <Form className="text-center">
                       <h1>
                         <i className="fa fa-google fa-lg mt-4" />
-                        {' '}
+                        
 Login
                       </h1>
                       <p className="text-muted">Sign In to your account</p>

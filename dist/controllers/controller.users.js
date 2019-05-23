@@ -73,12 +73,16 @@ exports.usersController = {
   },
 
   notify: function notify(req, res) {
+    // eslint-disable-next-line prefer-const
     var _req$body$data = req.body.data,
-        userId = _req$body$data.userId,
+        userIds = _req$body$data.userIds,
         notification = _req$body$data.notification;
 
+    userIds = userIds.map(function (id) {
+      return mongoose.Types.ObjectId(id);
+    });
     new Notification(notification).save().then(function (n) {
-      (0, _user_notification2.default)({ _id: mongoose.Types.ObjectId(userId) }, n);
+      (0, _user_notification2.default)(userIds, n);
       res.json({
         success: true,
         message: 'User Notified'

@@ -1,12 +1,18 @@
 'use strict';
 
-/* eslint-disable no-underscore-dangle */
-var mongoose = require('mongoose');
+var _mongoose = require('mongoose');
 
-var Board = mongoose.model('Board');
-var Folder = mongoose.model('Folder');
-var Group = mongoose.model('Group');
-var Task = mongoose.model('Task');
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+var _lodash = require('lodash');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* eslint-disable no-underscore-dangle */
+var Board = _mongoose2.default.model('Board');
+var Folder = _mongoose2.default.model('Folder');
+var Group = _mongoose2.default.model('Group');
+var Task = _mongoose2.default.model('Task');
 
 var initialColumns = require('../models/default_column');
 
@@ -43,19 +49,50 @@ exports.boardsController = {
   create: function create(req, res) {
     var newBoard = req.body.data;
     newBoard.columns = initialColumns;
-    // Create initial groups
-    Group.createInitialGroups(function (groupError, docs) {
-      if (groupError) console.log(groupError);
-      var groupsIds = Object.values(docs.insertedIds).map(function (id) {
-        return mongoose.Types.ObjectId(id);
-      });
-      newBoard.groups = groupsIds;
+    if (newBoard.customer) {
+      // Create initial groups
+      Group.createInitialGroups(function (groupError, docs) {
+        if (groupError) console.log(groupError);
+        var groupsIds = Object.values(docs.insertedIds).map(function (id) {
+          return _mongoose2.default.Types.ObjectId(id);
+        });
+        newBoard.groups = groupsIds;
 
+        // Save document
+        new Board(newBoard).save().then(function (board) {
+          // insert borad into folder
+          Folder.addBoard(board.folder, board._id, function (err, folder) {
+            if (err) console.log(err);
+            // populate
+            Folder.populate(folder, 'boards', function (folderError) {
+              if (folderError) throw folderError;
+
+              res.json({
+                success: true,
+                data: folder
+              });
+            });
+          });
+        }).catch(function (error) {
+          res.json({
+            success: false,
+            message: 'Error saving new board',
+            error: error
+          });
+        });
+      });
+    } else {
       // Save document
+      console.log('here');
+      newBoard = (0, _lodash.omit)(newBoard, 'customer');
+      console.log(newBoard);
       new Board(newBoard).save().then(function (board) {
+        console.log(board);
         // insert borad into folder
         Folder.addBoard(board.folder, board._id, function (err, folder) {
           if (err) console.log(err);
+          console.log(folder);
+
           // populate
           Folder.populate(folder, 'boards', function (folderError) {
             if (folderError) throw folderError;
@@ -73,7 +110,7 @@ exports.boardsController = {
           error: error
         });
       });
-    });
+    }
   },
 
   update: function update(req, res) {
@@ -147,7 +184,7 @@ exports.boardsController = {
       var newCol = {
         dataType: cols[cols.length - 1].type,
         colRef: cols[cols.length - 1]._id,
-        _id: mongoose.Types.ObjectId()
+        _id: _mongoose2.default.Types.ObjectId()
       };
       Task.addColumn(newCol, model._id, function (error) {
         if (error) throw error;
@@ -181,14 +218,14 @@ exports.boardsController = {
 
     var bulk = Task.collection.initializeOrderedBulkOp();
     bulk.find({}).update({
-      $pull: { column: { colRef: mongoose.Types.ObjectId(columnId) } }
+      $pull: { column: { colRef: _mongoose2.default.Types.ObjectId(columnId) } }
     });
 
     bulk.execute(function (err) {
       if (err) throw err;
 
       // Remove column from Board
-      Board.findByIdAndUpdate(mongoose.Types.ObjectId(board._id), { $pull: { columns: { _id: mongoose.Types.ObjectId(columnId) } } }, { new: true }).populate({
+      Board.findByIdAndUpdate(_mongoose2.default.Types.ObjectId(board._id), { $pull: { columns: { _id: _mongoose2.default.Types.ObjectId(columnId) } } }, { new: true }).populate({
         path: 'groups',
         populate: { path: 'tasks', model: 'Task' }
       }).exec(function (boardError, model) {

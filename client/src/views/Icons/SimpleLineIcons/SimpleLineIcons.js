@@ -10,7 +10,7 @@ class SimpleLineIcons extends Component {
         <Card>
           <CardHeader>
             <i className="fa fa-picture-o" />
-            {' '}
+            
 Simple Line Icons
           </CardHeader>
           <CardBody>

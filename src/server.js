@@ -1,5 +1,7 @@
 /* eslint-disable func-names */
 /* eslint-disable prefer-arrow-callback */
+import 'babel-core/register';
+import 'babel-polyfill';
 import express from 'express';
 import path from 'path';
 import morgan from 'morgan';

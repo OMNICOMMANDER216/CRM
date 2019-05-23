@@ -20,26 +20,26 @@ module.exports = (passport) => {
       (accessToken, refreshToken, profile, done) => {
         const image = profile._json.image.url.replace('/s50', '');
 
-          const newUser = {
-            googleID: profile.id,
-            firstName: profile.name.givenName,
-            lastName: profile.name.familyName,
-            email: profile.emails[0].value,
-            image,
-          };
+        const newUser = {
+          googleID: profile.id,
+          firstName: profile.name.givenName,
+          lastName: profile.name.familyName,
+          email: profile.emails[0].value,
+          image,
+        };
 
-          User.findOne({
-            googleID: profile.id,
-          }).then((user) => {
-            if (user) {
-              done(null, user);
-            } else {
-              // Create User
-              new User(newUser).save().then((model) => {
-                done(null, model);
-              });
-            }
-          });
+        User.findOne({
+          googleID: profile.id,
+        }).then((user) => {
+          if (user) {
+            done(null, user);
+          } else {
+            // Create User
+            new User(newUser).save().then((model) => {
+              done(null, model);
+            });
+          }
+        });
       },
     ),
   );

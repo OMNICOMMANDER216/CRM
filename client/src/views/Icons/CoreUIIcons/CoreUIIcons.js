@@ -11,8 +11,8 @@ class CoreUIIcons extends Component {
           <CardHeader>
             <i className="fa fa-picture-o" />
 CoreUI Icons
-            {' '}
-            {' '}
+            
+            
             <Badge color="info">New</Badge>
             <div className="card-header-actions">
               <a href="https://github.com/coreui/coreui-icons" rel="noreferrer noopener" target="_blank" className="card-header-action">

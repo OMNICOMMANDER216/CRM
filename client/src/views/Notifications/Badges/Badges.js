@@ -48,7 +48,7 @@ Heading
               <CardFooter>
                 <Button color="primary" outline>
                   Notifications
-                  {' '}
+                  
                   <Badge color="secondary" pill style={{ position: 'static' }}>9</Badge>
                 </Button>
               </CardFooter>
@@ -59,7 +59,7 @@ Heading
               <CardHeader>
                 <i className="fa fa-align-justify" />
                 <strong>Badges</strong>
-                {' '}
+                
                 <small>contextual variations</small>
               </CardHeader>
               <CardBody>
@@ -77,7 +77,7 @@ Heading
               <CardHeader>
                 <i className="fa fa-align-justify" />
                 <strong>Badges</strong>
-                {' '}
+                
                 <small>pill badges</small>
               </CardHeader>
               <CardBody>
@@ -95,7 +95,7 @@ Heading
               <CardHeader>
                 <i className="fa fa-align-justify" />
                 <strong>Badges</strong>
-                {' '}
+                
                 <small>links</small>
               </CardHeader>
               <CardBody>

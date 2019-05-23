@@ -116,7 +116,7 @@ class Tabs extends Component {
                   onClick={() => { this.toggle(2, '1'); }}
                 >
                   <i className="icon-calculator" />
-                  {' '}
+                  
                   <span className={this.state.activeTab[2] === '1' ? '' : 'd-none'}> Calculator</span>
                 </NavLink>
               </NavItem>
@@ -126,11 +126,11 @@ class Tabs extends Component {
                   onClick={() => { this.toggle(2, '2'); }}
                 >
                   <i className="icon-basket-loaded" />
-                  {' '}
+                  
                   <span
                     className={this.state.activeTab[2] === '2' ? '' : 'd-none'}
                   >
-                    {' '}
+                    
 Shopping cart
                   </span>
                 </NavLink>
@@ -141,7 +141,7 @@ Shopping cart
                   onClick={() => { this.toggle(2, '3'); }}
                 >
                   <i className="icon-pie-chart" />
-                  {' '}
+                  
                   <span className={this.state.activeTab[2] === '3' ? '' : 'd-none'}> Charts</span>
                 </NavLink>
               </NavItem>

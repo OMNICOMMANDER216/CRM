@@ -117,9 +117,9 @@ class Buttons extends Component {
           <CardBody>
             <p>
               Use
-              {' '}
+              
               <code>outline</code>
-              {' '}
+              
 prop
             </p>
             <Row className="align-items-center">
@@ -222,7 +222,7 @@ prop
             <p>
               Use
               <code>.btn-ghost-*</code>
-              {' '}
+              
 class for ghost buttons.
             </p>
             <Row className="align-items-center">
@@ -325,7 +325,7 @@ class for ghost buttons.
             <p>
               Use
               <code>.btn-square</code>
-              {' '}
+              
 class for square buttons.
             </p>
             <Row className="align-items-center">
@@ -434,7 +434,7 @@ class for square buttons.
             <p>
               Use
               <code>.btn-pill</code>
-              {' '}
+              
 class for pill buttons.
             </p>
             <Row className="align-items-center">
@@ -543,10 +543,10 @@ class for pill buttons.
             <p>
 Fancy larger or smaller buttons? Add
               <code>size="lg"</code>
-              {' '}
+              
 or
               <code>size="sm"</code>
-              {' '}
+              
 for additional sizes.
             </p>
             <Row className="align-items-center">

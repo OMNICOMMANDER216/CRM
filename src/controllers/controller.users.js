@@ -1,4 +1,4 @@
-import add_notifications from '../helpers/user_notification';
+import addNotifications from '../helpers/user_notification';
 
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
@@ -77,11 +77,13 @@ exports.usersController = {
   },
 
   notify: (req, res) => {
-    const { userId, notification } = req.body.data;
+    // eslint-disable-next-line prefer-const
+    let { userIds, notification } = req.body.data;
+    userIds = userIds.map(id => mongoose.Types.ObjectId(id));
     new Notification(notification)
       .save()
       .then((n) => {
-        add_notifications({ _id: mongoose.Types.ObjectId(userId) }, n);
+        addNotifications(userIds, n);
         res.json({
           success: true,
           message: 'User Notified',

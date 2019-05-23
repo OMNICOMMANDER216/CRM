@@ -65,11 +65,11 @@ class Typography extends Component {
           <div className="card-body">
             <p>
               <code className="highlighter-rouge">.h1</code>
-              {' '}
+              
 through
-              {' '}
+              
               <code className="highlighter-rouge">.h6</code>
-              {' '}
+              
 classes are also available, for when you
               want to match the font styling of a heading but cannot use the associated HTML element.
             </p>
@@ -129,7 +129,7 @@ Traditional heading elements are designed to work best in the meat of your page 
               <p>
 You can use the mark tag to
                 <mark>highlight</mark>
-                {' '}
+                
 text.
               </p>
               <p>
@@ -157,7 +157,7 @@ text.
 Align terms and descriptions horizontally by using our grid system’s predefined classes (or semantic mixins). For longer terms, you can
               optionally add a
               <code className="highlighter-rouge">.text-truncate</code>
-              {' '}
+              
 class to truncate the text with an ellipsis.
             </p>
             <div className="bd-example">

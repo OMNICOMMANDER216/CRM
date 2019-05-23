@@ -22,33 +22,43 @@ const Notification = ({ notification, onClick }) => (
       <td>
         <p className="f2 ">
           {notification.content}
-          {' '}
+
         </p>
       </td>
       <td>
         <p>
+          {/** If customer related */}
+          {notification.cu && (
           <Link
             className="white i"
             to={`/customers/${notification.cu}`}
           >
             <i className="fa fa-eye" />
           </Link>
+          )}
+
+          {/** If Board related */}
+          {notification.board && (
+          <Link
+            className="white i"
+            to={`/board/${notification.board}`}
+          >
+            <i className="fa fa-eye" />
+          </Link>
+          )}
         </p>
       </td>
       <td>
-        <p
-          style={styles.pointer}
-          onClick={onClick}
-        >
+        <span style={styles.pointer} onClick={onClick}>
           <i className="fa fa-archive" />
-        </p>
+        </span>
       </td>
     </tr>
   </tbody>
 );
 
 Notification.propTypes = {
-  notification: PropTypes.object.isRequired,
+  notification: PropTypes.shape({}).isRequired,
   onClick: PropTypes.func.isRequired,
 };
 

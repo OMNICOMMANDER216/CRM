@@ -68,7 +68,7 @@ class ManageBoardPage extends React.Component {
     // Set Axios header
       const rules = {
         name: 'required|string',
-        customer: 'required|string'
+        // customer: 'required|string'
       };
 
       validateAll(board, rules)

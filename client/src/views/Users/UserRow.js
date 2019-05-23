@@ -6,6 +6,7 @@ import {
   Input,
   Label,
 } from 'reactstrap';
+import placeholder from '../../assets/img/profile.png'
 
 const roles = ['Bookkeeping', 'Sales', 'Pm', 'DevAdmin', 'Developer', 'Compliance', 'QA', 'Admin'];
 
@@ -15,7 +16,13 @@ function UserRow(props) {
 
   return (
     <tr key={user._id}>
-      <td><Link to={userLink}>{`${user.firstName} ${user.lastName}`}</Link></td>
+      <td className="text-left">
+        <img 
+          alt="profile" 
+          src={user.image || placeholder}
+          className="profile-icon"/>
+        <Link to={userLink}>{`${user.firstName} ${user.lastName}`}</Link>
+      </td>
       <td>{user.role}</td>
       <td>{user.customers.length}</td>
       <td>
@@ -35,7 +42,7 @@ UserRow.propTypes = {
   user: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
-    role: PropTypes.string.isRequired,
+    role: PropTypes.string,
   }).isRequired,
   setRole: PropTypes.func.isRequired,
 };

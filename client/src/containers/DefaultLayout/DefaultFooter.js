@@ -16,9 +16,9 @@ class DefaultFooter extends Component {
       <React.Fragment>
         <span>
           <a href="https://www.omnicommander.com/" target="_blank" rel="noopener noreferrer">OMNICOMMANDER</a>
-          {' '}
+          
 &copy;
-          {' '}
+          
         </span>
         <span className="ml-auto">
 Powered by

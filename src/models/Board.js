@@ -11,7 +11,6 @@ const BoardSchema = new Schema(
     customer: {
       type: Schema.Types.ObjectId,
       ref: 'Customer',
-      required: true,
     },
     description: {
       type: String,

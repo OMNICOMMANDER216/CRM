@@ -53,11 +53,11 @@ class Navs extends Component {
             <p>Link Based</p>
             <Nav>
               <NavLink href="#">Link</NavLink>
-              {' '}
+              
               <NavLink href="#">Link</NavLink>
-              {' '}
+              
               <NavLink href="#">Another Link</NavLink>
-              {' '}
+              
               <NavLink disabled href="#">
 Disabled
               Link
@@ -158,11 +158,11 @@ Disabled
             <p>Link based</p>
             <Nav vertical>
               <NavLink href="#">Link</NavLink>
-              {' '}
+              
               <NavLink href="#">Link</NavLink>
-              {' '}
+              
               <NavLink href="#">Another Link</NavLink>
-              {' '}
+              
               <NavLink disabled href="#">
 Disabled
               Link

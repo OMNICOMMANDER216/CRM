@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Table } from 'reactstrap';
+import { isEmpty } from 'lodash';
 import Notification from './Notification';
 import * as userActions from '../../store/actions/usersActions';
 
@@ -25,14 +26,20 @@ class NotificationList extends React.Component {
 
 
   render() {
-    const { currentUser, users } = this.props;
-    const user = users.find(user => user._id === currentUser._id);
+    const { user } = this.props;
 
     let notificationList = [];
 
-    if (user && !!user.notifications[0]) {
+    if (!isEmpty(user) && !isEmpty(user.notifications)) {
+      console.log(user.notifications);
       // Map notifications to notificationLIst and sort by Not Read
-      notificationList = user.notifications ? user.notifications.map(notification => <Notification key={notification._id} notification={notification} onClick={() => this.onClick(notification)} />).sort((a, b) => ((a === b) ? 0 : a ? -1 : 1)) : [];
+      notificationList = !isEmpty(user.notifications) ? user.notifications.map(notification => (
+        <Notification
+        key={notification._id}
+        notification={notification}
+        onClick={() => this.onClick(notification)}
+      />
+      )).sort((a, b) => ((a === b) ? 0 : a ? -1 : 1)) : [];
     }
 
     if (notificationList.length) {
@@ -43,7 +50,7 @@ class NotificationList extends React.Component {
               <tr>
                 <th>Event</th>
                 <th>message</th>
-                <th>View Customer</th>
+                <th>View Customer/Board</th>
                 <th>Archive</th>
               </tr>
             </thead>
@@ -68,6 +75,7 @@ function mapStateToProps(state, ownProps) {
   return {
     currentUser: state.auth.user,
     users: state.users,
+    user: state.users.find(u => u._id === state.auth.user._id),
   };
 }
 

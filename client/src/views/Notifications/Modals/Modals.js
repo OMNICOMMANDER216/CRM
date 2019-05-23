@@ -83,7 +83,7 @@ class Modals extends Component {
             <Card>
               <CardHeader>
                 <i className="fa fa-align-justify" />
-                {' '}
+                
 Bootstrap Modals
               </CardHeader>
               <CardBody>
@@ -99,7 +99,7 @@ Bootstrap Modals
                   </ModalBody>
                   <ModalFooter>
                     <Button color="primary" onClick={this.toggle}>Do Something</Button>
-                    {' '}
+                    
                     <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                   </ModalFooter>
                 </Modal>
@@ -120,7 +120,7 @@ Bootstrap Modals
                   </ModalBody>
                   <ModalFooter>
                     <Button color="primary" onClick={this.toggleLarge}>Do Something</Button>
-                    {' '}
+                    
                     <Button color="secondary" onClick={this.toggleLarge}>Cancel</Button>
                   </ModalFooter>
                 </Modal>
@@ -141,7 +141,7 @@ Bootstrap Modals
                   </ModalBody>
                   <ModalFooter>
                     <Button color="primary" onClick={this.toggleSmall}>Do Something</Button>
-                    {' '}
+                    
                     <Button color="secondary" onClick={this.toggleSmall}>Cancel</Button>
                   </ModalFooter>
                 </Modal>
@@ -164,7 +164,7 @@ Bootstrap Modals
                   </ModalBody>
                   <ModalFooter>
                     <Button color="primary" onClick={this.togglePrimary}>Do Something</Button>
-                    {' '}
+                    
                     <Button color="secondary" onClick={this.togglePrimary}>Cancel</Button>
                   </ModalFooter>
                 </Modal>
@@ -185,7 +185,7 @@ Bootstrap Modals
                   </ModalBody>
                   <ModalFooter>
                     <Button color="success" onClick={this.toggleSuccess}>Do Something</Button>
-                    {' '}
+                    
                     <Button color="secondary" onClick={this.toggleSuccess}>Cancel</Button>
                   </ModalFooter>
                 </Modal>
@@ -206,7 +206,7 @@ Bootstrap Modals
                   </ModalBody>
                   <ModalFooter>
                     <Button color="warning" onClick={this.toggleWarning}>Do Something</Button>
-                    {' '}
+                    
                     <Button color="secondary" onClick={this.toggleWarning}>Cancel</Button>
                   </ModalFooter>
                 </Modal>
@@ -227,7 +227,7 @@ Bootstrap Modals
                   </ModalBody>
                   <ModalFooter>
                     <Button color="danger" onClick={this.toggleDanger}>Do Something</Button>
-                    {' '}
+                    
                     <Button color="secondary" onClick={this.toggleDanger}>Cancel</Button>
                   </ModalFooter>
                 </Modal>
@@ -248,7 +248,7 @@ Bootstrap Modals
                   </ModalBody>
                   <ModalFooter>
                     <Button color="primary" onClick={this.toggleInfo}>Do Something</Button>
-                    {' '}
+                    
                     <Button color="secondary" onClick={this.toggleInfo}>Cancel</Button>
                   </ModalFooter>
                 </Modal>

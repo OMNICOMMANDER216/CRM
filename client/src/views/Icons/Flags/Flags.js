@@ -10,20 +10,20 @@ class Flags extends Component {
         <Card>
           <CardHeader>
             <i className="fa fa-font-awesome" />
-            {' '}
+            
 Flags
           </CardHeader>
           <CardBody>
             <Row className="text-center">
               <Col className="mb-5 text-left" xs="12">
                 For using the flags inline with text add the classes
-                {' '}
+                
                 <code>.flag-icon</code>
-                {' '}
+                
 and
-                {' '}
+                
                 <code>.flag-icon-xx</code>
-                {' '}
+                
 (where xx is the ISO 3166-1-alpha-2
                 code of a country) to an empty span. If you want to have a squared version flag then add the class flag-icon-squared as well.
               </Col>

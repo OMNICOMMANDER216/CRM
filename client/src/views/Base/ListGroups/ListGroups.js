@@ -130,7 +130,7 @@ Be sure to
                   <strong>
 not use the standard
                     <code>.btn</code>
-                    {' '}
+                    
 classes here
                   </strong>
 .
@@ -204,7 +204,7 @@ classes here
               <CardHeader>
                 <i className="fa fa-align-justify" />
                 <strong>List Group</strong>
-                {' '}
+                
                 <small>with TabPanes</small>
                 <div className="card-header-actions">
                   <Badge>NEW</Badge>

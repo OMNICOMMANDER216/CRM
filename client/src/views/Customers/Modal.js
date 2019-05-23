@@ -35,7 +35,7 @@ export default ({
       </ModalBody>
       <ModalFooter>
         <Button color="primary" onClick={saveNote}>Save</Button>
-        {' '}
+        
         <Button color="secondary" onClick={closeModal}>Cancel</Button>
       </ModalFooter>
     </Modal>

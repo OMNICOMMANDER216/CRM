@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import axios from 'axios';
 import action from '../actionTypes';
 import getToken from '../../helpers/getToken';

@@ -19,6 +19,10 @@ const NotificationSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Customer',
     },
+    board: {
+      type: Schema.Types.ObjectId,
+      ref: 'Board',
+    },
   },
   { timestamps: true },
 );

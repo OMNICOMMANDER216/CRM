@@ -135,7 +135,7 @@ class Dropdowns extends Component {
                     aria-expanded={this.state.dropdownOpen[5]}
                   >
                     Custom Dropdown Content
-                    {' '}
+                    
                     <strong> * </strong>
                   </DropdownToggle>
                   <DropdownMenu>

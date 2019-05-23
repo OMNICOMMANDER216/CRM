@@ -55,43 +55,30 @@ class DefaultHeader extends Component {
             alt: 'CoreUI Logo',
           }}
         />
-        {' '}
         <AppSidebarToggler className="d-md-down-none" display="lg" />
         <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
             <NavLink href="/"> Dashboard </NavLink>
-            {' '}
           </NavItem>
-          {' '}
           <NavItem className="px-3">
             <Link to="/customers"> Customers </Link>
-            {' '}
           </NavItem>
-          {' '}
           {isAdmin && (
             <NavItem className="px-3">
               <Link to="/users"> Users </Link>
-              {' '}
             </NavItem>
           )}
-          {' '}
         </Nav>
-        {' '}
         {currentUser && (
           <Nav className="ml-auto" navbar>
             <NavItem className="d-md-down-none">
               <NavLink href="/notification">
                 <i className="icon-bell" />
                 <Badge pill color="danger">
-                  {' '}
                   {unopenNotification.length}
-                  {' '}
                 </Badge>
-                {' '}
               </NavLink>
-              {' '}
             </NavItem>
-            {' '}
             <AppHeaderDropdown direction="down">
               <DropdownToggle nav>
                 <img
@@ -100,7 +87,6 @@ class DefaultHeader extends Component {
                   alt="User avatar"
                 />
               </DropdownToggle>
-              {' '}
               <DropdownMenu
                 right
                 style={{
@@ -108,33 +94,23 @@ class DefaultHeader extends Component {
                 }}
               >
                 <DropdownItem header tag="div" className="text-center">
-                  {' '}
                   <strong> Account </strong>
                 </DropdownItem>
                 <DropdownItem>
                   <Link to={`/users/${currentUser._id}`}>
                     <i className="fa fa-user"> </i>
-                    {' '}
 Profile
-                    {' '}
                   </Link>
                 </DropdownItem>
-                {' '}
                 <DropdownItem divider />
                 <DropdownItem onClick={e => onLogout(e)}>
                   <i className="fa fa-lock" />
-                  {' '}
 Logout
-                  {' '}
                 </DropdownItem>
-                {' '}
               </DropdownMenu>
-              {' '}
             </AppHeaderDropdown>
-            {' '}
           </Nav>
         )}
-        {' '}
       </React.Fragment>
     );
   }
@@ -142,8 +118,8 @@ Logout
 
 DefaultHeader.propTypes = {
   currentUser: PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    notifications: PropTypes.array.isRequired,
+    _id: PropTypes.string,
+    notifications: PropTypes.array,
   }),
   onLogout: PropTypes.func.isRequired,
 };

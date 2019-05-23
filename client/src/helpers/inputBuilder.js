@@ -73,7 +73,7 @@ export default (
                 disabled={isEmpty(sideTask)}
               >
                 <i className="fa fa-pencil" />
-                {' '}
+                
 Edit
               </AppAsideToggler>
             </span>
@@ -88,7 +88,7 @@ Edit
               className="m-2"
             >
               <i className="fa fa-save" />
-              {' '}
+              
 Save
             </button>
           </MenuItem>
@@ -102,7 +102,7 @@ Save
               className="m-2"
             >
               <i className="fa fa-trash" />
-              {' '}
+              
 Remove
             </button>
           </MenuItem>

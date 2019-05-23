@@ -4,13 +4,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var User = require('mongoose').model('User');
 
-function addNotifications(query, notification) {
+function addNotifications(userIds, notification) {
   var bulk = User.collection.initializeOrderedBulkOp();
-  bulk.find(_extends({}, query)).update({ $addToSet: { notifications: notification._id } });
+  bulk.find({ _id: { $in: [].concat(_toConsumableArray(userIds)) } }).update({ $addToSet: { notifications: notification._id } });
   bulk.execute(function (err) {
     return err && console.log(err);
   });

@@ -40,13 +40,16 @@ class Users extends Component {
   }
 
   filter(users) {
-    if (this.state.filter) {
-      return users.filter(user => user.role === this.state.filter);
+    const { filter } =  this.state;
+    if (filter) {
+      return users.filter(user => user.role === filter);
     }
     return users;
   }
 
   render() {
+    const { filter } = this.state;
+    const { users } = this.props;
     return (
       <div className="animated fadeIn">
         <Row>
@@ -55,12 +58,12 @@ class Users extends Component {
               <CardHeader className="d-flex justify-content-between">
                 <span>
                   <i className="fa fa-align-justify" />
-                  {' '}
+                  
 Users
                 </span>
                 <FormGroup className="filter-form d-flex  align-items-end">
                   <Label for="developer" className="mr-1">Role</Label>
-                  <Input type="select" name="filter" value={this.state.filter} onChange={this.setFilter} id="developer">
+                  <Input type="select" name="filter" value={filter} onChange={this.setFilter} id="developer">
                     <option value="">Select</option>
                     {
                     ['Bookkeeping', 'Sales', 'Pm', 'DevAdmin', 'Developer', 'Compliance', 'Admin'].map((data, index) => <option key={index} value={data}>{data}</option>)
@@ -71,15 +74,15 @@ Users
               <CardBody>
                 <Table responsive hover>
                   <thead>
-                    <tr>
-                      <th scope="col">name</th>
+                    <tr className="text-center">
+                      <th scope="col" className="text-left">name</th>
                       <th scope="col">Role</th>
                       <th scope="col">Customers #</th>
                       <th scope="col">Select Role</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {this.filter(this.props.users).map((user, index) => <UserRow key={index} user={user} setRole={this.setRole} />)}
+                    {this.filter(users).map((user, index) => <UserRow key={index} user={user} setRole={this.setRole} />)}
                   </tbody>
                 </Table>
               </CardBody>
@@ -91,8 +94,14 @@ Users
   }
 }
 
-Users.prototypes = {
-  users: PropTypes.array,
+Users.propTypes = {
+  users: PropTypes.arrayOf(
+    PropTypes.shape({}),
+  ),
+};
+
+Users.defaultProps = {
+  users: [],
 };
 
 const mapDispatchToProps = dispatch => ({

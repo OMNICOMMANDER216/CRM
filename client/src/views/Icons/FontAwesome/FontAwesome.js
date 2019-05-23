@@ -10,7 +10,7 @@ class FontAwesome extends Component {
         <Card id="new47">
           <CardHeader>
             <i className="fa fa-font-awesome" />
-            {' '}
+            
 55 New Icons in 4.7
           </CardHeader>
           <CardBody>
@@ -3416,9 +3416,9 @@ file-zip-o
                 <li>
                   <i className="fa fa-info-circle fa-li" />
                   These icons work great with the
-                  {' '}
+                  
                   <code>fa-spin</code>
-                  {' '}
+                  
 class.
                 </li>
               </ul>
@@ -4646,13 +4646,13 @@ youtube-play
             <Alert color="warning">
               <h4>
                 <i className="fa fa-warning" />
-                {' '}
+                
 Warning!
               </h4>
               Apparently, Adblock Plus can remove Font Awesome brand icons with their "Remove Social
               Media Buttons" setting. We will not use hacks to force them to display. Please
               <a href="https://adblockplus.org/en/bugs" className="alert-link"> report an issue with Adblock Plus</a>
-              {' '}
+              
 if
               you believe this to be
               an error. To work around this, you'll need to modify the social icon class names.

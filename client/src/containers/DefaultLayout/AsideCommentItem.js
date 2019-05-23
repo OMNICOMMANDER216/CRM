@@ -1,5 +1,6 @@
 import React from 'react';
 import renderHTML from 'react-render-html';
+import PropTypes from 'prop-types';
 import {
   Card,
   CardHeader,
@@ -29,7 +30,7 @@ const styles = {
     color: '#662c90',
   },
 };
-export default ({
+const AsideCommentItem = ({
   comment, editHandler, deleteHandler, currentUser, users,
 }) => {
   const user = users.find(u => u._id === comment.author);
@@ -38,30 +39,36 @@ export default ({
     <Card style={styles.wrapper} className="commentWrapper">
       <CardHeader style={styles.header}>
         <span>
-          {' '}
-          <img className="profileImg" alt="Comment Author" src={user.image ? user.image : profile} />
-          {' '}
+
+          <img className="profileImg pr-2" alt="Comment Author" src={user.image ? user.image : profile} />
+
           {`${user.firstName} ${user.lastName}`}
-          {' '}
+
         </span>
-        <span>
-          <button
-            onClick={() => editHandler(comment)}
-            size="md"
-            color="primary"
-            className="m-2"
-          >
-            <i className="fa fa-pencil" style={styles.icon} />
-          </button>
-          <button
-            onClick={() => deleteHandler(comment)}
-            size="md"
-            color="primary"
-            className="m-2"
-          >
-            <i className="fa fa-trash" style={styles.icon} />
-          </button>
-        </span>
+        {(currentUser._id === comment.author)
+          && (
+          <span>
+            <button
+              type="button"
+              onClick={() => editHandler(comment)}
+              size="md"
+              color="primary"
+              className="m-2"
+            >
+              <i className="fa fa-pencil" style={styles.icon} />
+            </button>
+            <button
+              type="button"
+              onClick={() => deleteHandler(comment)}
+              size="md"
+              color="primary"
+              className="m-2"
+            >
+              <i className="fa fa-trash" style={styles.icon} />
+            </button>
+          </span>
+          )
+        }
       </CardHeader>
       <CardBody>
         { renderHTML(comment.body) }
@@ -69,3 +76,17 @@ export default ({
     </Card>
   );
 };
+
+AsideCommentItem.propTypes = {
+  comment: PropTypes.shape({}).isRequired,
+  editHandler: PropTypes.func.isRequired,
+  deleteHandler: PropTypes.func.isRequired,
+  currentUser: PropTypes.shape({
+
+  }).isRequired,
+  users: PropTypes.arrayOf(
+    PropTypes.shape({}),
+  ).isRequired,
+};
+
+export default AsideCommentItem;

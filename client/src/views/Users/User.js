@@ -1,3 +1,4 @@
+/* eslint-disable react/prefer-stateless-function */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -24,17 +25,17 @@ class User extends Component {
                 <ListGroup flush>
                   <ListGroupItem tag="a" href="#">
                     <strong>Name:</strong>
-                    {' '}
+
                     {`${user.firstName} ${user.lastName}`}
                   </ListGroupItem>
                   <ListGroupItem tag="a" href="#">
                     <strong>Role:</strong>
-                    {' '}
+
                     {user.role}
                   </ListGroupItem>
                   <ListGroupItem tag="a" href="#">
                     <strong>Number of Projects: </strong>
-                    {' '}
+
                     {user.customers && user.customers.length}
                   </ListGroupItem>
                 </ListGroup>
