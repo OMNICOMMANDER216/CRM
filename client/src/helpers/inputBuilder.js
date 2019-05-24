@@ -173,8 +173,8 @@ Remove
       <td key={index}>
         <span className="select-td">
           {(selectedUser && selectedUser.image)
-            ? <img src={selectedUser.image} alt="Smiley face" width="35" height="35" />
-            : <img src={imagePlaceholder} alt="Smiley face" width="35" height="35" />
+            ? <img src={selectedUser.image} className="round" alt="Smiley face" width="35" height="35" />
+            : <img src={imagePlaceholder} className="round" alt="Smiley face" width="35" height="35" />
             }
           <Input
             type={inputTypeSelector(current.dataType)}

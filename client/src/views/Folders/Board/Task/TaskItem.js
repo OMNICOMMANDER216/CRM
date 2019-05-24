@@ -54,7 +54,7 @@ class TaskItem extends Component {
           { (editActive._id === task._id) && (
           <button
             type="submit"
-            onClick={saveHandler}
+            onClick={() => saveHandler(task) || isEditingHandler({})}
             size="md"
             color="primary"
             className="m-2"

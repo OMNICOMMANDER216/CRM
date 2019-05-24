@@ -6,7 +6,7 @@ import {
   Input,
   Label,
 } from 'reactstrap';
-import placeholder from '../../assets/img/profile.png'
+import placeholder from '../../assets/img/profile.png';
 
 const roles = ['Bookkeeping', 'Sales', 'Pm', 'DevAdmin', 'Developer', 'Compliance', 'QA', 'Admin'];
 
@@ -17,10 +17,11 @@ function UserRow(props) {
   return (
     <tr key={user._id}>
       <td className="text-left">
-        <img 
-          alt="profile" 
+        <img
+          alt="profile"
           src={user.image || placeholder}
-          className="profile-icon"/>
+          className="profile-icon round"
+        />
         <Link to={userLink}>{`${user.firstName} ${user.lastName}`}</Link>
       </td>
       <td>{user.role}</td>

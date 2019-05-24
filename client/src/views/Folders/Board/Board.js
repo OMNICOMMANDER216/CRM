@@ -10,6 +10,7 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, FormGroup, Input}
 import { validateAll } from "indicative";
 import moment from "moment";
 import { isEmpty, isString } from "lodash";
+import styled from 'styled-components';
 // api
 import userApi from "../../../api/userApi";
 import boardsApi from "../../../api/boardsApi";
@@ -22,6 +23,14 @@ import Group from "./Group/Group";
 
 const Modal = React.lazy(() => import("./Modal"));
 const DefaultAside = React.lazy(() => import('../../../containers/DefaultLayout/DefaultAside'));
+
+const BoardHeader = styled.div`
+  background: #FFF;
+  border-radius: 5px;
+  border: 2px solid #662c90;
+  padding: 0.5em 1em;
+  width: calc(100% + 30px); // 30px from row (-15 margin on both sides)
+`
 
 class Board extends Component {
   constructor(props) {
@@ -389,10 +398,10 @@ class Board extends Component {
       <Suspense fallback={this.loading()}>
       <ToastContainer autoClose={2000}/>
       <div className="animated fadeIn">
-      <span className="d-flex justify-content-between">
+      <BoardHeader className="row justify-content-between">
         <h2>
           {board.name}
-          <Link className="pl-1"
+          <Link className="ml-3"
             to={{
               pathname: `/editBoard/${board.folder}`,
               state: { boardId: board._id }
@@ -405,6 +414,7 @@ class Board extends Component {
           <button className="fa-btn" onClick={this.openModal}>
             <i className="fa fa-plus-circle" />
           </button>
+          </h2>
           <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
             <DropdownToggle caret> Move board to</DropdownToggle>
             <DropdownMenu>
@@ -419,7 +429,7 @@ class Board extends Component {
               ))}
             </DropdownMenu>
           </Dropdown>
-        </h2>
+        
         <FormGroup className="taskFilter">
           <Input 
             type="filter" 
@@ -429,7 +439,7 @@ class Board extends Component {
             value={taskFilter} 
             onChange={this.filter}/>
         </FormGroup>
-        </span>
+        </BoardHeader>
         {groups}
         
         {/* Modal */}
