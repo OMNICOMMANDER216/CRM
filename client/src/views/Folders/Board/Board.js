@@ -139,8 +139,13 @@ class Board extends Component {
       this.setState({ newTask: e.target.value });
     } else {
       let editing = Object.assign({}, this.state.editing);
+      // only save if change detected
+      console.log(editing.column[e.target.name].value);
+      console.log(e.target.value);
+      if(editing.column[e.target.name].value !== e.target.value) {
       editing.column[e.target.name].value = e.target.value;
-      this.setState({ editing });
+        this.setState({ editing });
+      
 
       if(editing.column[e.target.name].dataType === 'user') {
         const userIds= [e.target.value];
@@ -149,13 +154,14 @@ class Board extends Component {
           content: `${this.props.currentUser.firstName} assigned you to task ${editing.column[0].value}`,
           board: editing.board
         }
-          console.log(notification)
+
           userApi.notify({userIds, notification}).then((res) => console.log(res.success));
       }
       if(editing.column[e.target.name].dataType !== 'name'){
         // Only save on change if not test type
           this.saveHandler(id);
       }
+    }
     }
   };
 
@@ -206,7 +212,7 @@ class Board extends Component {
           selectedGroup
         ].sort((group1, group2) => group1._id.localeCompare(group2._id));
 
-        this.setState({ board, newTask: ""});
+        this.setState({ board, newTask: "", editing: {}});
         toast.info('Task Created', {
           position: toast.POSITION.TOP_CENTER
         });

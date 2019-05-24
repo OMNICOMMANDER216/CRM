@@ -32,7 +32,7 @@ class TaskItem extends Component {
       <tr
         className="active"
         onDoubleClick={() => isEditingHandler(task)}
-        onBlur={() => saveHandler(task)}
+        onBlur={() => isEditingHandler({})}
       >
         <td className="edit">
           { (editActive._id !== task._id) && (

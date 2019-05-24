@@ -18,7 +18,7 @@ export default class TaskLIst extends Component {
   render() {
   let {tasks, group, columns, users, isEditingHandler, saveHandler, editHandler, disabled, changeHandler, editActive, setSideTask, taskFilter, sideTask, removeTask} = this.props;
   tasks = tasks.sort((t1, t2) => t1._id.localeCompare(t2._id))
-  // tasks = tasks.filter(t => t.column[0].value.toLowerCase().includes(taskFilter))
+  tasks = tasks.filter(t => t.column[0].value.toLowerCase().includes(taskFilter))
   return (
         <tbody>
             { tasks.map((task, i) => (
