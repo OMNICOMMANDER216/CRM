@@ -223,14 +223,23 @@ class Board extends Component {
     this.setState(prevState => ({ disabled: !prevState.disabled }));
   };
 
-  isEditingHandler = task => {
+  isEditingHandler = (task, clearSide=true) => {
+    console.log(clearSide)
     this.props.sideTaskActions.setSideTask(undefined);
-    this.setState({
-      editing: Object.assign({}, task),
-      disabled: "",
-      newTask: "",
-      sideTask: {}
-    });
+    if(clearSide) {
+      this.setState({
+        editing: Object.assign({}, task),
+        disabled: "",
+        newTask: "",
+        sideTask: {}
+      });
+    } else {
+      this.setState({
+        editing: Object.assign({}, task),
+        disabled: "",
+        newTask: "",
+      });
+    }
   };
 
   editHandler = (e, group_id) => {

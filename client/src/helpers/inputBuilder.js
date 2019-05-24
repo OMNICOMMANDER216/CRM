@@ -56,6 +56,8 @@ export default (
                 value={current.value || undefined}
                 onChange={changeHandler}
                 onKeyDown={e => (e.keyCode === 13) && saveHandler(currentTask)}
+                onBlur={() => saveHandler(currentTask)}
+
               />
             </AppAsideToggler>
           </span>

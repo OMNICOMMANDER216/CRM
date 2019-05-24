@@ -31,8 +31,8 @@ class TaskItem extends Component {
     return connectDragSource(
       <tr
         className="active"
-        onDoubleClick={() => isEditingHandler(task)}
-        onBlur={() => isEditingHandler({})}
+        onDoubleClick={() => isEditingHandler(task, false)}
+        onBlur={() => isEditingHandler({}, false)}
       >
         <td className="edit">
           { (editActive._id !== task._id) && (
