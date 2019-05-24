@@ -1,9 +1,14 @@
 'use strict';
 
-var mongoose = require('mongoose');
+var _mongoose = require('mongoose');
 
-var Group = mongoose.model('Group');
-var Board = mongoose.model('Board');
+var _mongoose2 = _interopRequireDefault(_mongoose);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Group = _mongoose2.default.model('Group');
+var Board = _mongoose2.default.model('Board');
+// const Task = mongoose.model('Task');
 
 exports.groupsController = {
   getAll: function getAll(req, res) {
@@ -67,6 +72,10 @@ exports.groupsController = {
 
   // Delete A group and remove group from users Projects
   deleteById: function deleteById(req, res) {
+    // ************************************************
+    // Remove the task and comments related to the group first
+    // *************************************************
+    // Task.deleteMany({ group: req.params.id }).exec();
     // Remove group from users
     Group.deleteOne({
       _id: req.params.id

@@ -8,6 +8,7 @@ import isEmpty from 'lodash/isEmpty';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import getBadge from './getBadge';
 import inputTypeSelector from './inputTypeSelector';
+import imagePlaceholder from '../assets/img/profile.png';
 
 const styles = {
   menu: {
@@ -73,7 +74,7 @@ export default (
                 disabled={isEmpty(sideTask)}
               >
                 <i className="fa fa-pencil" />
-                
+
 Edit
               </AppAsideToggler>
             </span>
@@ -88,7 +89,7 @@ Edit
               className="m-2"
             >
               <i className="fa fa-save" />
-              
+
 Save
             </button>
           </MenuItem>
@@ -102,7 +103,7 @@ Save
               className="m-2"
             >
               <i className="fa fa-trash" />
-              
+
 Remove
             </button>
           </MenuItem>
@@ -165,11 +166,14 @@ Remove
       </td>
     );
   } if (current.dataType === 'user') {
+    const selectedUser = users.find(u => u._id === current.value);
     return (
       <td key={index}>
         <span className="select-td">
-          <img src="https://picsum.photos/200/300" alt="Smiley face" width="35" height="35" />
-          {/* <img src={current.value && users.find(u => u._id === current.value).image} alt="Smiley face" width="35" height="35"/> */}
+          {(selectedUser && selectedUser.image)
+            ? <img src={selectedUser.image} alt="Smiley face" width="35" height="35" />
+            : <img src={imagePlaceholder} alt="Smiley face" width="35" height="35" />
+            }
           <Input
             type={inputTypeSelector(current.dataType)}
             name={index}

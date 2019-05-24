@@ -1,7 +1,8 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const Group = mongoose.model('Group');
 const Board = mongoose.model('Board');
+// const Task = mongoose.model('Task');
 
 exports.groupsController = {
   getAll: (req, res) => {
@@ -72,6 +73,10 @@ exports.groupsController = {
 
   // Delete A group and remove group from users Projects
   deleteById: (req, res) => {
+    // ************************************************
+    // Remove the task and comments related to the group first
+    // *************************************************
+    // Task.deleteMany({ group: req.params.id }).exec();
     // Remove group from users
     Group.deleteOne(
       {

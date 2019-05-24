@@ -36,7 +36,9 @@ const Group =  (props) => {
               ContextMenu Item 1
             </MenuItem>
             <MenuItem data={{foo: 'bar'}} >
-              ContextMenu Item 2
+              <button onClick={() => alert('test')} type="button">
+                  Delete
+              </button>
             </MenuItem>
             <MenuItem divider />
             <MenuItem data={{foo: 'bar'}} >
