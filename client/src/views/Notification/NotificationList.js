@@ -43,7 +43,7 @@ class NotificationList extends React.Component {
 
     if (notificationList.length) {
       return (
-        <div className="container-fluid white tl">
+        <div className="white tl mt-5">
           <Table hover style={styles.tableStyles}>
             <thead>
               <tr>
@@ -63,7 +63,6 @@ class NotificationList extends React.Component {
 }
 
 NotificationList.propTypes = {
-  events: PropTypes.array,
   userActions: PropTypes.object.isRequired,
   updateNotification: PropTypes.func,
   currentUser: PropTypes.object.isRequired,

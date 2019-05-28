@@ -18,7 +18,7 @@ const styles = {
 const loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
 const Group =  (props) => {
-  const {group, users, columns, changeHandler, saveHandler, isEditingHandler, editActive, editHandler, setSideTask, sideTask, taskFilter, removeTask, removeColumnHandler, disabled} = props;
+  const {group, users, columns, changeHandler, saveHandler, removeGroup, renameGroup, isEditingHandler, editActive, editHandler, setSideTask, sideTask, taskFilter, removeTask, removeColumnHandler, disabled} = props;
 
 
   return (
@@ -28,22 +28,23 @@ const Group =  (props) => {
       <Card style={styles.card}>
         <CardHeader>
         <ContextMenuTrigger id={(group && group._id) || 'test'}>
-          <i className="fa fa-align-justify"></i>  <h3> {group && group.title} </h3>
+          <h3><i className="fa fa-align-justify"></i> {group && group.title} </h3>
           </ContextMenuTrigger>
 
           <ContextMenu id={(group && group._id) || "test"} style={styles.contextMenu}>
             <MenuItem data={{foo: 'bar'}} >
-              ContextMenu Item 1
-            </MenuItem>
-            <MenuItem data={{foo: 'bar'}} >
-              <button onClick={() => alert('test')} type="button">
-                  Delete
+              <button onClick={() => window.confirm('Are you sure') && removeGroup(group._id)} type="button">
+                <i className="fa fa-trash fa-lg mr-2 mb-2 red" />
+                   Delete
               </button>
             </MenuItem>
-            <MenuItem divider />
-            <MenuItem data={{foo: 'bar'}} >
-              ContextMenu Item 3
+            <MenuItem data={{edit: 'group'}} >
+            <button onClick={() => renameGroup(group)} type="button">
+              <i className="fa fa-pencil fa-lg mr-2 pt-2" />
+              Edit
+            </button>
             </MenuItem>
+            <MenuItem divider />
           </ContextMenu>
         </CardHeader>
         <CardBody>

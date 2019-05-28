@@ -25,6 +25,6 @@ router.put('/', Controller.update);
 // @route    DELETE /groups/:id
 // @desc     delete a group
 // @access   private
-router.delete('/:id', Controller.deleteById);
+router.delete('/:id/:baordId', isAuthenticated, Controller.delete);
 
 module.exports = router;

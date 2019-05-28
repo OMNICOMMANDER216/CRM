@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -7,28 +7,24 @@ const propTypes = {
 
 const defaultProps = {};
 
-class DefaultFooter extends Component {
-  render() {
-    // eslint-disable-next-line
-    const { children, ...attributes } = this.props;
+const DefaultFooter = ({ children, ...attributes }) =>
+// eslint-disable-next-line
+    // const  = this.props;
 
-    return (
-      <React.Fragment>
-        <span>
-          <a href="https://www.omnicommander.com/" target="_blank" rel="noopener noreferrer">OMNICOMMANDER</a>
-          
+  (
+    <React.Fragment>
+      <span>
+        <a href="https://www.omnicommander.com/" target="_blank" rel="noopener noreferrer">OMNICOMMANDER</a>
+
 &copy;
-          
-        </span>
-        <span className="ml-auto">
-Powered by
-          <a href="https://www.omnicommander.com/" target="_blank" rel="noopener noreferrer">OMNICOMMANDER</a>
-        </span>
-      </React.Fragment>
-    );
-  }
-}
 
+      </span>
+      <span className="ml-auto">
+Powered by
+        <a href="https://www.omnicommander.com/" target="_blank" rel="noopener noreferrer"> OMNICOMMANDER</a>
+      </span>
+    </React.Fragment>
+  );
 DefaultFooter.propTypes = propTypes;
 DefaultFooter.defaultProps = defaultProps;
 

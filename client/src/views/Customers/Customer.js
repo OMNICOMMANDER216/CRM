@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { validateAll } from 'indicative';
 import moment from 'moment';
-import { Card, CardBody, CardHeader, ListGroup, ListGroupItem,  Col, Row, Table } from 'reactstrap';
+import { Card, CardBody, CardHeader, ListGroup, ListGroupItem,  Col, Row, Table, Tooltip } from 'reactstrap';
 import customerApi from '../../api/customerApi';
 import NoteApi from '../../api/notesApi';
 
@@ -17,7 +17,8 @@ class Customer extends Component {
       customer: {},
       notes: [],
       modalNote: {},
-      errors: {}
+      errors: {},
+      tooltipOpen: false
     };
 
   }
@@ -40,7 +41,7 @@ class Customer extends Component {
     });
   }
 
-    loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
+  loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   noteHandler = (e) => {
     let note = Object.assign({}, this.state.modalNote);
@@ -115,7 +116,11 @@ class Customer extends Component {
     return moment(date).format("MMM Do YY");
   }
 
-
+  toggle = () => {
+      this.setState({
+        tooltipOpen: !this.state.tooltipOpen
+      });
+  }
   
 
   render() {
@@ -133,10 +138,13 @@ class Customer extends Component {
               <Col lg={4}>
                 <strong><i className="icon-info pr-1"></i>Customer :</strong> {customer.name} 
                 <Link 
-                  className="pl-1" 
+                  className="pl-1 inline-block" 
                   to={{ pathname : `/customer/edit/${customer._id}`, state: {customer: customer} }}>
                   {(this.props.currentUser.role === "Admin") &&
-                  <i className="fa fa-edit customerEdit"></i>}
+                   <span href="#" id="TooltipExample"><i className="fa fa-edit customerEdit"></i></span>}
+                   <Tooltip placement="right" isOpen={this.state.tooltipOpen} target="TooltipExample" toggle={this.toggle}>
+                      Edit Customer
+                    </Tooltip>
                 </Link>
                 </Col>
               <Col lg={4} className="purple">

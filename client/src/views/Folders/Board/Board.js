@@ -58,7 +58,9 @@ class Board extends Component {
   componentDidMount() {
     const id = this.props.match.params.id;
     boardsApi.loadBoardById(id).then(res => {
-      this.setState({ board: res.data, customer: this.props.customers.find(c => c._id === res.data.customer) });
+      this.setState({ 
+        board: res.data, 
+        customer: res.data ? this.props.customers.find(c => c._id === res.data.customer) : {} });
     });
   }
 
@@ -108,6 +110,22 @@ class Board extends Component {
 
     validateAll(group, rules)
       .then(() => {
+        if(group._id) {
+          groupsApi.updateGroup(group)
+            .then(res => {
+              console.log(board.groups);
+              let groups = board.groups.map(g => {
+                if(g._id === res.data._id) {
+                  return res.data;
+                } 
+                return g;
+              });
+              console.log(groups);
+
+              board.groups = groups;
+              this.setState({board});
+            });
+        } else {
         const data = {
           group,
           boardId: board._id
@@ -116,8 +134,9 @@ class Board extends Component {
           .createGroup(data)
           .then(res => {
             board.groups.push(res.data);
-            this.setState(board);
+            this.setState({board});
           });
+        }
 
         // reset inpput
         const newTask = { column: [] };
@@ -130,6 +149,27 @@ class Board extends Component {
       });
     this.setState({ modalColumn: {} });
   };
+
+  removeGroup = id => {
+    const data = {
+      boardId: this.state.board._id,
+      groupId: id
+    };
+
+    groupsApi.deleteGroup(data).then(res => {
+      if(res.success) {
+        let board = Object.assign({}, this.state.board);
+        let groups = board.groups.filter(g => g._id !== id)
+        board.groups = groups;
+        this.setState({board});
+      }
+    })
+  }
+
+  renameGroup = group => {
+    this.setState({modalGroup: group})
+    this.openModal();
+  }
 
   editColumn = id => {
     this.setState(prevState => {
@@ -149,8 +189,6 @@ class Board extends Component {
     } else {
       let editing = Object.assign({}, this.state.editing);
       // only save if change detected
-      console.log(editing.column[e.target.name].value);
-      console.log(e.target.value);
       if(editing.column[e.target.name].value !== e.target.value) {
       editing.column[e.target.name].value = e.target.value;
         this.setState({ editing });
@@ -193,7 +231,7 @@ class Board extends Component {
           selectedGroup
         ].sort((group1, group2) => group1._id.localeCompare(group2._id));
         
-        this.setState({ board, editing: {} });
+        this.setState({ board, editing: {}, sideTask:{} });
       });
     } else if(this.state.newTask && isString(this.state.newTask)) {
       const board = Object.assign({}, this.state.board);
@@ -221,7 +259,7 @@ class Board extends Component {
           selectedGroup
         ].sort((group1, group2) => group1._id.localeCompare(group2._id));
 
-        this.setState({ board, newTask: "", editing: {}});
+        this.setState({ board, newTask: "", editing: {}, sideTask:{}});
         toast.info('Task Created', {
           position: toast.POSITION.TOP_CENTER
         });
@@ -307,6 +345,9 @@ class Board extends Component {
 
   moveBoard = folderId => {
     this.props.foldersActions.moveBoard(this.state.board, folderId);
+    toast.info(`${this.state.board.name} has been moved` , {
+        position: toast.POSITION.TOP_CENTER
+      });
   };
   /*******************TASK***********************************/
   updateSideTask = task => {
@@ -366,8 +407,9 @@ class Board extends Component {
 
   render() {
     const { board, sideTask, newTask, editing, disabled, taskFilter } = this.state;
-    const groups =
-      board.groups &&
+    let groups = board && board.groups;
+     groups =
+      groups ?
       board.groups.map((group, id) => (
         <Group
           key={id}
@@ -379,6 +421,8 @@ class Board extends Component {
           sideTask={sideTask}
           changeHandler={e => this.changeHandler(e, group._id)}
           saveHandler={e => this.saveHandler(group._id)}
+          removeGroup = {e => this.removeGroup(group._id)}
+          renameGroup = {this.renameGroup}
           editHandler={e => this.editHandler(e, group._id)}
           isEditingHandler={this.isEditingHandler}
           editActive={editing}
@@ -388,12 +432,13 @@ class Board extends Component {
           removeColumnHandler = {this.removeColumnHandler}
           disabled={disabled}
         />
-      ));
+      ))
+      : [];
 
     if (this.state.redirect) {
       return <Redirect to="/dashboard" />;
     }
-    return (
+    return (board ?
       <Fragment>
       <Suspense fallback={this.loading()}>
       <ToastContainer autoClose={2000}/>
@@ -462,7 +507,8 @@ class Board extends Component {
         </AppAside>
       </div>
       </Suspense>
-      </Fragment>
+      </Fragment> :
+      <h2 className="text-center pt-4">This Board no longer exists</h2>
     );
   }
 }

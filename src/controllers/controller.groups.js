@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const Group = mongoose.model('Group');
 const Board = mongoose.model('Board');
+const Task = mongoose.model('Task');
 // const Task = mongoose.model('Task');
 
 exports.groupsController = {
@@ -56,6 +57,7 @@ exports.groupsController = {
         new: true,
       },
       (error, model) => {
+        console.log(model);
         if (error) {
           res.json({
             success: false,
@@ -72,26 +74,33 @@ exports.groupsController = {
   },
 
   // Delete A group and remove group from users Projects
-  deleteById: (req, res) => {
+  delete: (req, res) => {
     // ************************************************
     // Remove the task and comments related to the group first
     // *************************************************
-    // Task.deleteMany({ group: req.params.id }).exec();
+    const { id, BoardId } = req.params;
+    Board.removeGroup(BoardId, id, (boardError) => {
+      if (boardError) console.log(boardError);
+
+      Group.deleteOne(
+        {
+          _id: id,
+        },
+        (error) => {
+          if (error) {
+            throw error;
+          } else {
+            // remove task associated with the removed group
+            Task.deleteMany({ group: mongoose.Types.ObjectId(id) }).exec();
+
+            return res.json({
+              success: true,
+              message: 'group deleted',
+            });
+          }
+        },
+      );
+    });
     // Remove group from users
-    Group.deleteOne(
-      {
-        _id: req.params.id,
-      },
-      (error) => {
-        if (error) {
-          throw err;
-        } else {
-          return res.json({
-            success: true,
-            message: 'group deleted',
-          });
-        }
-      },
-    );
   },
 };

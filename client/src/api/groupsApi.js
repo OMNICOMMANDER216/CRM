@@ -11,7 +11,7 @@ const api = {
 
   updateGroup: task => axios.put('/api/groups', { method: 'PUT', data: task, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Methods': '*' } }).then(res => res.data),
 
-  deleteGroupById: id => axios.delete(`/api/groups/${id}`, { headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` } }).then(response => response.data),
+  deleteGroup: data => axios.delete(`/api/groups/${data.groupId}/${data.boardId}`, { headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` } }).then(response => response.data),
 };
 
 export default api;

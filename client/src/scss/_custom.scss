@@ -40,6 +40,10 @@ body {
         top: 58px;
         border: 1px solid $purple;
     }
+
+    .breadcrumb {
+        margin-bottom: 0.5em;
+    }
 /*******************************************************/
 // Header End
 /*******************************************************/
@@ -112,6 +116,14 @@ button {
 .profile-icon {
     height: 50px;
     margin-right: 10px;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.round {
+    border-radius: 50%;
 }
 
 /*******************************************************/
@@ -234,16 +246,12 @@ label {
     font-weight: 700;
 }
 
-.round {
-    border-radius: 50%;
-}
-
 /*******************************************************/
 // Filter form End
 /*******************************************************/
 
 .customerEdit {
-    font-size: 2em;
+    font-size: 1.5em;
 }
 
 /*******************************************************/

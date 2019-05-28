@@ -49,16 +49,25 @@ require('./config/passport')(passport);
 const mongodbUri = `mongodb://${db.username}:${
   db.password
 }@ds123635.mlab.com:23635/omni-board`;
-mongoose
-  .connect(mongodbUri, { useNewUrlParser: true })
-  .then(() => {
-    console.log('mongoDB connected');
-  })
-  .catch((err) => {
-    throw err;
-  });
+try {
+  mongoose
+    .connect(mongodbUri, {
+      useNewUrlParser: true,
+      reconnectTries: Number.MAX_VALUE,
+      // sets the delay between every retry (milliseconds)
+      reconnectInterval: 1000,
+    })
+    .then(() => {
+      console.log('mongoDB connected');
+    })
+    .catch((err) => {
+      throw err;
+    });
+} catch (error) {
+  console.log(error);
+}
 
-const { connection } = mongoose;
+// const { connection } = mongoose;
 
 // Cors middleware
 const corsOptions = {

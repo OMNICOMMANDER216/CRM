@@ -48,7 +48,11 @@ export function moveBoardFailed(message) {
 export function loadFolders() {
   return function (dispatch) {
     try {
-      FolderApi.loadFolders().then(res => dispatch(loadFoldersSuccess(res.data)));
+      FolderApi.loadFolders().then((res) => {
+        if (res.data) {
+          dispatch(loadFoldersSuccess(res.data));
+        }
+      });
     } catch (error) {
       return dispatch(loadFoldersFailed(error.message));
     }

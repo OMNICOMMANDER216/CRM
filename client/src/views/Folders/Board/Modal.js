@@ -46,14 +46,14 @@ class BoardModal extends Component {
                 <NavLink
                   className={classNames({ active: this.state.activeTab === "1" })}
                   onClick={() => { this.toggle("1") }}>
-                  Column
+                  Group
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink
                   className={classNames({ active: this.state.activeTab === "2" })}
                   onClick={() => { this.toggle("2") }}>
-                  Group
+                  Column
                 </NavLink>
               </NavItem>
             </Nav>
@@ -61,6 +61,29 @@ class BoardModal extends Component {
           <ModalBody>
           <TabContent activeTab={this.state.activeTab} className='sideTabContent'>
             <TabPane tabId="1">
+              <Form>
+                <FormGroup row>
+                <Col md="12">
+                  <Label htmlFor="name">Group Title</Label>
+                </Col>
+                <Col xs="12" md="12">
+                  <Input 
+                    type="title" 
+                    id="title" 
+                    name="groupTitle" 
+                    placeholder="title" 
+                    onChange={modalHandler} 
+                    value={modalGroup.title}
+                    onKeyDown={e => (e.keyCode === 13) && saveGroup() }
+                    />
+                  <FormText color="danger">{errors && errors.title}</FormText>
+                </Col>
+                </FormGroup>
+                <Button color="primary" onClick={saveGroup} className="mr-3">Save</Button>
+                <Button color="secondary" onClick={closeModal}>Cancel</Button>
+              </Form>
+            </TabPane>
+          <TabPane tabId="2">
           <Form>
             <FormGroup row>
                 <Col md="12">
@@ -98,29 +121,6 @@ class BoardModal extends Component {
               </Form>
               <Button color="primary" onClick={saveColumn} className="mr-3">Save</Button>
               <Button color="secondary" onClick={closeModal}>Cancel</Button>
-            </TabPane>
-            <TabPane tabId="2">
-              <Form>
-                <FormGroup row>
-                <Col md="12">
-                  <Label htmlFor="name">Group Title</Label>
-                </Col>
-                <Col xs="12" md="12">
-                  <Input 
-                    type="title" 
-                    id="title" 
-                    name="groupTitle" 
-                    placeholder="title" 
-                    onChange={modalHandler} 
-                    value={modalGroup.title}
-                    onKeyDown={e => (e.keyCode === 13) && saveGroup() }
-                    />
-                  <FormText color="danger">{errors && errors.title}</FormText>
-                </Col>
-                </FormGroup>
-                <Button color="primary" onClick={saveGroup} className="mr-3">Save</Button>
-                <Button color="secondary" onClick={closeModal}>Cancel</Button>
-              </Form>
             </TabPane>
             </TabContent>
           </ModalBody>

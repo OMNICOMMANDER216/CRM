@@ -123,16 +123,24 @@ require('./config/passport')(_passport2.default);
 
 // Mongoose connect
 var mongodbUri = 'mongodb://' + _config.db.username + ':' + _config.db.password + '@ds123635.mlab.com:23635/omni-board';
-_mongoose2.default.connect(mongodbUri, { useNewUrlParser: true }).then(function () {
-  console.log('mongoDB connected');
-}).catch(function (err) {
-  throw err;
-});
+try {
+  _mongoose2.default.connect(mongodbUri, {
+    useNewUrlParser: true,
+    reconnectTries: Number.MAX_VALUE,
+    // sets the delay between every retry (milliseconds)
+    reconnectInterval: 1000
+  }).then(function () {
+    console.log('mongoDB connected');
+  }).catch(function (err) {
+    throw err;
+  });
+} catch (error) {
+  console.log(error);
+}
 
-var connection = _mongoose2.default.connection;
+// const { connection } = mongoose;
 
 // Cors middleware
-
 var corsOptions = {
   origin: '*',
   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204

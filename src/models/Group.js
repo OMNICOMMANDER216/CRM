@@ -56,7 +56,14 @@ GroupSchema.statics.addTask = function addTask(task, callback) {
 GroupSchema.pre('deleteMany', function preRemove(next) {
   // 'this' is the client being removed. Provide callbacks here if you want
   // to be notified of the calls' result.
-  // console.log(this);
+  Task.deleteMany({ _id: { $in: this.tasks } }).exec();
+  next();
+});
+
+GroupSchema.pre('deleteOne', function preDeleteOne(next) {
+  // 'this' is the client being removed. Provide callbacks here if you want
+  // to be notified of the calls' result.
+  // console.log(this.tasks);
   Task.deleteMany({ _id: { $in: this.tasks } }).exec();
   next();
 });

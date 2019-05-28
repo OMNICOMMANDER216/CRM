@@ -8,6 +8,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Group = _mongoose2.default.model('Group');
 var Board = _mongoose2.default.model('Board');
+var Task = _mongoose2.default.model('Task');
 // const Task = mongoose.model('Task');
 
 exports.groupsController = {
@@ -71,23 +72,33 @@ exports.groupsController = {
   },
 
   // Delete A group and remove group from users Projects
-  deleteById: function deleteById(req, res) {
+  delete: function _delete(req, res) {
     // ************************************************
     // Remove the task and comments related to the group first
     // *************************************************
-    // Task.deleteMany({ group: req.params.id }).exec();
-    // Remove group from users
-    Group.deleteOne({
-      _id: req.params.id
-    }, function (error) {
-      if (error) {
-        throw err;
-      } else {
-        return res.json({
-          success: true,
-          message: 'group deleted'
-        });
-      }
+    var _req$params = req.params,
+        id = _req$params.id,
+        BoardId = _req$params.BoardId;
+
+    Board.removeGroup(BoardId, id, function (boardError) {
+      if (boardError) console.log(boardError);
+
+      Group.deleteOne({
+        _id: id
+      }, function (error) {
+        if (error) {
+          throw error;
+        } else {
+          // remove task associated with the removed group
+          Task.deleteMany({ group: _mongoose2.default.Types.ObjectId(id) }).exec();
+
+          return res.json({
+            success: true,
+            message: 'group deleted'
+          });
+        }
+      });
     });
+    // Remove group from users
   }
 };
