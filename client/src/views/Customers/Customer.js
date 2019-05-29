@@ -141,10 +141,13 @@ class Customer extends Component {
                   className="pl-1 inline-block" 
                   to={{ pathname : `/customer/edit/${customer._id}`, state: {customer: customer} }}>
                   {(this.props.currentUser.role === "Admin") &&
-                   <span href="#" id="TooltipExample"><i className="fa fa-edit customerEdit"></i></span>}
+                  <React.Fragment>
+                   <span href="#" id="TooltipExample"><i className="fa fa-edit customerEdit"></i></span>
                    <Tooltip placement="right" isOpen={this.state.tooltipOpen} target="TooltipExample" toggle={this.toggle}>
                       Edit Customer
                     </Tooltip>
+                    </React.Fragment>
+                    }
                 </Link>
                 </Col>
               <Col lg={4} className="purple">

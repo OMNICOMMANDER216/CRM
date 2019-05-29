@@ -47,7 +47,7 @@ class BoardForm extends Component {
       <Container>
         {folder && 
         <React.Fragment>
-        <h2> Folder: {folder.name} </h2>
+        <h2 className="pt-4"> Folder: {folder.name} </h2>
         <div className="animated fadeIn">
           <Row>
             <Col xs="12" md="12" >
