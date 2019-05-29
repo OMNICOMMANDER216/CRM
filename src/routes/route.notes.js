@@ -23,7 +23,7 @@ router.post('/', noteController.create);
 // @access   private
 router.put('/', noteController.update);
 
-// @route    DELETE /notes/:id
+// @route    REMOVE /notes/:id
 // @desc     delete a note
 // @access   private
 router.delete('/:id', noteController.deleteById);

@@ -204,7 +204,7 @@ class Board extends Component {
 
           userApi.notify({userIds, notification}).then((res) => console.log(res.success));
       }
-      if(editing.column[e.target.name].dataType !== 'name'){
+      if(editing.column[e.target.name].dataType !== 'name' && editing.column[e.target.name].dataType !== 'text'){
         // Only save on change if not test type
           this.saveHandler(id);
       }

@@ -53,6 +53,7 @@ class Customer extends Component {
   saveNote = () => {
     let note = Object.assign({}, this.state.modalNote);
     note.cu = this.state.customer._id;
+    note.author = this.props.currentUser;
 
     const rules = {
         date: 'required|string',
@@ -211,7 +212,7 @@ class Customer extends Component {
           errors={this.state.errors}/>
 
         {/* display notes */}
-        <Table className="mt-5 text-center">
+        <Table className="mt-5 text-center white">
         <thead>
           <tr >
             <td>Date</td>
@@ -226,6 +227,8 @@ class Customer extends Component {
               <tr key={note._id}>
                 <td>{note.date}</td>
                 <td>{note.comment}</td>
+                {((note.author === this.props.currentUser._id) || (this.props.currentUser.role === 'Admin')) ?
+                <React.Fragment>
                 <td className="text-center" >
                   <button 
                     className="oc-btn" 
@@ -240,6 +243,13 @@ class Customer extends Component {
                     <i className="fa fa-trash"></i>
                   </button>
                 </td>
+                </React.Fragment> :
+                <React.Fragment> 
+                  <td></td>
+                  <td></td>
+                </React.Fragment>
+
+                }
               </tr>
             ))
           }

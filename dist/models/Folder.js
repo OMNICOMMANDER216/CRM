@@ -8,8 +8,16 @@ var Schema = mongoose.Schema;
 var FolderSchema = new Schema({
   name: {
     type: String,
-    required: true,
-    enum: ['Overview', 'Implementation', 'Compliance', 'QA', 'Accounting', 'Live Sites', 'IT']
+    required: true
+    // enum: [
+    //   'Overview',
+    //   'Implementation',
+    //   'Compliance',
+    //   'QA',
+    //   'Accounting',
+    //   'Live Sites',
+    //   'IT',
+    // ],
   },
   boards: [{
     type: Schema.Types.ObjectId,

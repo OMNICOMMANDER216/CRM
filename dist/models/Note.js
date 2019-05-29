@@ -17,6 +17,10 @@ var NoteSchema = new Schema({
   cu: {
     type: Schema.Types.ObjectId,
     ref: 'Customer'
+  },
+  author: {
+    type: Schema.Types.ObjectId,
+    ref: 'User'
   }
 }, { timestamps: true });
 

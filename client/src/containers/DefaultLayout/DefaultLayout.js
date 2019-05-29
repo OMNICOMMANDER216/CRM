@@ -38,6 +38,13 @@ class DefaultLayout extends Component {
 
   render() {
     const nav = { items: [ ...navigation.items, ...navigationMaker(this.props.folders) ]};
+    this.props.currentUser && 
+    (this.props.currentUser.role === 'Admin') && 
+    nav.items.push({
+      name: 'Manage Folders',
+      url: '/manageFolder',
+      icon: 'icon-pencil',
+    })
     const { currentUser } = this.props;
     // this.setState({nav}); 
     return (

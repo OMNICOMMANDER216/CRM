@@ -37,7 +37,7 @@ router.put('/data', Controller.addColumn);
 // @access   private
 router.put('/removeColumn', Controller.removeColumn);
 
-// @route    DELETE /boards/:id
+// @route    REMOVE /boards/:id
 // @desc     delete a board
 // @access   private
 router.delete('/:id', Controller.deleteById);

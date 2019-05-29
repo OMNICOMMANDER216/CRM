@@ -22,7 +22,7 @@ router.post('/', Controller.create);
 // @access   private
 router.put('/', Controller.update);
 
-// @route    DELETE /tasks/:id
+// @route    REMOVE /tasks/:id
 // @desc     delete a task
 // @access   private
 router.delete('/:id', Controller.deleteById);

@@ -1885,7 +1885,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
     var e = [];return this.forEach(function (t, n) {
       e.push([n, t]);
     }), l(e);
-  }, r.iterable && (c.prototype[Symbol.iterator] = c.prototype.entries);var y = ["DELETE", "GET", "HEAD", "OPTIONS", "POST", "PUT"];function v(e, t) {
+  }, r.iterable && (c.prototype[Symbol.iterator] = c.prototype.entries);var y = ["REMOVE", "GET", "HEAD", "OPTIONS", "POST", "PUT"];function v(e, t) {
     var n = (t = t || {}).body;if (e instanceof v) {
       if (e.bodyUsed) throw new TypeError("Already read");this.url = e.url, this.credentials = e.credentials, t.headers || (this.headers = new c(e.headers)), this.method = e.method, this.mode = e.mode, this.signal = e.signal, n || null == e._bodyInit || (n = e._bodyInit, e.bodyUsed = !0);
     } else this.url = String(e);if (this.credentials = t.credentials || this.credentials || "same-origin", !t.headers && this.headers || (this.headers = new c(t.headers)), this.method = function (e) {
@@ -5003,7 +5003,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
       pi = null,
       di = null,
       hi = !1;function yi(e, t) {
-    var n = $r(5, null, null, 0);n.elementType = "DELETED", n.type = "DELETED", n.stateNode = t, n.return = e, n.effectTag = 8, null !== e.lastEffect ? (e.lastEffect.nextEffect = n, e.lastEffect = n) : e.firstEffect = e.lastEffect = n;
+    var n = $r(5, null, null, 0);n.elementType = "REMOVED", n.type = "REMOVED", n.stateNode = t, n.return = e, n.effectTag = 8, null !== e.lastEffect ? (e.lastEffect.nextEffect = n, e.lastEffect = n) : e.firstEffect = e.lastEffect = n;
   }function vi(e, t) {
     switch (e.tag) {case 5:
         var n = e.type;return null !== (t = 1 !== t.nodeType || n.toLowerCase() !== t.nodeName.toLowerCase() ? null : t) && (e.stateNode = t, !0);case 6:

@@ -168,9 +168,9 @@
     }function p(e) {
       return { type: r.a.UPDATE_CUSTOMER_FAILED, message: e };
     }function h(e) {
-      return { type: r.a.DELETE_CUSTOMER_SUCCESS, id: e };
+      return { type: r.a.REMOVE_CUSTOMER_SUCCESS, id: e };
     }function C(e) {
-      return { type: r.a.DELETE_CUSTOMER_FAILED, message: e };
+      return { type: r.a.REMOVE_CUSTOMER_FAILED, message: e };
     }function E() {
       return function (e) {
         try {

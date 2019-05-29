@@ -44,17 +44,19 @@ exports.foldersController = {
     Folder.findByIdAndUpdate(updatedFolder._id, updatedFolder, {
       new: true
     }, function (error, model) {
-      if (error) {
-        res.json({
-          success: false,
-          message: error
-        });
-      } else {
-        res.json({
-          success: true,
-          data: model
-        });
-      }
+      Folder.populate(model, 'boards', function (err) {
+        if (err) {
+          res.json({
+            success: false,
+            message: err
+          });
+        } else {
+          res.json({
+            success: true,
+            data: model
+          });
+        }
+      });
     });
   },
 

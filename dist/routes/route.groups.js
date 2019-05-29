@@ -22,7 +22,7 @@ router.post('/', Controller.create);
 // @access   private
 router.put('/', Controller.update);
 
-// @route    DELETE /groups/:id
+// @route    REMOVE /groups/:id
 // @desc     delete a group
 // @access   private
 router.delete('/:id/:baordId', isAuthenticated, Controller.delete);

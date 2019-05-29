@@ -113,7 +113,7 @@ Remove
       </td>
     );
   }
-  if (current.dataType === 'last_updated' || current.dataType === 'date') {
+  if (current.dataType === 'last_updated' || current.dataType === 'date' || current.dataType === 'text') {
     return (
       <td key={index}>
         <Input

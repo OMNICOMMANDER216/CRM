@@ -51,17 +51,19 @@ exports.foldersController = {
         new: true,
       },
       (error, model) => {
-        if (error) {
-          res.json({
-            success: false,
-            message: error,
-          });
-        } else {
-          res.json({
-            success: true,
-            data: model,
-          });
-        }
+        Folder.populate(model, 'boards', (err) => {
+          if (err) {
+            res.json({
+              success: false,
+              message: err,
+            });
+          } else {
+            res.json({
+              success: true,
+              data: model,
+            });
+          }
+        });
       },
     );
   },
@@ -78,14 +80,13 @@ exports.foldersController = {
           return res.json({
             success: false,
             message: 'Error deleting folder',
-            error
+            error,
           });
-        } 
-          return res.json({
-            success: true,
-            message: 'folder deleted',
-          });
-        
+        }
+        return res.json({
+          success: true,
+          message: 'folder deleted',
+        });
       },
     );
   },

@@ -22,7 +22,7 @@
     }function s(t) {
       return { type: a.a.UPDATE_BOARD, folder: t };
     }function l(t) {
-      return { type: a.a.DELETE_BOARD, folder: t };
+      return { type: a.a.REMOVE_BOARD, folder: t };
     }function E(t) {
       return { type: a.a.LOAD_FOLDERS_FAILED, message: t };
     }function S(t) {
@@ -104,7 +104,7 @@
     t.exports = n(346);
   }, 297: function _(t, e, n) {}, 299: function _(t, e, n) {}, 3: function _(t, e, n) {
     "use strict";
-    e.a = { LOAD_CUSTOMERS_SUCCESS: "LOAD_CUSTOMERS_SUCCESS", LOAD_CUSTOMERS_FAILED: "LOAD_CUSTOMERS_FAILED", CREATE_CUSTOMER_SUCCESS: "CREATE_CUSTOMER_SUCCESS", CREATE_CUSTOMER_FAILED: "CREATE_CUSTOMER_FAILED", UPDATE_CUSTOMER_SUCCESS: "UPDATE_CUSTOMER_SUCCESS", UPDATE_CUSTOMER_FAILED: "UPDATE_CUSTOMER_FAILED", DELETE_CUSTOMER_SUCCESS: "DELETE_CUSTOMER_SUCCESS", DELETE_CUSTOMER_FAILED: "DELETE_CUSTOMER_FAILED", SET_CURRENT_USER: "SET_CURRENT_USER", LOAD_USERS_SUCCESS: "LOAD_USERS_SUCCESS", LOAD_USERS_FAILED: "LOAD_USERS_FAILED", UPDATE_USER_SUCCESS: "UPDATE_USER_SUCCESS", UPDATE_USER_FAILED: "UPDATE_USER_FAILED", LOAD_NOTIFICATIONS_SUCCESS: null, LOAD_NOTIFICATIONS_FAILED: null, LOAD_FOLDERS_SUCCESS: "LOAD_FOLDERS_SUCCESS", LOAD_FOLDERS_FAILED: "LOAD_FOLDERS_FAILED", ADD_BOARD: "ADD_BOARD", UPDATE_BOARD: "UPDATE_BOARD", DELETE_BOARD: "DELETE_BOARD", SET_SIDE_TASK: "SET_SIDE_TASK", UPDATE_SIDE_TASK: "UPDATE_SIDE_TASK" };
+    e.a = { LOAD_CUSTOMERS_SUCCESS: "LOAD_CUSTOMERS_SUCCESS", LOAD_CUSTOMERS_FAILED: "LOAD_CUSTOMERS_FAILED", CREATE_CUSTOMER_SUCCESS: "CREATE_CUSTOMER_SUCCESS", CREATE_CUSTOMER_FAILED: "CREATE_CUSTOMER_FAILED", UPDATE_CUSTOMER_SUCCESS: "UPDATE_CUSTOMER_SUCCESS", UPDATE_CUSTOMER_FAILED: "UPDATE_CUSTOMER_FAILED", REMOVE_CUSTOMER_SUCCESS: "REMOVE_CUSTOMER_SUCCESS", REMOVE_CUSTOMER_FAILED: "REMOVE_CUSTOMER_FAILED", SET_CURRENT_USER: "SET_CURRENT_USER", LOAD_USERS_SUCCESS: "LOAD_USERS_SUCCESS", LOAD_USERS_FAILED: "LOAD_USERS_FAILED", UPDATE_USER_SUCCESS: "UPDATE_USER_SUCCESS", UPDATE_USER_FAILED: "UPDATE_USER_FAILED", LOAD_NOTIFICATIONS_SUCCESS: null, LOAD_NOTIFICATIONS_FAILED: null, LOAD_FOLDERS_SUCCESS: "LOAD_FOLDERS_SUCCESS", LOAD_FOLDERS_FAILED: "LOAD_FOLDERS_FAILED", ADD_BOARD: "ADD_BOARD", UPDATE_BOARD: "UPDATE_BOARD", REMOVE_BOARD: "REMOVE_BOARD", SET_SIDE_TASK: "SET_SIDE_TASK", UPDATE_SIDE_TASK: "UPDATE_SIDE_TASK" };
   }, 346: function _(t, e, n) {
     "use strict";
     n.r(e);n(213), n(242);var a = n(58);n(248), n(277), n(281), n(283);!function () {
@@ -175,7 +175,7 @@
               return t._id !== e.customer._id;
             }).sort(function (t, e) {
               return t.name.localeCompare(e.name);
-            })), [Object.assign({}, e.customer)]);case F.a.DELETE_CUSTOMER_SUCCESS:
+            })), [Object.assign({}, e.customer)]);case F.a.REMOVE_CUSTOMER_SUCCESS:
             return Object(y.a)(t.filter(function (t) {
               return t._id !== e.id;
             }).sort(function (t, e) {
@@ -209,7 +209,7 @@
             e = arguments.length > 1 ? arguments[1] : void 0;switch (e.type) {case F.a.LOAD_FOLDERS_SUCCESS:
             return e.folders.sort(function (t, e) {
               return t.createdAt.localeCompare(e.createdAt);
-            });case F.a.ADD_BOARD:case F.a.UPDATE_BOARD:case F.a.DELETE_BOARD:
+            });case F.a.ADD_BOARD:case F.a.UPDATE_BOARD:case F.a.REMOVE_BOARD:
             return [].concat(Object(y.a)(t.filter(function (t) {
               return t._id !== e.folder._id;
             })), [e.folder]).sort(function (t, e) {

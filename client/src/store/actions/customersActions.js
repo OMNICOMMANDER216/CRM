@@ -47,14 +47,14 @@ export function updateCustomerFailed(message) {
 }
 export function deleteCustomerSuccess(id) {
   return {
-    type: action.DELETE_CUSTOMER_SUCCESS,
+    type: action.REMOVE_CUSTOMER_SUCCESS,
     id,
   };
 }
 
 export function deleteCustomerFailed(message) {
   return {
-    type: action.DELETE_CUSTOMER_FAILED,
+    type: action.REMOVE_CUSTOMER_FAILED,
     message,
   };
 }

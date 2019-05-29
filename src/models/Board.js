@@ -28,7 +28,7 @@ const BoardSchema = new Schema(
         },
         type: {
           type: String,
-          enum: ['name', 'user', 'status', 'priority', 'last_updated', 'date'],
+          enum: ['name', 'user', 'status', 'priority', 'last_updated', 'date', 'text'],
           required: true,
         },
       },

@@ -7,15 +7,15 @@ const FolderSchema = new Schema(
     name: {
       type: String,
       required: true,
-      enum: [
-        'Overview',
-        'Implementation',
-        'Compliance',
-        'QA',
-        'Accounting',
-        'Live Sites',
-        'IT',
-      ],
+      // enum: [
+      //   'Overview',
+      //   'Implementation',
+      //   'Compliance',
+      //   'QA',
+      //   'Accounting',
+      //   'Live Sites',
+      //   'IT',
+      // ],
     },
     boards: [
       {

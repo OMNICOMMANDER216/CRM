@@ -27,7 +27,7 @@ router.post('/', isAuthenticated, customerController.create);
 // @access   private
 router.put('/', isAuthenticated, customerController.updateMiddleware, customerController.update);
 
-// @route    DELETE /customers/:id
+// @route    REMOVE /customers/:id
 // @desc     delete a customer
 // @access   private
 router.delete('/:id', isAuthenticated, customerController.deleteById);

@@ -18,7 +18,7 @@ router.post('/', Controller.create);
 // @access   private
 router.put('/', Controller.update);
 
-// @route    DELETE /folders/:id
+// @route    REMOVE /folders/:id
 // @desc     delete a folder
 // @access   private
 router.delete('/:id', Controller.deleteById);

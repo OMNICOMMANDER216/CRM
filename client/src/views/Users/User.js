@@ -23,17 +23,17 @@ class User extends Component {
               </CardHeader>
               <CardBody>
                 <ListGroup flush>
-                  <ListGroupItem tag="a" href="#">
+                  <ListGroupItem tag="a">
                     <strong>Name:</strong>
 
                     {`${user.firstName} ${user.lastName}`}
                   </ListGroupItem>
-                  <ListGroupItem tag="a" href="#">
+                  <ListGroupItem tag="a">
                     <strong>Role:</strong>
 
                     {user.role}
                   </ListGroupItem>
-                  <ListGroupItem tag="a" href="#">
+                  <ListGroupItem tag="a">
                     <strong>Number of Projects: </strong>
 
                     {user.customers && user.customers.length}

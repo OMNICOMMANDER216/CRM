@@ -1,26 +1,15 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import  { Redirect } from 'react-router-dom';
-import BoardForm from './Board/BoardForm';
-import BoardModel from './Board/BoardModel';
 import { validateAll } from 'indicative';
 import * as foldersActions from '../../store/actions/foldersActions';
-import BoardApi from '../../api/boardsApi';
+import { Input, Badge, Col, Button } from 'reactstrap';
 
-class ManageBoardPage extends React.Component { 
+class ManageFolder extends React.Component { 
   constructor(props, context) {
     super(props, context);
     this.state = {
-      folder: Object.assign({}, this.props.folder),
-      board: {},
-      selectedCustomer : {},
-      errors: {},
-      saving: false,
-      disabledAdvance: false,
-      disabledLive: false,
-      redirect: false,
-      assign: false
+      editing: {},
     };
     
   }
@@ -34,54 +23,43 @@ class ManageBoardPage extends React.Component {
   
    componentWillMount() {
 
-     if(this.props.location.state && this.props.location.state.boardId) {
-       const id = this.props.location.state.boardId;
-        BoardApi.loadBoardById(id)
-        .then(res => {
-            const board = res.data;
-            const selectedCustomer = board.customer ? {value: board.customer, label: this.props.customers.length && this.props.customers.find(cust => cust._id === board.customer).name} : {value: "", label: 'Select'};
-            this.setState({board, selectedCustomer});
-        });
-     } else {
-        this.setState({board: BoardModel});
-     }
     }
 
-    componentDidMount() {
-        this.setState({ users: this.props.users });
-    }
 
-  updateBoard = (e) => { 
-    let board = Object.assign({}, this.state.board);
-      board[e.target.name] = e.target.value
-    return this.setState({ board: board });
+  doubleClickHandler = (folder) => { 
+    this.setState({editing: folder});
   }
 
-  updateCustomer = (e) => { 
-    let selectedCustomer = Object.assign({}, this.state.selectedCustomer);
-    let board = Object.assign({}, this.state.board);
-    board.customer = e.value;
-    selectedCustomer = e;
-    return this.setState({ selectedCustomer, board });
+  changeHandler = (e) => { 
+    let editing = Object.assign({}, this.state.editing);
+    editing.name = e.target.value;
+    this.setState({editing});
   }
 
-  saveBoard = (event) => {
+  removeHandler = (folder) => { 
+    this.props.foldersActions.removeFolder(folder);
+  }
+
+  saveHandler = (event) => {
     event.preventDefault();
 
-    let board = Object.assign({}, this.state.board);
+    let folder = Object.assign({}, this.state.editing);
     // Set Axios header
       const rules = {
         name: 'required|string',
         // customer: 'required|string'
       };
 
-      validateAll(board, rules)
+      validateAll(folder, rules)
         .then(() => {
-              board.folder = this.state.folder._id;
-              this.setState({ saving: true });
-              !board._id && this.props.foldersActions.addBoard(board);
-              board._id && this.props.foldersActions.updateBoard(board);
-              this.setState({ redirect: true });
+              if(folder._id) {
+                this.props.foldersActions
+                  .updateFolder(folder);
+                  this.setState({editing: {}});
+              } else {
+                this.props.foldersActions.addFolder(folder);
+                this.setState({editing: {}});
+              }
         })
         .catch(errors => {  
           console.log(errors);
@@ -92,43 +70,77 @@ class ManageBoardPage extends React.Component {
      
   }
 
-  redirect = () => {
-    if(this.state.board._id) {
-      this.setState({redirect: this.state.board._id});
-    } else {
-      this.setState({redirect: true});
-    }
-  }
   
   render() {
-    if(this.state.redirect && this.state.board._id) {
-      return <Redirect to={'/board/' + this.state.board._id} />
-    } else if(this.state.redirect) {
-      return <Redirect to='/dashboard' />
-    }
+    const { folders } = this.props;
+    const { editing } = this.state;
     return (    
-        <BoardForm 
-        folder={this.props.folder}
-        board={this.state.board}
-        selectedCustomer={this.state.selectedCustomer}
-        customers={this.props.customers}
-        onSave={this.saveBoard}
-        onChange={this.updateBoard}
-        updateCustomer={this.updateCustomer}
-        errors={this.state.errors}
-        saving={this.state.saving}
-        redirect={this.redirect}
-        currentUser={this.props.currentUser}
-      /> 
+      <Fragment>
+      { folders.map(f => (
+       <Col key={f._id} className="d-flex" style={styles.item} onDoubleClick={() => this.doubleClickHandler(f)}>
+
+        <Input 
+          type="text" 
+          style={styles.input}
+          value={(f._id === editing._id) ? editing.name :  f.name} 
+          disabled = {f._id !== editing._id}
+          onChange = {this.changeHandler}
+          onBlur={this.saveHandler}
+          onKeyDown={e => (e.keyCode === 13) && this.saveHandler(e)}
+          /> 
+        <Badge style={styles.badge}color="primary">{f.boards.length}</Badge>
+        <Button 
+          type="button" 
+          style={styles.deleteButton}
+          onClick={() => window.confirm('Are yo sure ?') && this.removeHandler(f)}>
+          <i  className="fa fa-trash fa-lg text-danger" />
+        </Button>
+        </Col>
+      ))}
+        <Col className="d-flex" style={styles.item} >
+          <Input 
+            style={styles.input} 
+            value={(!!editing._id) ? "" :  editing.name}  
+            onChange = {this.changeHandler}
+            placeholder="Add New Folder" 
+            onKeyDown={e => (e.keyCode === 13) && this.saveHandler(e)}
+          />
+        </Col>
+      </Fragment>
     );
   }
 }
-ManageBoardPage.propTypes = {
+ManageFolder.propTypes = {
 
 };
 
-const mapStateToProps = (state, ownprops) => ({
-  folder: state.folders.find(folder => folder._id === ownprops.match.params.folder_id),
+const styles = {
+  input: {
+    padding: '20px 10px',
+    fontSize: '1.3em'
+  },
+  badge: {
+    width: '50px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize:'1.5em'
+  },
+
+  item : {
+    margin: '1em'
+  },
+
+  deleteButton: {
+    marginLeft: '10px',
+    fontSize: '22px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  }
+}
+
+const mapStateToProps = (state) => ({
   folders: state.folders, 
   customers: state.customers,
   currentUser: state.auth.user
@@ -140,4 +152,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageBoardPage);
+export default connect(mapStateToProps, mapDispatchToProps)(ManageFolder);

@@ -10,6 +10,7 @@ const ManageCustomer = React.lazy(() => import('./views/Customers/ManageCustomer
 const Users = React.lazy(() => import('./views/Users/Users'));
 const User = React.lazy(() => import('./views/Users/User'));
 const Notification = React.lazy(() => import('./views/Notification/NotificationList'));
+const ManageBoard = React.lazy(() => import('./views/Folders/ManageBoard'));
 const ManageFolder = React.lazy(() => import('./views/Folders/ManageFolder'));
 const Board = React.lazy(() => import('./views/Folders/Board/Board'));
 
@@ -25,8 +26,9 @@ const routes = [
   { path: '/users', exact: true,  name: 'Users Page', component: RequireAuth(Users) },
   { path: '/users/:id', exact: true, name: 'User Info', component: RequireAuth(User) },
   { path: '/Notification/', exact: true, name: 'Messages', component: RequireAuth(Notification) },
-  { path: '/addBoard/:folder_id', name: 'Create a new Board', component: RequireAuth(ManageFolder) },
-  { path: '/editBoard/:folder_id', name: 'Edit Board', component: RequireAuth(ManageFolder) },
+  { path: '/addBoard/:folder_id', name: 'Create a new Board', component: RequireAuth(ManageBoard) },
+  { path: '/editBoard/:folder_id', name: 'Edit Board', component: RequireAuth(ManageBoard) },
+  { path: '/manageFolder', name: 'Manage folders', component: RequireAuth(ManageFolder) },
   { path: '/board/:id', name: 'Board Page', component: RequireAuth(Board) },
 ];
 

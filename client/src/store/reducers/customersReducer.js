@@ -16,7 +16,7 @@ export default function customerReducer(state = initialState.customers, action) 
         ...state.filter(customer => customer._id !== action.customer._id).sort((customer1, customer2) => customer1.name.localeCompare(customer2.name)),
         Object.assign({}, action.customer),
       ];
-    case actions.DELETE_CUSTOMER_SUCCESS:
+    case actions.REMOVE_CUSTOMER_SUCCESS:
 
       return [
         ...state.filter(customer => customer._id !== action.id).sort((customer1, customer2) => customer1.name.localeCompare(customer2.name)),
