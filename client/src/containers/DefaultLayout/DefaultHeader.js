@@ -2,6 +2,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 import {
   Badge,
   DropdownItem,
@@ -71,7 +72,7 @@ class DefaultHeader extends Component {
         </Nav>
         {currentUser && (
           <Nav className="ml-auto" navbar>
-            <NavItem className="d-md-down-none">
+            <NavItem className="d-md-down-none" data-tip="Messages">
               <NavLink href="/notification">
                 <i className="icon-bell" />
                 <Badge pill color="danger">
@@ -109,6 +110,7 @@ Logout
                 </DropdownItem>
               </DropdownMenu>
             </AppHeaderDropdown>
+            <ReactTooltip />
           </Nav>
         )}
       </React.Fragment>

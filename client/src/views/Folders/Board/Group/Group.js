@@ -1,6 +1,8 @@
 import React, { Suspense } from 'react';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import { Card, CardBody, CardHeader, Row, Table } from 'reactstrap';
+import ReactTooltip from 'react-tooltip';
+
 const TaskList = React.lazy(() => import('../Task/TaskList'));
 
 const styles = {
@@ -33,7 +35,8 @@ const Group =  (props) => {
 
           <ContextMenu id={(group && group._id) || "test"} style={styles.contextMenu}>
             <MenuItem data={{foo: 'bar'}} >
-              <button onClick={() => window.confirm('Are you sure') && removeGroup(group._id)} type="button">
+              <button 
+                onClick={() => window.confirm('Are you sure') && removeGroup(group._id)} type="button">
                 <i className="fa fa-trash fa-lg mr-2 mb-2 red" />
                    Delete
               </button>
@@ -53,9 +56,21 @@ const Group =  (props) => {
             <thead>
             <tr>
               <th>edit/Remove</th>
-              {columns && columns.map((col, id) => <th key={id}>{col.title} <button onClick={() => window.confirm('Are you sure ?') && removeColumnHandler(col._id)} style={styles.icon}><i  className="fa fa-trash ml-2"></i></button> </th>) }
+              {columns && columns.map((col, id) => (
+                <th key={id}>
+                  {col.title} 
+                  <button 
+                    onClick={() => window.confirm('Are you sure ?') && removeColumnHandler(col._id)} 
+                    style={styles.icon}
+                    data-tip="remove Column"
+                    >
+                    <i  className="fa fa-trash ml-2"></i>
+                  </button> 
+                </th>)) }
             </tr>
             </thead>
+                <ReactTooltip />
+
             <TaskList 
               tasks={group && group.tasks} 
               group={group}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Badge } from 'reactstrap';
+import ReactTooltip from 'react-tooltip';
 import getBadge from '../../helpers/getBadge';
 import getIcons from '../../helpers/getIcons';
 
@@ -28,7 +29,10 @@ function CustomerRow(props) {
           {customer.url}
         </a>
       </td>
-      <td className="text-left">{customer.services.map(s => getIcons(s))}</td>
+      <td className="text-left">
+        {customer.services.map(s => getIcons(s))}
+        <ReactTooltip />
+      </td>
       <td>
         <Badge color={getBadge(customer.status)}>{customer.status}</Badge>
       </td>

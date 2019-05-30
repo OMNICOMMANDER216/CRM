@@ -321,13 +321,13 @@ exports.customersController = {
 
     Customer.findById(customerId, (error, model) => {
       // Update Dev customer list
-      model.dev && User.removeCustomer(model.dev, model._id);
+      if (model.dev) User.removeCustomer(model.dev, model._id);
 
       // remove customers from PM's customers array
-      model.pm && User.removeCustomer(model.pm, model._id);
+      if (model.pm) User.removeCustomer(model.pm, model._id);
 
       // remove customers from compliance's customers array
-      model.compliance && User.removeCustomer(model.compliance, model._id);
+      if (model.compliance) User.removeCustomer(model.compliance, model._id);
 
       // Remove customer from users
       Customer.deleteOne({ _id: req.params.id },
@@ -336,14 +336,13 @@ exports.customersController = {
             return res.json({
               success: false,
               message: 'Error deleting customer',
-              error: deleteError
+              error: deleteError,
             });
-          } 
-            return res.json({
-              success: true,
-              message: 'customer deleted',
-            });
-          
+          }
+          return res.json({
+            success: true,
+            message: 'customer deleted',
+          });
         });
     });
   },

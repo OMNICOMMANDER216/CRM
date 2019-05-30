@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { validateAll } from 'indicative';
 import * as foldersActions from '../../store/actions/foldersActions';
 import { Input, Badge, Col, Button } from 'reactstrap';
+import ReactTooltip from 'react-tooltip';
 
 class ManageFolder extends React.Component { 
   constructor(props, context) {
@@ -93,7 +94,7 @@ class ManageFolder extends React.Component {
           type="button" 
           style={styles.deleteButton}
           onClick={() => window.confirm('Are yo sure ?') && this.removeHandler(f)}>
-          <i  className="fa fa-trash fa-lg text-danger" />
+          <i  className="fa fa-trash fa-lg text-danger" data-tip="Remove"/>
         </Button>
         </Col>
       ))}
@@ -106,6 +107,7 @@ class ManageFolder extends React.Component {
             onKeyDown={e => (e.keyCode === 13) && this.saveHandler(e)}
           />
         </Col>
+        <ReactTooltip />
       </Fragment>
     );
   }

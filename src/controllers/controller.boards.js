@@ -28,6 +28,7 @@ exports.boardsController = {
         });
       });
   },
+
   // Delete A board and remove board from users Projects
   getById: (req, res) => {
     // Remove board from users

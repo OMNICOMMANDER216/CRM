@@ -7,6 +7,7 @@ import { Redirect } from "react-router";
 import { ToastContainer, toast } from 'react-toastify';
 import { AppAside, } from '@coreui/react';
 import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, FormGroup, Input} from "reactstrap";
+import ReactTooltip from 'react-tooltip';
 import { validateAll } from "indicative";
 import moment from "moment";
 import { isEmpty, isString } from "lodash";
@@ -450,13 +451,20 @@ class Board extends Component {
             to={{
               pathname: `/editBoard/${board.folder}`,
               state: { boardId: board._id }
-            }}>
+            }}
+            data-tip="Edit Board">
             <i className="fa fa-pencil" />
           </Link>
-          <button className="fa-btn" onClick={() => window.confirm('Are you sure ?') && this.boardDeleteHandler() }>
+          <button 
+            className="fa-btn" 
+            onClick={() => window.confirm('Are you sure ?') && this.boardDeleteHandler() }
+            data-tip="Remove Board">
             <i className="fa fa-trash" />
           </button>
-          <button className="fa-btn" onClick={this.openModal}>
+          <button 
+            className="fa-btn" 
+            onClick={this.openModal}
+            data-tip="Add Group/Column">
             <i className="fa fa-plus-circle" />
           </button>
           </h2>
@@ -474,6 +482,8 @@ class Board extends Component {
               ))}
             </DropdownMenu>
           </Dropdown>
+        <ReactTooltip />
+
         
         <FormGroup className="taskFilter">
           <Input 
