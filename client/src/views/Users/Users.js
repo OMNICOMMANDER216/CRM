@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import {
   Label, Input, FormGroup, Card, CardBody, CardHeader, Col, Row, Table,
 } from 'reactstrap';
+import { isEmpty } from 'lodash';
 import UserRow from './UserRow';
 import * as usersActions from '../../store/actions/usersActions';
 import RequireAdmin from '../../helpers/RequireAdmin';
@@ -22,8 +23,8 @@ class Users extends Component {
     this.filter = this.filter.bind(this);
   }
 
-  componentWillMount() {
-    if (this.props.users !== []) {
+  componentDidMount() {
+    if (isEmpty(this.props.users)) {
       this.props.usersActions.loadUsers();
     }
   }
@@ -40,7 +41,7 @@ class Users extends Component {
   }
 
   filter(users) {
-    const { filter } =  this.state;
+    const { filter } = this.state;
     if (filter) {
       return users.filter(user => user.role === filter);
     }
@@ -58,7 +59,7 @@ class Users extends Component {
               <CardHeader className="d-flex justify-content-between">
                 <span>
                   <i className="fa fa-align-justify" />
-                  
+
 Users
                 </span>
                 <FormGroup className="filter-form d-flex  align-items-end">

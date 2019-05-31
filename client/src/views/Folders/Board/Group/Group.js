@@ -69,8 +69,6 @@ const Group =  (props) => {
                 </th>)) }
             </tr>
             </thead>
-                <ReactTooltip />
-
             <TaskList 
               tasks={group && group.tasks} 
               group={group}
@@ -87,6 +85,7 @@ const Group =  (props) => {
               disabled={disabled} 
               removeTask={removeTask}/>
           </Table>
+          <ReactTooltip />
           </Suspense>
           </CardBody>
         </Card>

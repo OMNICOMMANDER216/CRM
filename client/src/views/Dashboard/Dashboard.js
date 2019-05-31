@@ -35,10 +35,10 @@ class Dashboard extends Component {
 
   render() {
     const dashboardData = {
-      currentMonth : 8,
-      monthlyProjection : 21,
-      inDev : 45,
-      total : 217
+      currentMonth : 9,
+      monthlyProjection : 17,
+      inDev : 24,
+      total : 232
     }
     return (
       <div className="animated fadeIn">

@@ -102,6 +102,15 @@ button {
         }
     }
 }
+
+// Tool Tip
+.__react_component_tooltip.type-dark.place-top:after {
+    height: 15px;
+    width: 15px;
+    background-color: #222;
+    transform: rotate(45deg);
+    z-index: -1;
+}
 /*******************************************************/
 // Button End
 /*******************************************************/
@@ -122,8 +131,10 @@ button {
     display: inline-block;
 }
 
-.round {
+.round-image {
     border-radius: 50%;
+    height: 35px;
+    width: 35px;
 }
 
 /*******************************************************/

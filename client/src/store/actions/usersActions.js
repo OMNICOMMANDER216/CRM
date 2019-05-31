@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 import axios from 'axios';
 import action from '../actionTypes';
 import api from '../../api/userApi';
@@ -65,8 +66,6 @@ export function loadUsers() {
 }
 
 export function loadUsersInit(initToken) {
-  console.log('users');
-
   return function (dispatch) {
     try {
       return api.loadUsersInit(initToken).then(res => dispatch(loadUsersSuccess(res.data)))

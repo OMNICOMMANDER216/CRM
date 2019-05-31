@@ -105,7 +105,6 @@ export function updateFolder(folder) {
 export function removeFolder(folder) {
   return function (dispatch) {
     try {
-      console.log(folder);
       FolderApi
         .removeFolderById(folder._id)
         .then(res => dispatch(removeFolderSuccess(folder)));

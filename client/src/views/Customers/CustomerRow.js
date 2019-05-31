@@ -30,7 +30,7 @@ function CustomerRow(props) {
         </a>
       </td>
       <td className="text-left">
-        {customer.services.map(s => getIcons(s))}
+        {customer.services.map((s, i) => <span key={i}>{getIcons(s)}</span>)}
         <ReactTooltip />
       </td>
       <td>

@@ -36,7 +36,6 @@ class TaskItem extends Component {
       >
         <td className="edit">
           { (editActive._id !== task._id) && (
-
           <span
             onClick={() => isEditingHandler(task)}
             size="md"
@@ -44,7 +43,6 @@ class TaskItem extends Component {
             className="m-2"
           >
             <AppAsideToggler
-              className="d-md-down-none"
               disabled={isEmpty(sideTask)}
             >
               <i className="fa fa-pencil" />

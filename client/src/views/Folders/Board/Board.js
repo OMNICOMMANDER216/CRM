@@ -58,17 +58,21 @@ class Board extends Component {
 
   componentDidMount() {
     const id = this.props.match.params.id;
-    boardsApi.loadBoardById(id).then(res => {
-      this.setState({ 
-        board: res.data, 
-        customer: res.data ? this.props.customers.find(c => c._id === res.data.customer) : {} });
-    });
+    if(isEmpty(this.state.board)) {
+      boardsApi.loadBoardById(id).then(res => {
+        this.setState({ 
+          board: res.data, 
+          customer: res.data ? this.props.customers.find(c => c._id === res.data.customer) : {} });
+      });
+    }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
+    if (this.props.location.pathname !== prevProps.location.pathname) {
       boardsApi.loadBoardById(this.props.match.params.id).then(res => {
         this.setState({ board: res.data,  customer: this.props.customers.find(c => c._id === res.data.customer) });
+        console.log(this.props.location);
+        console.log(prevProps.location);
       });
     }
   }
@@ -272,7 +276,6 @@ class Board extends Component {
   };
 
   isEditingHandler = (task, clearSide=true) => {
-    console.log(clearSide)
     this.props.sideTaskActions.setSideTask(undefined);
     if(clearSide) {
       this.setState({
