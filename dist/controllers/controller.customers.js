@@ -1,8 +1,8 @@
 'use strict';
 
-var _user_notification = require('../helpers/user_notification');
+var _user_role_notification = require('../helpers/user_role_notification');
 
-var _user_notification2 = _interopRequireDefault(_user_notification);
+var _user_role_notification2 = _interopRequireDefault(_user_role_notification);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -54,7 +54,7 @@ exports.customersController = {
         content: newCustomer.name + ' paid for Email',
         cu: newCustomer._id
       }).save().then(function (notification) {
-        (0, _user_notification2.default)({ role: 'Compliance' }, notification);
+        (0, _user_role_notification2.default)({ role: 'Compliance' }, notification);
       });
     }
 
@@ -74,7 +74,7 @@ exports.customersController = {
         content: customer.name + ' has been added',
         cu: customer._id
       }).save().then(function (notification) {
-        (0, _user_notification2.default)({ role: { $in: ['Admin', 'Bookkeeping'] } }, notification);
+        (0, _user_role_notification2.default)({ role: { $in: ['Admin', 'Bookkeeping'] } }, notification);
       });
       res.json({
         success: true,
@@ -151,7 +151,7 @@ exports.customersController = {
           content: updatedCustomer.name + ' is ready for DNS!',
           cu: updatedCustomer._id
         }).save().then(function (notification) {
-          (0, _user_notification2.default)({ role: { $in: ['Admin', 'DevAdmin'] } }, notification);
+          (0, _user_role_notification2.default)({ role: { $in: ['Admin', 'DevAdmin'] } }, notification);
         });
       }
 
@@ -163,7 +163,7 @@ exports.customersController = {
           content: updatedCustomer.name + ' paid the Deposit',
           cu: updatedCustomer._id
         }).save().then(function (notification) {
-          (0, _user_notification2.default)({ role: { $in: ['Admin'] } }, notification);
+          (0, _user_role_notification2.default)({ role: { $in: ['Admin'] } }, notification);
         });
       }
 
@@ -174,7 +174,7 @@ exports.customersController = {
           content: updatedCustomer.name + ' is now Live!',
           cu: updatedCustomer._id
         }).save().then(function (notification) {
-          (0, _user_notification2.default)({}, notification);
+          (0, _user_role_notification2.default)({}, notification);
         });
       }
 
@@ -185,7 +185,7 @@ exports.customersController = {
           content: updatedCustomer.name + ' Paid it\'s final Payment!',
           cu: updatedCustomer._id
         }).save().then(function (notification) {
-          (0, _user_notification2.default)({ role: { $in: ['Admin', 'Sales'] } }, notification);
+          (0, _user_role_notification2.default)({ role: { $in: ['Admin', 'Sales'] } }, notification);
         });
       }
 

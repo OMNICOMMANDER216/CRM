@@ -1,4 +1,4 @@
-import addNotifications from '../helpers/user_notification';
+import addNotifications from '../helpers/user_role_notification';
 
 const mongoose = require('mongoose');
 
