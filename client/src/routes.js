@@ -19,7 +19,7 @@ const Board = React.lazy(() => import('./views/Folders/Board/Board'));
 const routes = [
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
   { path: '/logged', name: 'Logging Success', component: LoggedIn },
-  { path: '/logout', name: 'Logging Success', component: Logout },
+  { path: '/logout',  exact: true, name: 'Logout', component: Logout },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/customers', exact: true,  name: 'Customers', component: RequireAuth(Customers) },
   { path: '/customer/edit/:id', name: 'Edit Customer', component: RequireAuth(ManageCustomer) },

@@ -17,18 +17,23 @@ module.exports = {
     if (token) {
       jwt.verify(token, secret.jwtSecret.secret, (err, decoded) => {
         if (err) {
-          return res.redirect('/logout');
+          res.status(401).json({
+            error: 'Failed to authenticate',
+          });
+        } else {
+          User.findById(decoded._id, (err, user) => {
+            if (err) {
+              console.log(err);
+            } else if (!user) {
+              res.status(404).json({
+                error: 'No such user',
+              });
+            } else {
+              req.currentUser = user;
+              next();
+            }
+          });
         }
-        User.findById(decoded._id, (err, user) => {
-          if (err) {
-            console.log(err);
-          } else if (!user) {
-            return res.redirect('/logout');
-          } else {
-            req.currentUser = user;
-            next();
-          }
-        });
       });
     } else {
       res.status(403).json({

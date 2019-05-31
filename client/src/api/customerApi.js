@@ -2,11 +2,12 @@ import axios from 'axios';
 import getToken from '../helpers/getToken';
 
 const token = getToken();
+console.log(token);
 
 const api = {
   loadCustomers: () => axios.get('/api/customers', { headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` } }).then(response => response.data),
 
-  loadCustomerById: id => axios.get(`/api/customers/${id}`, { headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` } }).then(response => response.data),
+  loadCustomerById: id => axios.get(`/api/customers/${id}`, { headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` } }).then(response => response.data),
 
   loadCustomersInit: initToken => axios.get('/api/customers', { headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${initToken}` } }).then(response => response.data),
 
