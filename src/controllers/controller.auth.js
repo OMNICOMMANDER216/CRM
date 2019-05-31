@@ -14,7 +14,6 @@ exports.authController = {
         image: req.user.image,
       },
       secret.jwtSecret.secret,
-      { expiresIn: 60 },
     );
 
     res.cookie('t', token, {
