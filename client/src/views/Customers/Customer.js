@@ -25,6 +25,7 @@ class Customer extends Component {
 
   componentDidMount() {
     const id = this.props.match.params.id;
+    console.log(id);
     customerApi.loadCustomerById(id).then(res => {
       
       if(res.success) {
