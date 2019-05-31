@@ -13,7 +13,7 @@ exports.authController = {
       lastName: req.user.lastName,
       role: req.user.role,
       image: req.user.image
-    }, secret.jwtSecret.secret);
+    }, secret.jwtSecret.secret, { expiresIn: 60 });
 
     res.cookie('t', token, {
       expire: new Date() + 9999

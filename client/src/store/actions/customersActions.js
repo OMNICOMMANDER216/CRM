@@ -62,7 +62,11 @@ export function deleteCustomerFailed(message) {
 export function loadCustomers() {
   return function (dispatch) {
     try {
-      return api.loadCustomers().then(res => dispatch(loadCustomersSuccess(res.data)))
+      return api.loadCustomers().then((res) => {
+        if (res.data) {
+          dispatch(loadCustomersSuccess(res.data));
+        }
+      })
         .catch(err => console.log('Error with the Api request'));
     } catch (error) {
       return dispatch(loadCustomersFailed(error.message));

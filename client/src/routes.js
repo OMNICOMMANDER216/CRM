@@ -3,6 +3,7 @@ import DefaultLayout from './containers/DefaultLayout';
 import RequireAuth from './helpers/RequireAuth';
 
 const LoggedIn = React.lazy(() => import('./views/Pages/Login/LoggedIn'));
+const Logout = React.lazy(() => import('./views/Pages/Login/Logout'));
 const Dashboard = React.lazy(() => import('./views/Dashboard'));
 const Customers = React.lazy(() => import('./views/Customers/Customers'));
 const Customer = React.lazy(() => import('./views/Customers/Customer'));
@@ -18,6 +19,7 @@ const Board = React.lazy(() => import('./views/Folders/Board/Board'));
 const routes = [
   { path: '/', exact: true, name: 'Home', component: DefaultLayout },
   { path: '/logged', name: 'Logging Success', component: LoggedIn },
+  { path: '/logout', name: 'Logging Success', component: Logout },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
   { path: '/customers', exact: true,  name: 'Customers', component: RequireAuth(Customers) },
   { path: '/customer/edit/:id', name: 'Edit Customer', component: RequireAuth(ManageCustomer) },
