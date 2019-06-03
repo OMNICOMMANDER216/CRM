@@ -72,7 +72,7 @@ class DefaultHeader extends Component {
         </Nav>
         {currentUser && (
           <Nav className="ml-auto" navbar>
-            <NavItem className="d-md-down-none" data-tip="Messages">
+            <NavItem className="d-md-down-none" data-tip="Notification">
               <NavLink href="/notification">
                 <i className="icon-bell" />
                 <Badge pill color="danger">
@@ -100,13 +100,13 @@ class DefaultHeader extends Component {
                 <DropdownItem>
                   <Link to={`/users/${currentUser._id}`}>
                     <i className="fa fa-user"> </i>
-Profile
+                    Profile
                   </Link>
                 </DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem onClick={e => onLogout(e)}>
                   <i className="fa fa-lock" />
-Logout
+                  Logout
                 </DropdownItem>
               </DropdownMenu>
             </AppHeaderDropdown>

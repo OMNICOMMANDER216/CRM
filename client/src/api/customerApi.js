@@ -2,7 +2,6 @@ import axios from 'axios';
 import getToken from '../helpers/getToken';
 
 const token = getToken();
-console.log(token);
 
 const api = {
   loadCustomers: () => axios.get('/api/customers', { headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` } }).then(response => response.data),
