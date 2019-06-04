@@ -108,7 +108,7 @@ class Board extends Component {
       this.setState({board});
       boardsApi.updateGroupsOrder({groupsOrder, boardId: board._id })
         .then(res => {
-          res.success && console.log('sorted');
+          !res.success && console.log('Error saving sortable');
         })
     }
   };
@@ -543,7 +543,7 @@ class Board extends Component {
         </FormGroup>
         </BoardHeader>
         {/*groups*/}
-        <SortableList pressDelay={100} items={groups} onSortEnd={this.onSortEnd} />
+        <SortableList pressDelay={200} items={groups} onSortEnd={this.onSortEnd} />
         
         {/* Modal */}
         <Modal

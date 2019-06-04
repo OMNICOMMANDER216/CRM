@@ -13,7 +13,11 @@ const api = {
   loadUserById: id => axios.get(`/api/users/${id}`, { headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` } }).then(res => res.data),
 
 
-  updateUser: user => axios.put('/api/users/update-role', { data: user, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Methods': '*' } }).then(res => res.data),
+  updateUser: (user) => {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+    return axios.put('/api/users/update-role', { data: user, headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Methods': '*' } }).then(res => res.data);
+  },
 
   notify: (data) => {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;

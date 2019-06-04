@@ -238,7 +238,7 @@ class Customer extends Component {
                 <td className="text-center">
                   <button 
                     className="oc-btn" 
-                    onClick={(event) => this.deleteNote(note._id)}>
+                    onClick={(event) => window.confirm('Are you Sure ?') &&this.deleteNote(note._id)}>
                     <i className="fa fa-trash"></i>
                   </button>
                 </td>

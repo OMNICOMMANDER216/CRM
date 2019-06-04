@@ -168,6 +168,8 @@ Remove
     );
   } if (current.dataType === 'user') {
     const selectedUser = users.find(u => u._id === current.value);
+    //  limits options to 'Admin', 'Developer', 'Pm'
+    users = users.filter(u => ['Admin', 'Developer', 'Pm'].includes(u.role));
     return (
       <td key={index}>
         <span className="select-td">
