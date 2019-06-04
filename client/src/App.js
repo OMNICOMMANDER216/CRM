@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { DragDropContextProvider } from 'react-dnd'
-import HTML5Backend from 'react-dnd-html5-backend'
 import { connect } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
@@ -47,7 +45,6 @@ class App extends Component {
 
   render() {
     return (
-      <DragDropContextProvider backend={HTML5Backend}>
       <BrowserRouter>
         <Switch>
           <Route exact path="/login" name="Login Page" component={Login} />
@@ -57,7 +54,6 @@ class App extends Component {
           <Route path="/" name="Home" component={DefaultLayout} />
         </Switch>
       </BrowserRouter>
-      </DragDropContextProvider>
     );
   }
 }

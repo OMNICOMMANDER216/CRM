@@ -61,9 +61,6 @@ GroupSchema.pre('deleteMany', function preRemove(next) {
 });
 
 GroupSchema.pre('deleteOne', function preDeleteOne(next) {
-  // 'this' is the client being removed. Provide callbacks here if you want
-  // to be notified of the calls' result.
-  // console.log(this.tasks);
   Task.deleteMany({ _id: { $in: this.tasks } }).exec();
   next();
 });

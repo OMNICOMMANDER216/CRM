@@ -2,44 +2,49 @@ const router = require('express').Router();
 const { isAuthenticated } = require('../helpers/auth');
 const Controller = require('../controllers/controller.boards').boardsController;
 
-// @route    GET /boards
-// @desc     return list of all boards
+// @route    GET /boards/
+// @desc     returns list of all boards
 // @access   private
-router.get('/', Controller.getAll);
+router.get('/', isAuthenticated, Controller.getAll);
 
 // @route    GET /boards:id
-// @desc     return list of all boards
+// @desc     return a single board byt id
 // @access   private
-router.get('/:id', Controller.getById);
+router.get('/:id', isAuthenticated, Controller.getById);
 
-// @route    POST /boards
+// @route    POST /boards/
 // @desc     Create a new board
 // @access   private
-router.post('/', Controller.create);
+router.post('/', isAuthenticated, Controller.create);
 
-// @route    PUT /boards
+// @route    PUT /boards/
 // @desc     update a board
 // @access   private
-router.put('/', Controller.update);
+router.put('/', isAuthenticated, Controller.update);
 
-// @route    PUT /boards
-// @desc     update a board
+// @route    PUT /boards/groupsOrder
+// @desc     update a board groupsOrder
 // @access   private
-router.put('/moveBoard', Controller.moveBoard);
+router.put('/groupsOrder', isAuthenticated, Controller.updateGroupsOrder);
+
+// @route    PUT /boards/moveBoard
+// @desc     move board to different folder
+// @access   private
+router.put('/moveBoard', isAuthenticated, Controller.moveBoard);
 
 // @route    PUT /boards/data
-// @desc     update a board data
+// @desc     add a new column to a board
 // @access   private
-router.put('/data', Controller.addColumn);
+router.put('/data', isAuthenticated, Controller.addColumn);
 
-// @route    PUT /boards/data
-// @desc     update a board data
+// @route    PUT /boards/removeColumn
+// @desc     remove a column from a board
 // @access   private
-router.put('/removeColumn', Controller.removeColumn);
+router.put('/removeColumn', isAuthenticated, Controller.removeColumn);
 
 // @route    REMOVE /boards/:id
-// @desc     delete a board
+// @desc     remove a board
 // @access   private
-router.delete('/:id', Controller.deleteById);
+router.delete('/:id', isAuthenticated, Controller.deleteById);
 
 module.exports = router;

@@ -39,6 +39,11 @@ const BoardSchema = new Schema(
         ref: 'Group',
       },
     ],
+    groupsOrder: [
+      {
+        type: String,
+      },
+    ],
   },
   { timestamps: true },
 );

@@ -87,12 +87,9 @@ exports.boardsController = {
       new Board(newBoard)
         .save()
         .then((board) => {
-          console.log(board);
           // insert borad into folder
           Folder.addBoard(board.folder, board._id, (err, folder) => {
             if (err) console.log(err);
-            console.log(folder);
-
             // populate
             Folder.populate(folder, 'boards', (folderError) => {
               if (folderError) throw folderError;
@@ -140,6 +137,31 @@ exports.boardsController = {
                 data: folder,
               });
             });
+          });
+        }
+      },
+    );
+  },
+
+  updateGroupsOrder: (req, res) => {
+    const { groupsOrder, boardId } = req.body.data;
+    // updated board
+    Board.findByIdAndUpdate(
+      boardId,
+      { groupsOrder },
+      {
+        new: true,
+      },
+      (boardError, board) => {
+        if (boardError) {
+          res.json({
+            success: false,
+            message: boardError,
+          });
+        } else {
+          res.json({
+            success: true,
+            data: board,
           });
         }
       },

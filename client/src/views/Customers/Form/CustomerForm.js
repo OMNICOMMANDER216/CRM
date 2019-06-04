@@ -23,8 +23,6 @@ class CustomerForm extends Component {
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
-    this.toggleFade = this.toggleFade.bind(this);
     this.state = {
       collapse: true,
       fadeIn: true,
@@ -38,11 +36,11 @@ class CustomerForm extends Component {
     }
   }
 
-  toggle() {
+  toggle = () => {
     this.setState({ collapse: !this.state.collapse });
   }
 
-  toggleFade() {
+  toggleFade = () => {
     this.setState((prevState) => { return { fadeIn: !prevState }});
   }
 

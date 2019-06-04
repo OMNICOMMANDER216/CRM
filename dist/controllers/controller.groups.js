@@ -57,7 +57,6 @@ exports.groupsController = {
     Group.findByIdAndUpdate(updatedGroup._id, updatedGroup, {
       new: true
     }, function (error, model) {
-      console.log(model);
       if (error) {
         res.json({
           success: false,

@@ -5,21 +5,21 @@ const Controller = require('../controllers/controller.tasks').tasksController;
 // @route    GET /tasks
 // @desc     return list of all tasks
 // @access   private
-router.get('/', Controller.getAll);
+router.get('/', isAuthenticated, Controller.getAll);
 
 // @route    POST /tasks
 // @desc     Create a new task
 // @access   private
-router.post('/', Controller.create);
+router.post('/', isAuthenticated, Controller.create);
 
 // @route    PUT /tasks
 // @desc     update a task
 // @access   private
-router.put('/', Controller.update);
+router.put('/', isAuthenticated, Controller.update);
 
 // @route    REMOVE /tasks/:id
-// @desc     delete a task
+// @desc     remove a task
 // @access   private
-router.delete('/:id', Controller.deleteById);
+router.delete('/:id', isAuthenticated, Controller.deleteById);
 
 module.exports = router;

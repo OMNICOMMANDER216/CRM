@@ -10,21 +10,21 @@ var Controller = require('../controllers/controller.folders').foldersController;
 // @route    GET /folders
 // @desc     return list of all folders
 // @access   private
-router.get('/', Controller.getAll);
+router.get('/', isAuthenticated, Controller.getAll);
 
 // @route    POST /folders
 // @desc     Create a new folder
 // @access   private
-router.post('/', Controller.create);
+router.post('/', isAuthenticated, Controller.create);
 
 // @route    PUT /folders
 // @desc     update a folder
 // @access   private
-router.put('/', Controller.update);
+router.put('/', isAuthenticated, Controller.update);
 
 // @route    REMOVE /folders/:id
 // @desc     delete a folder
 // @access   private
-router.delete('/:id', Controller.deleteById);
+router.delete('/:id', isAuthenticated, Controller.deleteById);
 
 module.exports = router;

@@ -86,12 +86,9 @@ exports.boardsController = {
       // Save document
       newBoard = (0, _lodash.omit)(newBoard, 'customer');
       new Board(newBoard).save().then(function (board) {
-        console.log(board);
         // insert borad into folder
         Folder.addBoard(board.folder, board._id, function (err, folder) {
           if (err) console.log(err);
-          console.log(folder);
-
           // populate
           Folder.populate(folder, 'boards', function (folderError) {
             if (folderError) throw folderError;
@@ -134,6 +131,29 @@ exports.boardsController = {
               data: folder
             });
           });
+        });
+      }
+    });
+  },
+
+  updateGroupsOrder: function updateGroupsOrder(req, res) {
+    var _req$body$data = req.body.data,
+        groupsOrder = _req$body$data.groupsOrder,
+        boardId = _req$body$data.boardId;
+    // updated board
+
+    Board.findByIdAndUpdate(boardId, { groupsOrder: groupsOrder }, {
+      new: true
+    }, function (boardError, board) {
+      if (boardError) {
+        res.json({
+          success: false,
+          message: boardError
+        });
+      } else {
+        res.json({
+          success: true,
+          data: board
         });
       }
     });
@@ -209,9 +229,9 @@ exports.boardsController = {
   },
 
   removeColumn: function removeColumn(req, res) {
-    var _req$body$data = req.body.data,
-        board = _req$body$data.board,
-        columnId = _req$body$data.columnId;
+    var _req$body$data2 = req.body.data,
+        board = _req$body$data2.board,
+        columnId = _req$body$data2.columnId;
 
     // Remove Column from tasks
 

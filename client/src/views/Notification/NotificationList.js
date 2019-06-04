@@ -14,13 +14,8 @@ const styles = {
 };
 
 class NotificationList extends React.Component {
-  constructor(props, context) {
-    super(props, context);
 
-    this.onClick = this.onClick.bind(this);
-  }
-
-  onClick(notification) {
+  onClick = (notification) => {
     this.props.userActions.archiveNotification(notification);
   }
 

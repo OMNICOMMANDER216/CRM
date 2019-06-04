@@ -12,7 +12,7 @@ exports.authController = {
       role: req.user.role,
       image: req.user.image,
     },
-    secret.jwtSecret.secret,);
+    secret.jwtSecret.secret);
 
     res.cookie('t', token, {
       expire: new Date() + 9999,

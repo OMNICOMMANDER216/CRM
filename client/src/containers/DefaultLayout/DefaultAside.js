@@ -54,8 +54,6 @@ const modules = {
 class DefaultAside extends Component {
   constructor(props) {
     super(props);
-
-    this.toggle = this.toggle.bind(this);
     this.state = {
       activeTab: "1",
       text: '',
@@ -64,7 +62,7 @@ class DefaultAside extends Component {
     };
   }
 
-  toggle(tab) {
+  toggle = (tab) => {
     if (this.state.activeTab !== tab) {
       this.setState({
         activeTab: tab
@@ -167,16 +165,6 @@ class DefaultAside extends Component {
               <i className="icon-pencil" />
             </NavLink>
           </NavItem>
-          <NavItem>
-            <NavLink
-              className={classNames({ active: this.state.activeTab === "3" })}
-              onClick={() => {
-                this.toggle("3");
-              }}
-            >
-              <i className="icon-settings" />
-            </NavLink>
-          </NavItem>
         </Nav>
         <TabContent activeTab={this.state.activeTab} className='sideTabContent'>
           <h3 className="text-center">
@@ -208,9 +196,6 @@ class DefaultAside extends Component {
             )}
           </TabPane>
           <TabPane tabId="2" className="p-3">
-            
-          </TabPane>
-          <TabPane tabId="3" className="p-3">
             
           </TabPane>
         </TabContent>

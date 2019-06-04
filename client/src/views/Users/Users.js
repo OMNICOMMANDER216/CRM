@@ -17,10 +17,6 @@ class Users extends Component {
     this.state = {
       filter: '',
     };
-
-    this.setRole = this.setRole.bind(this);
-    this.setFilter = this.setFilter.bind(this);
-    this.filter = this.filter.bind(this);
   }
 
   componentDidMount() {
@@ -29,18 +25,18 @@ class Users extends Component {
     }
   }
 
-  setRole(event, user) {
+  setRole = (event, user) => {
     event.preventDefault();
     const updatedUser = Object.assign({}, user);
     updatedUser.role = event.target.value;
     this.props.usersActions.updateUser(updatedUser);
   }
 
-  setFilter(e) {
+  setFilter = (e) => {
     this.setState({ filter: e.target.value });
   }
 
-  filter(users) {
+  filter = (users) => {
     const { filter } = this.state;
     if (filter) {
       return users.filter(user => user.role === filter);

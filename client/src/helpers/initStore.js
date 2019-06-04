@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash';
 import  * as customerActions from '../store/actions/customersActions';
 import  * as userActions from '../store/actions/usersActions';
 import  * as authActions from '../store/actions/authActions';
@@ -15,15 +16,12 @@ export default function (ComposedComponent) {
         this.props.authActions.initAuth();
       }
       if (getToken()) {
-        if (!this.props.users.length) {
-          this.props.userActions.loadUsers();
-        }
-        if (!this.props.customers.length) {
-          this.props.customerActions.loadCustomers();
-        }
-        if (!this.props.foldersActions.length) {
-          this.props.foldersActions.loadFolders();
-        }
+        const { users, customers, folders } = this.props;
+        isEmpty(users) && this.props.userActions.loadUsers();
+
+        isEmpty(customers) && this.props.customerActions.loadCustomers();
+
+        isEmpty(folders) && this.props.folderActions.loadFolders();
       }
     }
 
@@ -33,14 +31,32 @@ export default function (ComposedComponent) {
   }
 
   StoreInit.propTypes = {
-    authenticated: PropTypes.bool,
+    auth: PropTypes.shape({
+      isAuthenticated: PropTypes.bool,
+    }).isRequired,
+    customers: PropTypes.arrayOf(
+      PropTypes.shape({}),
+    ).isRequired,
+
+    users: PropTypes.arrayOf(
+      PropTypes.shape({}),
+    ).isRequired,
+
+    folders: PropTypes.arrayOf(
+      PropTypes.shape({}),
+    ).isRequired,
+
+    customerActions: PropTypes.shape({}).isRequired,
+    userActions: PropTypes.shape({}).isRequired,
+    folderActions: PropTypes.shape({}).isRequired,
   };
 
-  function mapStateToProps(state, ownProps) {
+  function mapStateToProps(state) {
     return {
       auth: state.auth,
       customers: state.customers,
       users: state.users,
+      folders: state.folders,
     };
   }
 
@@ -49,7 +65,7 @@ export default function (ComposedComponent) {
       userActions: bindActionCreators(userActions, dispatch),
       customerActions: bindActionCreators(customerActions, dispatch),
       authActions: bindActionCreators(authActions, dispatch),
-      foldersActions: bindActionCreators(foldersActions, dispatch),
+      folderActions: bindActionCreators(foldersActions, dispatch),
     };
   }
 

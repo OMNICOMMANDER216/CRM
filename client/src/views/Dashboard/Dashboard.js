@@ -37,7 +37,7 @@ class Dashboard extends Component {
       currentMonth : 9,
       monthlyProjection : 17,
       inDev : 24,
-      total : 232
+      total : 234
     }
     return (
       <div className="animated fadeIn">

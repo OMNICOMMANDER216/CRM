@@ -47,7 +47,7 @@ router.get('/all', isAuthenticated, usersController.getAll);
 router.get('/:id', isAuthenticated, usersController.getById);
 
 // @route    POST /users/notify
-// @desc     Update a user Role
+// @desc     Send notification to users
 // @access   private
 router.post('/notify', isAuthenticated, usersController.notify);
 

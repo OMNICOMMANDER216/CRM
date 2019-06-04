@@ -57,7 +57,6 @@ exports.groupsController = {
         new: true,
       },
       (error, model) => {
-        console.log(model);
         if (error) {
           res.json({
             success: false,

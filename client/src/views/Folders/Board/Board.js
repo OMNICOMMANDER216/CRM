@@ -10,8 +10,10 @@ import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem, FormGroup, Input}
 import ReactTooltip from 'react-tooltip';
 import { validateAll } from "indicative";
 import moment from "moment";
-import { isEmpty, isString } from "lodash";
+import { isEmpty, isString, isEqual } from "lodash";
 import styled from 'styled-components';
+import {SortableContainer, SortableElement} from 'react-sortable-hoc';
+import arrayMove from 'array-move';
 // api
 import userApi from "../../../api/userApi";
 import boardsApi from "../../../api/boardsApi";
@@ -31,7 +33,24 @@ const BoardHeader = styled.div`
   border: 2px solid #662c90;
   padding: 0.5em 1em;
   width: calc(100% + 30px); // 30px from row (-15 margin on both sides)
-`
+`;
+
+const Li = styled.li`
+  list-style: none;
+`;
+
+const SortableItem = SortableElement(({value}) => <Li >{value}</Li>);
+
+const SortableList = SortableContainer(({items}) => {
+  return (
+    <ul>
+      {items.map((value, index) => (
+        <SortableItem key={`item-${index}`} index={index} value={value} />
+      ))}
+    </ul>
+  );
+});
+
 
 class Board extends Component {
   constructor(props) {
@@ -76,6 +95,23 @@ class Board extends Component {
       });
     }
   }
+
+  onSortEnd = ({oldIndex, newIndex}) => {
+    
+    let board = Object.assign({}, this.state.board);
+    let groups = board.groups;
+    groups = arrayMove(groups, oldIndex, newIndex);
+    const groupsOrder = groups.map(g => g._id);
+    if(!isEqual(groupsOrder, board.groupsOrder)){
+      board.groups = groups;
+      board.groupsOrder = groupsOrder;
+      this.setState({board});
+      boardsApi.updateGroupsOrder({groupsOrder, boardId: board._id })
+        .then(res => {
+          res.success && console.log('sorted');
+        })
+    }
+  };
 
   saveColumn = () => {
     const column = Object.assign({}, this.state.modalColumn);
@@ -409,9 +445,17 @@ class Board extends Component {
     return moment(date).format("MMM Do YY");
   }
 
+  sortGroups = (groups, groupsOrder) => {
+    if(groupsOrder) {
+      return groups.sort((a, b) => groupsOrder.indexOf(a._id) - groupsOrder.indexOf(b._id));
+    } else {
+      return groups;
+    }
+  }
+
   render() {
     const { board, sideTask, newTask, editing, disabled, taskFilter } = this.state;
-    let groups = board && board.groups;
+    let groups = board && this.sortGroups(board.groups, board.groupsOrder);
      groups =
       groups ?
       board.groups.map((group, id) => (
@@ -498,7 +542,8 @@ class Board extends Component {
             onChange={this.filter}/>
         </FormGroup>
         </BoardHeader>
-        {groups}
+        {/*groups*/}
+        <SortableList pressDelay={100} items={groups} onSortEnd={this.onSortEnd} />
         
         {/* Modal */}
         <Modal
