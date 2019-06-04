@@ -239,7 +239,7 @@ class Board extends Component {
         const userIds= [e.target.value];
         const notification = {
           title: "Assignment",
-          content: `${this.props.currentUser.firstName} assigned you to task ${editing.column[0].value}`,
+          content: `${this.props.currentUser.firstName} assigned you to task "${editing.column[0].value}"`,
           board: editing.board
         }
 
