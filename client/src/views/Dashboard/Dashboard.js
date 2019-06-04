@@ -5,7 +5,6 @@ import DashboardList from "./DashboardList";
 import DashboardDonut from "./DashboardDonut";
 import { Card, CardBody, Col, Row, } from 'reactstrap';
 import RequireAuth from '../../helpers/RequireAuth';
-import { loadUsers } from '../../store/actions/usersActions';
 import StoreInit from '../../helpers/initStore';
 
 
@@ -93,12 +92,8 @@ Dashboard.propTypes = {
   users: PropTypes.array
 }
 
-const mapDispatchToProps = dispatch => ({
- loadUsers: () => dispatch(loadUsers())
-})
-
 const mapStateToProps = state => ({
   users: state.users
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(StoreInit(RequireAuth(Dashboard)));
+export default connect(mapStateToProps, null)(StoreInit(RequireAuth(Dashboard)));

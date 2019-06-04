@@ -13,9 +13,9 @@ export function setCurrentUser(user) {
 export function login(token) {
   return (dispatch) => {
     dispatch(setCurrentUser(jwtDecode(token)));
-    setToken(token);
+    return setToken(token);
 
-    return Promise.resolve();
+    // return Promise.resolve();
   };
 }
 

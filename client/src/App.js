@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { DragDropContextProvider } from 'react-dnd'
 import HTML5Backend from 'react-dnd-html5-backend'
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
 import './App.scss';
 import 'react-toastify/dist/ReactToastify.css';
-import * as foldersActions from './store/actions/foldersActions';
 
 const loading = () => <div className="animated fadeIn pt-3 text-center">Loading...</div>;
 
@@ -47,13 +45,6 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    if(!this.state.loading && !this.props.folders.length) {
-        this.props.foldersActions.loadFolders();
-        this.setState({loading: true});
-    }
-  }
-
   render() {
     return (
       <DragDropContextProvider backend={HTML5Backend}>
@@ -77,10 +68,4 @@ function mapStateToProps(state) {
   };
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    foldersActions: bindActionCreators(foldersActions, dispatch)
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, null)(App);

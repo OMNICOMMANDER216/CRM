@@ -4,7 +4,9 @@ import getToken from '../helpers/getToken';
 const token = getToken();
 
 const foldersApi = {
-  loadFolders: () => axios.get('/api/folders').then(response => response.data),
+  loadFolders: () => axios.get('/api/folders', { headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` } }).then(response => response.data),
+
+  loadFoldersToken: t => axios.get('/api/folders', { headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${t}` } }).then(response => response.data),
 
   addFolder: folder => axios.post('/api/folders', { data: folder, headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}`, 'Access-Control-Allow-Methods': '*' }, mode: 'cors' }).then(res => res.data),
 

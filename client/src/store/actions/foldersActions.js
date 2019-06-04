@@ -80,6 +80,20 @@ export function loadFolders() {
   };
 }
 
+export function loadFoldersToken(token) {
+  return function (dispatch) {
+    try {
+      FolderApi.loadFoldersToken(token).then((res) => {
+        if (res.data) {
+          dispatch(loadFoldersSuccess(res.data));
+        }
+      });
+    } catch (error) {
+      return dispatch(loadFoldersFailed(error.message));
+    }
+  };
+}
+
 export function addFolder(folder) {
   return function (dispatch) {
     try {
