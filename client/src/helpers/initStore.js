@@ -18,9 +18,7 @@ export default function (ComposedComponent) {
       if (getToken()) {
         const { users, customers, folders } = this.props;
         isEmpty(users) && this.props.userActions.loadUsers();
-
         isEmpty(customers) && this.props.customerActions.loadCustomers();
-
         isEmpty(folders) && this.props.folderActions.loadFolders();
       }
     }

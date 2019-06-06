@@ -131,7 +131,7 @@ export function removeFolder(folder) {
 export function addBoard(board) {
   return function (dispatch) {
     try {
-      BoardApi.addBoard(board).then(res => dispatch(addBoardSuccess(res.data)));
+      return BoardApi.addBoard(board);
     } catch (error) {
       return dispatch(loadFoldersFailed(error.message));
     }

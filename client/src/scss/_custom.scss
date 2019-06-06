@@ -137,6 +137,25 @@ button {
     width: 40px;
 }
 
+.oc-purple {
+    background: $purple;
+}
+
+.text-purple {
+    color: $purple;
+}
+
+.loginBtn {
+    font-size: 1.5em;
+    transition: all 0.5s ease;
+    background-color: #FFF;
+    color: $purple;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
 /*******************************************************/
 // Style class End
 /*******************************************************/

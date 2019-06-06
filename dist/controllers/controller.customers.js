@@ -139,13 +139,13 @@ exports.customersController = {
   updateMiddleware: function updateMiddleware(req, res, next) {
     var updatedCustomer = req.body.data;
 
-    // Get the data in the DB for Comparison
-    Customer.findById(updatedCustomer._id, function (error, oldCustomer) {
+    // Get the data from the DB for Comparison
+    Customer.findById(updatedCustomer._id, function (error, previewsCustomer) {
       if (error) {
         return next();
       }
       // send notification to Admin and Bookkeeping on Live if DNS update
-      if (oldCustomer.status !== 'DNS' && updatedCustomer.status === 'DNS') {
+      if (previewsCustomer.status !== 'DNS' && updatedCustomer.status === 'DNS') {
         new Notification({
           title: 'Ready for DNS',
           content: updatedCustomer.name + ' is ready for DNS!',
@@ -156,7 +156,7 @@ exports.customersController = {
       }
 
       // send notification to Admin and Bookkeeping if Customer Paid
-      if (oldCustomer.status !== 'Deposit' && updatedCustomer.status === 'Deposit') {
+      if (previewsCustomer.status !== 'Deposit' && updatedCustomer.status === 'Deposit') {
         // Notify Admins of deposit being paid
         new Notification({
           title: 'Deposit Paid',
@@ -168,7 +168,7 @@ exports.customersController = {
       }
 
       // send notification to Admin and Bookkeeping on Live
-      if (oldCustomer.status !== 'Live' && updatedCustomer.status === 'Live') {
+      if (previewsCustomer.status !== 'Live' && updatedCustomer.status === 'Live') {
         new Notification({
           title: 'Site Live',
           content: updatedCustomer.name + ' is now Live!',
@@ -179,7 +179,7 @@ exports.customersController = {
       }
 
       // send notification to Admin and Sales When Final Payment Received
-      if (!oldCustomer.finalPayment && updatedCustomer.finalPayment) {
+      if (!previewsCustomer.finalPayment && updatedCustomer.finalPayment) {
         new Notification({
           title: 'Final Payment Received',
           content: updatedCustomer.name + ' Paid it\'s final Payment!',
@@ -190,49 +190,49 @@ exports.customersController = {
       }
 
       // Create Assignment Notification
-      if (oldCustomer.dev !== updatedCustomer.dev || oldCustomer.pm !== updatedCustomer.pm || oldCustomer.compliance !== updatedCustomer.compliance || oldCustomer.QA !== updatedCustomer.QA) {
+      if (previewsCustomer.dev !== updatedCustomer.dev || previewsCustomer.pm !== updatedCustomer.pm || previewsCustomer.compliance !== updatedCustomer.compliance || previewsCustomer.QA !== updatedCustomer.QA) {
         new Notification({
           title: 'Site Assigned',
           content: 'You have been assigned ' + updatedCustomer.name,
           cu: updatedCustomer._id
         }).save().then(function (notification) {
-          if ((oldCustomer.dev && oldCustomer.dev.toString()) !== updatedCustomer.dev) {
-            User.removeCustomer(oldCustomer.dev, oldCustomer._id);
+          if ((previewsCustomer.dev && previewsCustomer.dev.toString()) !== updatedCustomer.dev) {
+            User.removeCustomer(previewsCustomer.dev, previewsCustomer._id);
 
             if (updatedCustomer.dev) {
               // Save a notification and then pass its value to a user
-              User.addCustomer(updatedCustomer.dev, oldCustomer._id, notification._id);
+              User.addCustomer(updatedCustomer.dev, previewsCustomer._id, notification._id);
             } else {
               req.body.data.dev = undefined;
             }
           }
 
           // remove customers from PM's customers array
-          if ((oldCustomer.pm && oldCustomer.pm.toString()) !== updatedCustomer.pm) {
-            User.removeCustomer(oldCustomer.pm, oldCustomer._id);
+          if ((previewsCustomer.pm && previewsCustomer.pm.toString()) !== updatedCustomer.pm) {
+            User.removeCustomer(previewsCustomer.pm, previewsCustomer._id);
             if (updatedCustomer.pm) {
               // Save a notification and then pass its value to a user
-              User.addCustomer(updatedCustomer.pm, oldCustomer._id, notification._id);
+              User.addCustomer(updatedCustomer.pm, previewsCustomer._id, notification._id);
             } else {
               req.body.data.pm = undefined;
             }
           }
 
-          if ((oldCustomer.compliance && oldCustomer.compliance.toString()) !== updatedCustomer.compliance) {
-            User.removeCustomer(oldCustomer.compliance, oldCustomer._id);
+          if ((previewsCustomer.compliance && previewsCustomer.compliance.toString()) !== updatedCustomer.compliance) {
+            User.removeCustomer(previewsCustomer.compliance, previewsCustomer._id);
             if (updatedCustomer.compliance) {
               // Save a notification and then pass its value to a user
-              User.addCustomer(updatedCustomer.compliance, oldCustomer._id, notification._id);
+              User.addCustomer(updatedCustomer.compliance, previewsCustomer._id, notification._id);
             } else {
               req.body.data.compliance = undefined;
             }
           }
 
-          if ((oldCustomer.QA && oldCustomer.QA.toString()) !== updatedCustomer.QA) {
-            User.removeCustomer(oldCustomer.QA, oldCustomer._id);
+          if ((previewsCustomer.QA && previewsCustomer.QA.toString()) !== updatedCustomer.QA) {
+            User.removeCustomer(previewsCustomer.QA, previewsCustomer._id);
             if (updatedCustomer.QA) {
               // Save a notification and then pass its value to a user
-              User.addCustomer(updatedCustomer.QA, oldCustomer._id, notification._id);
+              User.addCustomer(updatedCustomer.QA, previewsCustomer._id, notification._id);
             } else {
               req.body.data.QA = undefined;
             }

@@ -2,7 +2,11 @@ import axios from 'axios';
 import getToken from '../helpers/getToken';
 
 const boardsApi = {
-  addBoard: board => axios.post('/api/boards', { data: board, headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}`, 'Access-Control-Allow-Methods': '*' }, mode: 'cors' }).then(res => res.data),
+  addBoard: (board) => {
+    axios.defaults.headers.common.Authorization = `Bearer ${getToken()}`;
+
+    return axios.post('/api/boards', { data: board, headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}`, 'Access-Control-Allow-Methods': '*' }, mode: 'cors' }).then(res => res.data);
+  },
 
   loadBoards: () => axios.get('/api/boards', { headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${getToken()}` } }).then(response => response.data),
 

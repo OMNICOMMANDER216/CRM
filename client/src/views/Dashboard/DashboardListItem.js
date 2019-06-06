@@ -1,15 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { ListGroup, ListGroupItem, Badge } from 'reactstrap';
 
-export default ({ user }) => (
+const DashboardListItem = ({ user }) => (
   <div className="m-4 rounded defaultShadow">
     <ListGroup>
       <ListGroupItem active tag="button" action>
-        <span className="mr-2">{`${user.firstName} ${user.lastName}`}</span>
+        <Link to={`/users/${user._id}`}>
+          <span className="mr-2 text-white">{`${user.firstName} ${user.lastName}`}</span>
+
+        </Link>
         <Badge color="secondary" size="lg">{user.customers.length}</Badge>
       </ListGroupItem>
-      {user.customers.map((customer, index) => <ListGroupItem key={index} tag="button" action><Link to={`/customers/${customer._id}`}>{customer.name}</Link></ListGroupItem>)}
+      {user.customers.map(customer => (
+        <ListGroupItem key={customer._id} tag="button" action>
+          <Link to={`/customers/${customer._id}`}>{customer.name}</Link>
+        </ListGroupItem>
+      ))}
     </ListGroup>
   </div>
 );
+
+DashboardListItem.propTypes = {
+  user: PropTypes.shape({}).isRequired,
+};
+
+export default DashboardListItem;

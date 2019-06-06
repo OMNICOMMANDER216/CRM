@@ -156,13 +156,13 @@ exports.customersController = {
   updateMiddleware: (req, res, next) => {
     const updatedCustomer = req.body.data;
 
-    // Get the data in the DB for Comparison
-    Customer.findById(updatedCustomer._id, (error, oldCustomer) => {
+    // Get the data from the DB for Comparison
+    Customer.findById(updatedCustomer._id, (error, previewsCustomer) => {
       if (error) {
         return next();
       }
       // send notification to Admin and Bookkeeping on Live if DNS update
-      if (oldCustomer.status !== 'DNS' && updatedCustomer.status === 'DNS') {
+      if (previewsCustomer.status !== 'DNS' && updatedCustomer.status === 'DNS') {
         new Notification({
           title: 'Ready for DNS',
           content: `${updatedCustomer.name} is ready for DNS!`,
@@ -179,7 +179,7 @@ exports.customersController = {
 
       // send notification to Admin and Bookkeeping if Customer Paid
       if (
-        oldCustomer.status !== 'Deposit'
+        previewsCustomer.status !== 'Deposit'
         && updatedCustomer.status === 'Deposit'
       ) {
         // Notify Admins of deposit being paid
@@ -195,7 +195,7 @@ exports.customersController = {
       }
 
       // send notification to Admin and Bookkeeping on Live
-      if (oldCustomer.status !== 'Live' && updatedCustomer.status === 'Live') {
+      if (previewsCustomer.status !== 'Live' && updatedCustomer.status === 'Live') {
         new Notification({
           title: 'Site Live',
           content: `${updatedCustomer.name} is now Live!`,
@@ -208,7 +208,7 @@ exports.customersController = {
       }
 
       // send notification to Admin and Sales When Final Payment Received
-      if (!oldCustomer.finalPayment && updatedCustomer.finalPayment) {
+      if (!previewsCustomer.finalPayment && updatedCustomer.finalPayment) {
         new Notification({
           title: 'Final Payment Received',
           content: `${updatedCustomer.name} Paid it's final Payment!`,
@@ -225,10 +225,10 @@ exports.customersController = {
 
       // Create Assignment Notification
       if (
-        oldCustomer.dev !== updatedCustomer.dev
-        || oldCustomer.pm !== updatedCustomer.pm
-        || oldCustomer.compliance !== updatedCustomer.compliance
-        || oldCustomer.QA !== updatedCustomer.QA
+        previewsCustomer.dev !== updatedCustomer.dev
+        || previewsCustomer.pm !== updatedCustomer.pm
+        || previewsCustomer.compliance !== updatedCustomer.compliance
+        || previewsCustomer.QA !== updatedCustomer.QA
       ) {
         new Notification({
           title: 'Site Assigned',
@@ -238,16 +238,16 @@ exports.customersController = {
           .save()
           .then((notification) => {
             if (
-              (oldCustomer.dev && oldCustomer.dev.toString())
+              (previewsCustomer.dev && previewsCustomer.dev.toString())
               !== updatedCustomer.dev
             ) {
-              User.removeCustomer(oldCustomer.dev, oldCustomer._id);
+              User.removeCustomer(previewsCustomer.dev, previewsCustomer._id);
 
               if (updatedCustomer.dev) {
                 // Save a notification and then pass its value to a user
                 User.addCustomer(
                   updatedCustomer.dev,
-                  oldCustomer._id,
+                  previewsCustomer._id,
                   notification._id,
                 );
               } else {
@@ -257,15 +257,15 @@ exports.customersController = {
 
             // remove customers from PM's customers array
             if (
-              (oldCustomer.pm && oldCustomer.pm.toString())
+              (previewsCustomer.pm && previewsCustomer.pm.toString())
               !== updatedCustomer.pm
             ) {
-              User.removeCustomer(oldCustomer.pm, oldCustomer._id);
+              User.removeCustomer(previewsCustomer.pm, previewsCustomer._id);
               if (updatedCustomer.pm) {
                 // Save a notification and then pass its value to a user
                 User.addCustomer(
                   updatedCustomer.pm,
-                  oldCustomer._id,
+                  previewsCustomer._id,
                   notification._id,
                 );
               } else {
@@ -274,15 +274,15 @@ exports.customersController = {
             }
 
             if (
-              (oldCustomer.compliance && oldCustomer.compliance.toString())
+              (previewsCustomer.compliance && previewsCustomer.compliance.toString())
               !== updatedCustomer.compliance
             ) {
-              User.removeCustomer(oldCustomer.compliance, oldCustomer._id);
+              User.removeCustomer(previewsCustomer.compliance, previewsCustomer._id);
               if (updatedCustomer.compliance) {
                 // Save a notification and then pass its value to a user
                 User.addCustomer(
                   updatedCustomer.compliance,
-                  oldCustomer._id,
+                  previewsCustomer._id,
                   notification._id,
                 );
               } else {
@@ -291,14 +291,14 @@ exports.customersController = {
             }
 
             if (
-              (oldCustomer.QA && oldCustomer.QA.toString()) !== updatedCustomer.QA
+              (previewsCustomer.QA && previewsCustomer.QA.toString()) !== updatedCustomer.QA
             ) {
-              User.removeCustomer(oldCustomer.QA, oldCustomer._id);
+              User.removeCustomer(previewsCustomer.QA, previewsCustomer._id);
               if (updatedCustomer.QA) {
                 // Save a notification and then pass its value to a user
                 User.addCustomer(
                   updatedCustomer.QA,
-                  oldCustomer._id,
+                  previewsCustomer._id,
                   notification._id,
                 );
               } else {

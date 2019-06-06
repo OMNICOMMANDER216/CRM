@@ -20,6 +20,7 @@ class ManageBoardPage extends React.Component {
       disabledAdvance: false,
       disabledLive: false,
       redirect: false,
+      redirectBoardId: "",
       assign: false
     };
     
@@ -79,9 +80,16 @@ class ManageBoardPage extends React.Component {
         .then(() => {
               board.folder = this.state.folder._id;
               this.setState({ saving: true });
-              !board._id && this.props.foldersActions.addBoard(board);
-              board._id && this.props.foldersActions.updateBoard(board);
-              this.setState({ redirect: true });
+              !board._id && this.props.foldersActions.addBoard(board)
+                .then(res => {
+                  this.props.foldersActions.addBoardSuccess(res.data);
+                  this.setState({ redirectBoardId: res.createdBoardId, redirect: true });
+                  });
+                if(board._id) {
+                   this.props.foldersActions.updateBoard(board);
+                  this.setState({ redirectBoardId: board._id, redirect: true });
+                } 
+                
         })
         .catch(errors => {  
           console.log(errors);
@@ -94,17 +102,15 @@ class ManageBoardPage extends React.Component {
 
   redirect = () => {
     if(this.state.board._id) {
-      this.setState({redirect: this.state.board._id});
+      this.setState({redirectBoardId: this.state.board._id, redirect: true});
     } else {
       this.setState({redirect: true});
     }
   }
   
   render() {
-    if(this.state.redirect && this.state.board._id) {
-      return <Redirect to={'/board/' + this.state.board._id} />
-    } else if(this.state.redirect) {
-      return <Redirect to='/dashboard' />
+    if(this.state.redirect) {
+      return <Redirect to={`/board/${this.state.redirectBoardId}`} />
     }
     return (    
         <BoardForm 

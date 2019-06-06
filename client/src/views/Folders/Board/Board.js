@@ -90,8 +90,6 @@ class Board extends Component {
     if (this.props.location.pathname !== prevProps.location.pathname) {
       boardsApi.loadBoardById(this.props.match.params.id).then(res => {
         this.setState({ board: res.data,  customer: this.props.customers.find(c => c._id === res.data.customer) });
-        console.log(this.props.location);
-        console.log(prevProps.location);
       });
     }
   }
@@ -236,14 +234,16 @@ class Board extends Component {
       
 
       if(editing.column[e.target.name].dataType === 'user') {
-        const userIds= [e.target.value];
-        const notification = {
+        const userIds= e.target.value ? [e.target.value] : [];
+        console.log(userIds)
+        if(!isEmpty(userIds)){
+          const notification = {
           title: "Assignment",
           content: `${this.props.currentUser.firstName} assigned you to task "${editing.column[0].value}"`,
           board: editing.board
         }
-
-          userApi.notify({userIds, notification}).then((res) => console.log(res.success));
+        userApi.notify({userIds, notification}).then((res) => console.log(res.success));
+        }
       }
       if(editing.column[e.target.name].dataType !== 'name' && editing.column[e.target.name].dataType !== 'text'){
         // Only save on change if not test type

@@ -70,7 +70,8 @@ exports.boardsController = {
 
               res.json({
                 success: true,
-                data: folder
+                data: folder,
+                createdBoardId: board._id
               });
             });
           });
@@ -95,7 +96,8 @@ exports.boardsController = {
 
             res.json({
               success: true,
-              data: folder
+              data: folder,
+              createdBoardId: board._id
             });
           });
         });

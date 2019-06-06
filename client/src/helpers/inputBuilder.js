@@ -8,6 +8,7 @@ import isEmpty from 'lodash/isEmpty';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
 import getBadge from './getBadge';
 import inputTypeSelector from './inputTypeSelector';
+import Image from 'react-image-resizer';
 import imagePlaceholder from '../assets/img/profile.png';
 
 const styles = {
@@ -19,6 +20,11 @@ const styles = {
   span: {
     display: 'block',
   },
+  select: {
+    marginLeft: '10px',
+    height: '40px',
+    lineHeight: 'initial'
+  }
 };
 
 
@@ -174,8 +180,8 @@ Remove
       <td key={index}>
         <span className="select-td">
           {(selectedUser && selectedUser.image)
-            ? <img src={selectedUser.image} className="round-image" alt="Smiley face" width="35" height="35" />
-            : <img src={imagePlaceholder} className="round-image" alt="Smiley face" width="35" height="35" />
+            ? <Image src={selectedUser.image.replace('/photo.jpg', '/s40-c-mo/photo.jpg')} className="round-image" alt="Smiley face" height={40} width={40} />
+            : <Image src={imagePlaceholder.replace('/photo.jpg', '/s40-c-mo/photo.jpg')} className="round-image" alt="Smiley face" height={40} width={40}  />
             }
           <Input
             type={inputTypeSelector(current.dataType)}
@@ -184,6 +190,7 @@ Remove
             disabled={disabled}
             onChange={changeHandler}
             value={current.value}
+            style={styles.select}
           >
             <option value="" />
             {users.map(user => (
