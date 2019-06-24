@@ -160,7 +160,7 @@ app.use(_bodyParser2.default.urlencoded({
 // parse application/json
 app.use(_bodyParser2.default.json({
   extended: true,
-  limit: '50mb'
+  limit: '5mb'
 }));
 
 // Middle wares needed for passport

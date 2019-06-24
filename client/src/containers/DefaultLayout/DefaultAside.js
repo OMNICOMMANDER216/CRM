@@ -34,13 +34,16 @@ const styles = {
 }
 
 const modules = {
-    toolbar: [
-      [{ 'header': [1, 2, 3, false] }],
-      ['bold', 'italic', 'underline','strike', 'blockquote'],
-      [{'list': 'ordered'}, {'list': 'bullet'}],
-      ['link', 'code-block', 'image', 'video'],
-      ['clean']
-    ],
+    toolbar: {
+      container: [
+        [{ 'header': [1, 2, 3, false] }],
+        ['bold', 'italic', 'underline','strike', 'blockquote'],
+        [{'list': 'ordered'}, {'list': 'bullet'}],
+        ['link', 'code-block', 'image', 'video'],
+        ['clean']
+      ],
+
+    },
   };
 
   const formats = [
@@ -70,7 +73,10 @@ class DefaultAside extends Component {
     }
   }
 
-  changeHandler = (value) => this.setState({ text: value });
+  changeHandler = (value) => {
+    console.log(value);
+    this.setState({ text: value })
+  };
 
   editHandler = (comment) => {
     this.setState({ text: comment.body, editing: comment._id });

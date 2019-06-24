@@ -15,7 +15,7 @@ const Notification = ({ notification, onClick }) => (
   <tbody>
     <tr>
       <td>
-        <h2 style={styles.h2Style} className=" col-5">
+        <h2 style={styles.h2Style}>
           {notification.title}
         </h2>
       </td>
@@ -29,12 +29,12 @@ const Notification = ({ notification, onClick }) => (
         <p>
           {/** If customer related */}
           {notification.cu && (
-          <Link
-            className="white i"
-            to={`/customers/${notification.cu}`}
-          >
-            <i className="fa fa-eye" />
-          </Link>
+            <Link
+              className="white i"
+              to={`/customers/${notification.cu}`}
+            >
+              <i className="fa fa-eye" />
+            </Link>
           )}
 
           {/** If Board related */}
@@ -49,7 +49,11 @@ const Notification = ({ notification, onClick }) => (
         </p>
       </td>
       <td>
-        <span style={styles.pointer} onClick={onClick}>
+        <span
+          style={styles.pointer}
+          onClick={onClick}
+          onKeyDown={onClick}
+        >
           <i className="fa fa-archive" />
         </span>
       </td>

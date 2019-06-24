@@ -8,7 +8,11 @@ const foldersApi = {
 
   loadFoldersToken: t => axios.get('/api/folders', { headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${t}` } }).then(response => response.data),
 
-  addFolder: folder => axios.post('/api/folders', { data: folder, headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}`, 'Access-Control-Allow-Methods': '*' }, mode: 'cors' }).then(res => res.data),
+  addFolder: (folder) => {
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
+
+    return axios.post('/api/folders', { data: folder, headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}`, 'Access-Control-Allow-Methods': '*' }, mode: 'cors' }).then(res => res.data);
+  },
 
   updateFolder: (folder) => {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;

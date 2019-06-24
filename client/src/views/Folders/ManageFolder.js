@@ -5,6 +5,7 @@ import { validateAll } from 'indicative';
 import * as foldersActions from '../../store/actions/foldersActions';
 import { Input, Badge, Col, Button } from 'reactstrap';
 import ReactTooltip from 'react-tooltip';
+import requireRole from '../../helpers/RequireRole';
 
 class ManageFolder extends React.Component { 
   constructor(props, context) {
@@ -21,11 +22,6 @@ class ManageFolder extends React.Component {
       this.setState({ folder: Object.assign({}, nextProps.folder) });
     }
   }
-  
-   componentWillMount() {
-
-    }
-
 
   doubleClickHandler = (folder) => { 
     this.setState({editing: folder});
@@ -154,4 +150,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageFolder);
+export default connect(mapStateToProps, mapDispatchToProps)(requireRole(['Admin'],ManageFolder));

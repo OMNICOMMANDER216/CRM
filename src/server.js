@@ -92,7 +92,7 @@ app.use(
 app.use(
   bodyParser.json({
     extended: true,
-    limit: '50mb',
+    limit: '5mb',
   }),
 );
 

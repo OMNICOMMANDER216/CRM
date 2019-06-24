@@ -113,7 +113,7 @@ class BoardModal extends Component {
                     onKeyDown={e => (e.keyCode === 13) && saveColumn() }
                     id="type">
                     <option value="select">Select</option>
-                    { ['name', 'text', 'user', 'date', 'status', 'priority', 'last_updated', 'date'].map((data, index) => <option key={index} value={data}>{data}</option>) }
+                    { ['name', 'text', 'user', 'date', 'status', 'priority', 'invoice', 'last_updated', 'date'].map((data, index) => <option key={index} value={data}>{data}</option>) }
                   </Input>
                   <FormText color="danger">{errors && errors.type}</FormText>
                 </Col>

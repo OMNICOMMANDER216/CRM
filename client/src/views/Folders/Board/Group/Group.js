@@ -10,7 +10,9 @@ const styles = {
     color: '#fff'
   },
   card: {
-    minWidth: '100%'
+    minWidth: '100%',
+    boxShadow: '0 0 10px #000',
+    marginTop: '2em'
   },
   contextMenu: {
     backgroundColor: '#FFF',

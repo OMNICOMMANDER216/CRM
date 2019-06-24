@@ -29,7 +29,7 @@ var BoardSchema = new Schema({
     },
     type: {
       type: String,
-      enum: ['name', 'user', 'status', 'priority', 'last_updated', 'date', 'text'],
+      enum: ['name', 'user', 'status', 'priority', 'invoice', 'last_updated', 'date', 'text'],
       required: true
     }
   }],

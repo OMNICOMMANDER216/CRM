@@ -6,9 +6,9 @@ import { Input, Badge } from 'reactstrap';
 import { AppAsideToggler } from '@coreui/react';
 import isEmpty from 'lodash/isEmpty';
 import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu';
+import Image from 'react-image-resizer';
 import getBadge from './getBadge';
 import inputTypeSelector from './inputTypeSelector';
-import Image from 'react-image-resizer';
 import imagePlaceholder from '../assets/img/profile.png';
 
 const styles = {
@@ -23,8 +23,8 @@ const styles = {
   select: {
     marginLeft: '10px',
     height: '40px',
-    lineHeight: 'initial'
-  }
+    lineHeight: 'initial',
+  },
 };
 
 
@@ -172,6 +172,29 @@ Remove
         </Badge>
       </td>
     );
+  } if (current.dataType === 'invoice') {
+    return (
+      <td key={index}>
+        <Badge color={getBadge(current.value)}>
+          {console.log(current.dataType)}
+          <Input
+            type={inputTypeSelector(current.dataType)}
+            name={index}
+            id={current._id}
+            disabled={disabled}
+            onChange={changeHandler}
+            value={current.value}
+          >
+            <option value="" />
+            { ['Not Sent',
+              'Sent',
+              'Paid',
+              'Override',
+            ].map(el => <option value={el} key={el}>{el}</option>) }
+          </Input>
+        </Badge>
+      </td>
+    );
   } if (current.dataType === 'user') {
     const selectedUser = users.find(u => u._id === current.value);
     //  limits options to 'Admin', 'Developer', 'Pm'
@@ -181,7 +204,7 @@ Remove
         <span className="select-td">
           {(selectedUser && selectedUser.image)
             ? <Image src={selectedUser.image.replace('/photo.jpg', '/s40-c-mo/photo.jpg')} className="round-image" alt="Smiley face" height={40} width={40} />
-            : <Image src={imagePlaceholder.replace('/photo.jpg', '/s40-c-mo/photo.jpg')} className="round-image" alt="Smiley face" height={40} width={40}  />
+            : <Image src={imagePlaceholder.replace('/photo.jpg', '/s40-c-mo/photo.jpg')} className="round-image" alt="Smiley face" height={40} width={40} />
             }
           <Input
             type={inputTypeSelector(current.dataType)}
