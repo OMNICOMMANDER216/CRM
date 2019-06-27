@@ -68,7 +68,10 @@ export default (
           </span>
         </ContextMenuTrigger>
         <ContextMenu id={index.toString()} style={styles.menu}>
-          <MenuItem data={{ action: 'Edit' }} onClick={() => isEditingHandler(currentTask)}>
+          <MenuItem
+            data={{ action: 'Edit' }}
+            onClick={() => isEditingHandler(currentTask)}
+          >
             <span
               onClick={() => isEditingHandler(currentTask)}
               size="md"
@@ -81,8 +84,7 @@ export default (
                 disabled={isEmpty(sideTask)}
               >
                 <i className="fa fa-pencil" />
-
-Edit
+                Edit
               </AppAsideToggler>
             </span>
           </MenuItem>
@@ -96,8 +98,7 @@ Edit
               className="m-2"
             >
               <i className="fa fa-save" />
-
-Save
+              Save
             </button>
           </MenuItem>
 
@@ -110,8 +111,7 @@ Save
               className="m-2"
             >
               <i className="fa fa-trash" />
-
-Remove
+              Remove
             </button>
           </MenuItem>
         </ContextMenu>
@@ -145,7 +145,12 @@ Remove
             value={current.value}
           >
             <option value="" />
-            {['Stuck', 'Working on it', 'Waiting for review', 'Waiting on Client', 'Done', 'Approved'].map(el => <option value={el} key={el}>{el}</option>)}
+            {['Stuck',
+              'Working on it',
+              'Waiting for review',
+              'Waiting on Client',
+              'Done',
+              'Approved'].map(el => <option value={el} key={el}>{el}</option>)}
           </Input>
         </Badge>
       </td>
@@ -176,7 +181,6 @@ Remove
     return (
       <td key={index}>
         <Badge color={getBadge(current.value)}>
-          {console.log(current.dataType)}
           <Input
             type={inputTypeSelector(current.dataType)}
             name={index}
@@ -203,8 +207,24 @@ Remove
       <td key={index}>
         <span className="select-td">
           {(selectedUser && selectedUser.image)
-            ? <Image src={selectedUser.image.replace('/photo.jpg', '/s40-c-mo/photo.jpg')} className="round-image" alt="Smiley face" height={40} width={40} />
-            : <Image src={imagePlaceholder.replace('/photo.jpg', '/s40-c-mo/photo.jpg')} className="round-image" alt="Smiley face" height={40} width={40} />
+            ? (
+              <Image
+                src={selectedUser.image.replace('/photo.jpg', '/s40-c-mo/photo.jpg')}
+                className="round-image"
+                alt="Smiley face"
+                height={40}
+                width={40}
+              />
+            )
+            : (
+              <Image
+                src={imagePlaceholder.replace('/photo.jpg', '/s40-c-mo/photo.jpg')}
+                className="round-image"
+                alt="Smiley face"
+                height={40}
+                width={40}
+              />
+            )
             }
           <Input
             type={inputTypeSelector(current.dataType)}

@@ -32,7 +32,7 @@ export default function (roles, ComposedComponent) {
   }
 
   Admin.propTypes = {
-    authenticated: PropTypes.bool,
+    authenticated: PropTypes.bool.isRequired,
   };
 
   const mapStateToProps = state => ({

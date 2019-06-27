@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -7,7 +8,15 @@ import inputBuilder from '../../../../helpers/inputBuilder';
 
 export default function TaskItem(props) {
   const {
-    task, users, isEditingHandler, saveHandler, changeHandler, editActive, setSideTask, sideTask, removeTask,
+    task,
+    users,
+    isEditingHandler,
+    saveHandler,
+    changeHandler,
+    editActive,
+    setSideTask,
+    sideTask,
+    removeTask,
   } = props;
 
   return (

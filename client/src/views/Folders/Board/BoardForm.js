@@ -16,7 +16,7 @@ import {
   Container,
 } from 'reactstrap';
 
-class BoardForm extends Component {
+export default class BoardForm extends Component {
   constructor(props) {
     super(props);
     
@@ -95,17 +95,21 @@ class BoardForm extends Component {
                   </Col>
                   </FormGroup>
                   <FormGroup row  className="mt-3"> 
-                  <Col className="offset-md-4 col-md-6"><FormText color="info">Select a customer for a project Board</FormText></Col>
-                    <Col md="3">
-                      <Label for="pm"><strong>Customer</strong></Label>
-                    </Col>
-                    <Col xs="12" md="9">
-                      <Select
-                        value={selectedCustomer}
-                        onChange={updateCustomer}
-                        options={options}
-                      />
-                  <FormText color="danger">{errors.customer}</FormText>
+                  <Col className="offset-md-4 col-md-6">
+                    <FormText color="info">Select a customer for a project Board</FormText>
+                  </Col>
+                  <Col md="3">
+                    <Label for="pm"><strong>Customer</strong></Label>
+                  </Col>
+                  <Col xs="12" md="9">
+                    <Select
+                      value={selectedCustomer}
+                      onChange={updateCustomer}
+                      options={options}/>
+                    <FormText 
+                      color="danger">
+                        {errors.customer}
+                    </FormText>
                   </Col>
                 </FormGroup>
                 </React.Fragment>
@@ -118,7 +122,7 @@ class BoardForm extends Component {
                   size="md" 
                   color="primary" 
                   className="m-2">
-                  <i className="fa fa-dot-circle-o"></i> Submit
+                    <i className="fa fa-dot-circle-o"></i> Submit
                   </Button>
               <Button 
                 type="reset" 
@@ -137,5 +141,3 @@ class BoardForm extends Component {
     </Container>
     );
   }}
-
-export default BoardForm;

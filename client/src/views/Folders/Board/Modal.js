@@ -19,7 +19,7 @@ import {
   ModalBody, 
   } from 'reactstrap';
 
-class BoardModal extends Component {
+export default class BoardModal extends Component {
   constructor(props) {
     super(props);
 
@@ -119,13 +119,20 @@ class BoardModal extends Component {
                 </Col>
               </FormGroup>
               </Form>
-              <Button color="primary" onClick={saveColumn} className="mr-3">Save</Button>
-              <Button color="secondary" onClick={closeModal}>Cancel</Button>
+              <Button 
+                color="primary" 
+                onClick={saveColumn} 
+                className="mr-3">
+                  Save
+              </Button>
+              <Button 
+                color="secondary" 
+                onClick={closeModal}>
+                  Cancel
+              </Button>
             </TabPane>
             </TabContent>
           </ModalBody>
         </Modal>
     </React.Fragment>
   )}}
-
-export default BoardModal;

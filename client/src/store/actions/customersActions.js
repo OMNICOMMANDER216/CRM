@@ -98,10 +98,8 @@ export function saveCustomer(customer) {
   };
 }
 
-
 export function updateCustomer(customer) {
   return function (dispatch, getState) {
-    // dispatch(beginAjaxCall());
     axios.defaults.headers.common.Authorization = `Bearer ${token}`;
 
     try {

@@ -14,8 +14,6 @@ export function login(token) {
   return (dispatch) => {
     dispatch(setCurrentUser(jwtDecode(token)));
     return setToken(token);
-
-    // return Promise.resolve();
   };
 }
 
@@ -24,18 +22,8 @@ export function logout() {
     localStorage.removeItem('jwtToken');
     setAuthorizationToken(false);
     dispatch(setCurrentUser({}));
-
-    // return api.logout();
   };
 }
-
-// export function setToken( token) {
-//   return dispatch => {
-//     localStorage.setItem('jwtToken', token);
-//      dispatch(setCurrentUser(jwtDecode(token)));
-//      return Promise.resolve();
-//   };
-// }
 
 export function initAuth() {
   return (dispatch) => {
@@ -45,9 +33,4 @@ export function initAuth() {
       return dispatch(setCurrentUser(jwtDecode(token)));
     }
   };
-}
-
-export function getCurrentUser() {
-//   return dispatch => api.getCurrentUser().then(data => dispatch(setCurrentUser(data)))
-  // .catch(Error => {throw Error;});
 }

@@ -160,17 +160,39 @@ class Customer extends Component {
               </CardHeader>
               <CardBody>
                   <ListGroup>
-                    <ListGroupItem><strong>Name:</strong> {customer.name}</ListGroupItem>
-                    <ListGroupItem><strong>Url:</strong> {customer.url}</ListGroupItem>
-                    <ListGroupItem><strong>Kickoff Date:</strong> { customer.kickoffDate ? this.momentFormat(customer.kickoffDate) : "Not Set"}</ListGroupItem>
-                    <ListGroupItem><strong>Status:</strong> {customer.status}</ListGroupItem>
-                    <ListGroupItem><strong>Services:</strong> {customer.services && customer.services.toString()}</ListGroupItem>
-                    <ListGroupItem><strong>Assigned Developer:</strong> {customer.dev ? `${customer.dev.firstName} ${customer.dev.lastName}` : "Not Set"}</ListGroupItem>
-                    <ListGroupItem><strong>Assigned PM:</strong> {customer.pm ? `${customer.pm.firstName} ${customer.pm.lastName}` : "Not Set"}</ListGroupItem>
-                    <ListGroupItem><strong>Contact Name:</strong> {customer.contact && customer.contact.contactName}</ListGroupItem>
-                    <ListGroupItem><strong>Contact Email:</strong> {customer.contact && customer.contact.contactEmail}</ListGroupItem>
-                    <ListGroupItem><strong>Contact Number:</strong> {customer.contact && customer.contact.contactNumber}</ListGroupItem>
-                    <ListGroupItem><strong>Contact Location:</strong> {customer.contact && customer.contact.contactLocation}</ListGroupItem>                    
+                    <ListGroupItem>
+                      <strong>Name:</strong> {customer.name}
+                    </ListGroupItem>
+                    <ListGroupItem>
+                      <strong>Url:</strong> {customer.url}
+                    </ListGroupItem>
+                    <ListGroupItem>
+                      <strong>Kickoff Date:</strong> { customer.kickoffDate ? this.momentFormat(customer.kickoffDate) : "Not Set"}
+                    </ListGroupItem>
+                    <ListGroupItem>
+                      <strong>Status:</strong> {customer.status}
+                    </ListGroupItem>
+                    <ListGroupItem>
+                      <strong>Services:</strong> {customer.services && customer.services.toString()}
+                    </ListGroupItem>
+                    <ListGroupItem>
+                      <strong>Assigned Developer:</strong> {customer.dev ? `${customer.dev.firstName} ${customer.dev.lastName}` : "Not Set"}
+                    </ListGroupItem>
+                    <ListGroupItem>
+                      <strong>Assigned PM:</strong> {customer.pm ? `${customer.pm.firstName} ${customer.pm.lastName}` : "Not Set"}
+                    </ListGroupItem>
+                    <ListGroupItem>
+                      <strong>Contact Name:</strong> {customer.contact && customer.contact.contactName}
+                    </ListGroupItem>
+                    <ListGroupItem>
+                      <strong>Contact Email:</strong> {customer.contact && customer.contact.contactEmail}
+                    </ListGroupItem>
+                    <ListGroupItem>
+                      <strong>Contact Number:</strong> {customer.contact && customer.contact.contactNumber}
+                    </ListGroupItem>
+                    <ListGroupItem>
+                      <strong>Contact Location:</strong> {customer.contact && customer.contact.contactLocation}
+                    </ListGroupItem>                    
                   </ListGroup>
               </CardBody>
             </Card>

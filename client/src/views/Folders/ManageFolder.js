@@ -44,7 +44,6 @@ class ManageFolder extends React.Component {
     // Set Axios header
       const rules = {
         name: 'required|string',
-        // customer: 'required|string'
       };
 
       validateAll(folder, rules)
@@ -63,18 +62,21 @@ class ManageFolder extends React.Component {
           let formattedErrors = {};
           errors.forEach(error => formattedErrors[error.field] = error.message);
           this.setState({errors: formattedErrors});
-        });
-     
+        });     
   }
 
-  
   render() {
     const { folders } = this.props;
     const { editing } = this.state;
+
     return (    
       <Fragment>
       { folders.map(f => (
-       <Col key={f._id} className="d-flex" style={styles.item} onDoubleClick={() => this.doubleClickHandler(f)}>
+       <Col 
+        key={f._id} 
+        className="d-flex" 
+        style={styles.item} 
+        onDoubleClick={() => this.doubleClickHandler(f)}>
 
         <Input 
           type="text" 
@@ -85,7 +87,13 @@ class ManageFolder extends React.Component {
           onBlur={this.saveHandler}
           onKeyDown={e => (e.keyCode === 13) && this.saveHandler(e)}
           /> 
-        <Badge style={styles.badge}color="primary">{f.boards.length}</Badge>
+
+        <Badge 
+          style={styles.badge}
+          color="primary">
+            {f.boards.length}
+        </Badge>
+
         <Button 
           type="button" 
           style={styles.deleteButton}
@@ -94,6 +102,7 @@ class ManageFolder extends React.Component {
         </Button>
         </Col>
       ))}
+
         <Col className="d-flex" style={styles.item} >
           <Input 
             style={styles.input} 

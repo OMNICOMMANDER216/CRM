@@ -1,8 +1,6 @@
-import action from './mirrorActions';
-import notificationsApi from '../api/notificationsApi';
-import getToken from '../utils/getToken';
-
-const token = getToken();
+/* eslint-disable func-names */
+import action from '../actionTypes';
+import notificationsApi from '../../api/notificationsApi';
 
 
 export function loadNotificationsSuccess(notifications) {

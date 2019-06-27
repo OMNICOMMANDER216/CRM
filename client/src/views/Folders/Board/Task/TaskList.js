@@ -42,7 +42,8 @@ export default class TaskLIst extends Component {
                     color="primary" 
                     className="m-2">
                     <i className="fa fa-pencil"></i>
-                  </button> }
+                  </button> 
+                }
                   
                   <button type="submit" 
                     onClick={() => saveHandler(group._id) || this.clearInput()} 
@@ -64,7 +65,7 @@ export default class TaskLIst extends Component {
                   onKeyDown={e => (e.keyCode === 13) && (saveHandler(group._id) || this.clearInput())}
                   onChange={(e) => this.localNew(e) || changeHandler(e, group._id)}
                   value={this.state.new}
-                   />
+                  />
               </th>
             </tr>
         </tbody>

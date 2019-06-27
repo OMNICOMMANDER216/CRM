@@ -28,7 +28,7 @@ export default function (ComposedComponent) {
   }
 
   Authentication.propTypes = {
-    authenticated: PropTypes.bool,
+    authenticated: PropTypes.bool.isRequired,
   };
 
   return Authentication;

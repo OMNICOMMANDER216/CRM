@@ -1,7 +1,7 @@
-export default function (token) {
+export default function () {
   localStorage.removeItem('jwtToken');
   localStorage.removeItem('currentUser');
-  return new Promise(((resolve, reject) => {
+  return new Promise(((resolve) => {
     setTimeout(resolve, 100);
   }));
 }
